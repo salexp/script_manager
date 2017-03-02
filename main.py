@@ -2,7 +2,7 @@ from datetime import datetime
 import logging
 
 from scripts import runner
-from util.args import Args
+from util.args import args
 from util.config import Config
 from util.logger import Logging
 
@@ -10,7 +10,7 @@ from util.logger import Logging
 if __name__ == "__main__":
     start = datetime.now()
 
-    args = Args()
+    args = args()
     Logging()
     config = Config()
 

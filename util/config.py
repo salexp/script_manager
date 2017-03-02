@@ -4,7 +4,7 @@ $Id: configparser.py,v1.1, 2016-5-10 16:02Z, Stuart Petty$
 import ConfigParser
 import logging
 
-from args import Args
+from args import args
 
 # Default configuration file to use if not specified
 DEFAULT_CFG = "default.ini"
@@ -13,7 +13,7 @@ DEFAULT_CFG = "default.ini"
 class Config(ConfigParser.ConfigParser):
     def __init__(self):
         ConfigParser.ConfigParser.__init__(self)
-        config_file = DEFAULT_CFG if Args().config_file is None else Args().config_file
+        config_file = DEFAULT_CFG if args().config_file is None else args().config_file
 
         self.read(config_file)
         self.name = config_file

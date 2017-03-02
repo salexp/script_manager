@@ -7,7 +7,7 @@ class _Args(argparse.ArgumentParser):
 
     def __init__(self):
         argparse.ArgumentParser.__init__(self)
-        self.add_argument('-s', action='append', dest='scripts',
+        self.add_argument('scripts', nargs='*',
                           help='Script to run. Can be used multiple times to run multiple scripts.')
         self.add_argument('-c', action='store', dest='config_file',
                           help='Specifies configuration file used. Uses default.ini if not specified.')
@@ -17,5 +17,7 @@ class _Args(argparse.ArgumentParser):
         _Args.result = self.parse_args(sys.argv[1:])
 
 
-def Args():
-    return _Args().result
+def args():
+    if _Args.result is None:
+        _Args()
+    return _Args.result
