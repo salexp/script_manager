@@ -1,13 +1,10 @@
 from datetime import datetime
+import logging
 
 from scripts import runner
 from util.args import Args
 from util.config import Config
 from util.logger import Logging
-
-
-def main(script):
-    runner.Script(script)
 
 
 if __name__ == "__main__":
@@ -19,8 +16,8 @@ if __name__ == "__main__":
 
     for script in args.scripts:
         try:
-            main(script)
+            runner.Script(script)
         except:
-            pass
+            logging.warning("Error running script: {}".format(script))
 
     print str(datetime.now() - start)
