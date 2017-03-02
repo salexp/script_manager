@@ -1,0 +1,3 @@
+[submodule "scripts/twitter_bot"]
+	path = scripts/twitter_bot
+	url = https://github.com/salexp/tm2_twitter_bot.git
