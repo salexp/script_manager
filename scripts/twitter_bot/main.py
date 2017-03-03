@@ -1,5 +1,5 @@
 import do_not_upload
-from util.config import Config
+from util import config
 from util.sql import database
 from util.twitter import session
 
@@ -8,8 +8,6 @@ C_KEY = do_not_upload.C_KEY
 C_SECRET = do_not_upload.C_SECRET
 A_TOKEN = do_not_upload.A_TOKEN
 A_TOKEN_SECRET = do_not_upload.A_TOKEN_SECRET
-
-config = Config()
 
 
 def run():
