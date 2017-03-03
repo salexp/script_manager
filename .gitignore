@@ -89,6 +89,4 @@ ENV/
 .ropeproject
 
 # Other added stuff
-/do_not_upload.py
-
-/scripts/twitter_bot/do_not_upload.py
+**/do_not_upload.py
