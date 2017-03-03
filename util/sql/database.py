@@ -1,5 +1,6 @@
-import logging
 import mysql.connector
+
+from util import logger
 
 
 class Database:
@@ -17,7 +18,7 @@ class Database:
         self._connection = cnx
         self._cursor = cnx.cursor()
 
-        logging.info("Opened connection to MySQL database: {}".format(self.name))
+        logger.info("Opened connection to MySQL database: {}".format(self.name))
 
     def __enter__(self):
         return self
@@ -36,7 +37,7 @@ class Database:
     def close(self):
         self._close_connection()
         self._close_cursor()
-        logging.info("Closed connection to MySQL database: {}".format(self.name))
+        logger.info("Closed connection to MySQL database: {}".format(self.name))
 
     # --- Instance Methods
 

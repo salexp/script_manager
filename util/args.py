@@ -24,3 +24,7 @@ def _args():
 
 
 sys.modules['util.args'] = _args()
+
+
+# Empty variables of args to support auto-completion
+scripts = config_file = test_mode = None
