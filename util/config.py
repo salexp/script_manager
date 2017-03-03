@@ -15,7 +15,6 @@ class _Config(ConfigParser):
     result = None
 
     def __init__(self):
-        print 1
         ConfigParser.__init__(self)
         config_file = DEFAULT_CFG if args.config_file is None else args.config_file
 
