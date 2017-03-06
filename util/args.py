@@ -5,8 +5,6 @@ import argparse
 
 
 class _Args(argparse.ArgumentParser):
-    result = None
-
     def __init__(self):
         argparse.ArgumentParser.__init__(self)
         self.add_argument('scripts', nargs='+',
@@ -21,17 +19,31 @@ class _Args(argparse.ArgumentParser):
                           help='Specifies log file used. Uses {} if not specified.'.format(
                               os.path.basename(sys.argv[0]).replace('.py', '.log')))
 
-        _Args.result = self.parse_args(sys.argv[1:])
+        self._parsed = self.parse_args(sys.argv[1:])
+
+    def __getattr__(self, item):
+        print "Add property for completeness: {}".format(item)
+        return getattr(self._parsed, item)
+
+    @property
+    def scripts(self):
+        return self._parsed.scripts
+
+    @property
+    def debug_mode(self):
+        return self._parsed.debug_mode
+
+    @property
+    def test_mode(self):
+        return self._parsed.test_mode
+
+    @property
+    def config_file(self):
+        return self._parsed.config_file
+
+    @property
+    def log_file(self):
+        return self._parsed.log_file
 
 
-def _args():
-    if _Args.result is None:
-        _Args()
-    return _Args.result
-
-
-sys.modules['util.args'] = _args()
-
-
-# Empty variables of args to support auto-completion
-scripts = config_file = test_mode = None
+sys.modules['util.args'] = _Args()

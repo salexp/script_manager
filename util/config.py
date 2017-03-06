@@ -13,18 +13,17 @@ DEFAULT_CFG = "default.ini"
 
 
 class _Config(ConfigParser):
-    result = None
-
     def __init__(self):
+        self.logger = logger
         ConfigParser.__init__(self)
         config_file = DEFAULT_CFG if args.config_file is None else args.config_file
 
         self.read(config_file)
         self.name = config_file
 
-        _dict = {}
+        self._dict = {}
         for section in self.sections():
-            _dict[section] = {}
+            self._dict[section] = {}
             options = self.options(section)
             for option in options:
                 key = '{}/{}'.format(section, option)
@@ -33,25 +32,22 @@ class _Config(ConfigParser):
                     while "{" in val:
                         for i in range(val.count("{")):
                             host = val[val.index("{")+1:val.index("}")]
-                            val = val[:val.index("{")] + _dict['{}/{}'.format(section, host)] + val[val.index("}")+1:]
+                            val = val[:val.index("{")] + self._dict['{}/{}'.format(section, host)] + val[val.index("}")+1:]
 
                     # Handle empty strings
                     if val == "":
                         val = "''"
 
                     # Store value
-                    _dict[key] = eval(val)
-                    _dict[section][key] = eval(val)
+                    self._dict[key] = eval(val)
+                    self._dict[section][key] = eval(val)
 
-                    if _dict[key] == -1:
-                        logger.error("skip: {}".format(option))
+                    if self._dict[key] == -1:
+                        self.logger.error("skip: {}".format(option))
                 except:
-                    logger.error("exception on {}!".format(option))
-                    _dict[key] = None
+                    self.logger.error("exception on {}!".format(option))
+                    self._dict[key] = None
 
-        _Config.result = _dict
-
-    # Unused, left for singleton config implementation
     def __getitem__(self, item):
         output = None
         found = item in self._dict.keys()
@@ -59,22 +55,15 @@ class _Config(ConfigParser):
             # Return found config tag
             output = self._dict[item]
         else:
-            logger.warning("Unable to find config tag: {}".format(item))
+            self.logger.warning("Unable to find config tag: {}".format(item))
 
         if output == {}:
             output = None
 
         return output
 
-    # Unused, left for singleton config implementation
     def __setitem__(self, key, value):
-        logger.error("Unable to overwrite config values. Please edit config file directly.")
+        self.logger.error("Unable to overwrite config values. Please edit config file directly.")
 
 
-def _config():
-    if _Config.result is None:
-        _Config()
-    return _Config.result
-
-
-sys.modules['util.config'] = _config()
+sys.modules['util.config'] = _Config()
