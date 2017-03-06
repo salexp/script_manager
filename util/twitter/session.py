@@ -15,6 +15,14 @@ class APISession(tweepy.API):
 
         self.active = self._open()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+    # --- Instance Methods
+
     def _open(self):
         try:
             self.active = self.verify_credentials()
