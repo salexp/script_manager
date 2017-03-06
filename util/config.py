@@ -1,11 +1,12 @@
 """
 $Id: configparser.py,v1.1, 2016-5-10 16:02Z, Stuart Petty$
 """
-import logging
 import sys
+
 from ConfigParser import ConfigParser
 
 from util import args
+from util import logger
 
 # Default configuration file to use if not specified
 DEFAULT_CFG = "default.ini"
@@ -43,31 +44,31 @@ class _Config(ConfigParser):
                     _dict[section][key] = eval(val)
 
                     if _dict[key] == -1:
-                        logging.error("skip: {}".format(option))
+                        logger.error("skip: {}".format(option))
                 except:
-                    logging.error("exception on {}!".format(option))
+                    logger.error("exception on {}!".format(option))
                     _dict[key] = None
 
         _Config.result = _dict
 
-
-def __getitem__(self, item):
-    output = None
-    found = item in self._dict.keys()
-    if found:
-        # Return found config tag
-        output = self._dict[item]
-    else:
-        logging.warning("Unable to find config tag: {}".format(item))
-
-    if output == {}:
+    # Unused, left for singleton config implementation
+    def __getitem__(self, item):
         output = None
+        found = item in self._dict.keys()
+        if found:
+            # Return found config tag
+            output = self._dict[item]
+        else:
+            logger.warning("Unable to find config tag: {}".format(item))
 
-    return output
+        if output == {}:
+            output = None
 
+        return output
 
-def __setitem__(self, key, value):
-    logging.error("Unable to overwrite config values. Please edit config file directly.")
+    # Unused, left for singleton config implementation
+    def __setitem__(self, key, value):
+        logger.error("Unable to overwrite config values. Please edit config file directly.")
 
 
 def _config():

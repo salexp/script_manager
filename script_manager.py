@@ -1,7 +1,7 @@
 from scripts import runner
 from util import args
-from util import config
 from util import logger
+from util import config
 
 
 if __name__ == "__main__":

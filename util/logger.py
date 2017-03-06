@@ -1,17 +1,20 @@
+import os
 import sys
 from datetime import datetime
 
 import logging
 import logging.handlers
-from util import config
+from util import args
 
 
 class _Logger(logging.Logger):
     result = None
 
     def __init__(self):
-        self.level = config['Logging/level']
-        self.name = config['Logging/file_name']
+        base_name = os.path.basename(sys.argv[0]).replace('.py', '.log')
+        self.name = base_name if not args.log_file else args.log_file
+        self.level = "DEBUG" if args.debug_mode else "INFO"
+
         logging.Logger.__init__(self, name=self.name, level=self.level)
 
         self.logger = logging.getLogger()
