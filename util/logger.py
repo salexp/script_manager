@@ -15,7 +15,8 @@ class _Logger(logging.Logger):
 
         logging.Logger.__init__(self, name=self.name, level=self.level)
 
-        self._logger = logging.getLogger()
+        name = None if args.debug_mode else 'root'
+        self._logger = logging.getLogger(name)
         self._logger.setLevel(self.level)
         self._logger.propagate = False
 
@@ -25,8 +26,14 @@ class _Logger(logging.Logger):
         hndlr.setFormatter(fmrtr)
         self._logger.addHandler(hndlr)
 
-        self._logger.info("#############################################")
-        self._logger.info("Log start: {}".format(datetime.now().ctime()))
+        if args.debug_mode:
+            ch = logging.StreamHandler()
+            ch.setLevel("DEBUG")
+            ch.setFormatter(fmrtr)
+            self._logger.addHandler(ch)
+
+        self._logger.debug("#############################################")
+        self._logger.debug("Log start: {}".format(datetime.now().ctime()))
 
     @property
     def logger(self):

@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector import ProgrammingError
 
 from util import logger
 
@@ -9,11 +10,15 @@ class Database:
         self.user = user
         self.host = host
 
-        cnx = mysql.connector.connect(
-            user=user,
-            password=password,
-            host=host,
-            database=name)
+        try:
+            cnx = mysql.connector.connect(
+                user=user,
+                password=password,
+                host=host,
+                database=name)
+        except ProgrammingError:
+            logger.error("Database does not exist: {}".format(name))
+            raise
 
         self._connection = cnx
         self._cursor = cnx.cursor()

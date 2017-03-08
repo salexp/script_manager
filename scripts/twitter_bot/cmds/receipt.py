@@ -1,8 +1,7 @@
 from util import config
 from util import logger
+from util.sql import database
 
 
 def run(cmd):
-    config['foo'] = 'bar'
-    logger.info(config['foo'])
-    True
+    pass

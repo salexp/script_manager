@@ -18,18 +18,9 @@ def run():
                 cmd.run()
             elif not cmd.known_cmd:
                 logger.info("Command not found: {}".format(cmd.key))
+            elif cmd.key == "$":
+                logger.info("Skipped command from: {}".format(cmd.requester))
             else:
                 logger.info("Command invalid: {}".format(cmd.text))
 
-        user = config['Database/user']
-        password = config['Database/password']
-        db_name = config['Twitter/database']
-        db_table = config['Twitter/table']
-
-        # with database.Database(user=user, password=password, name=db_name) as db:
-        #     db.show_all(table=db_table)
-
-        if twtr.active:
-            print "Hello World!"
-        else:
-            print "Goodbye World!"
+            cmd.clear()

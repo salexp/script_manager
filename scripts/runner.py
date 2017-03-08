@@ -6,7 +6,7 @@ from util import logger
 
 class Script:
     def __init__(self, name):
-        logger.info("STARTING SCRIPT ({}): {}".format(datetime.now().ctime(), name))
+        logger.debug("STARTING SCRIPT ({}): {}".format(datetime.now().ctime(), name))
         self.module = name if not args.test_mode else 'test'
         self.name = name
 
@@ -17,4 +17,4 @@ class Script:
             raise
 
         test_module.run()
-        logger.info("COMPLETED SCRIPT ({}): {}".format(datetime.now().ctime(), name))
+        logger.debug("COMPLETED SCRIPT ({}): {}".format(datetime.now().ctime(), name))
