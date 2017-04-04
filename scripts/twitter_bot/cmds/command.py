@@ -59,5 +59,5 @@ def make_cmd_from_dm(message, session):
         cmd = Command(message, session)
     else:
         logger.info("Process as skip from: {}".format(message.sender_screen_name))
-        cmd = Command(message, force_text="$")
+        cmd = Command(message, session, force_text="$")
     return cmd
