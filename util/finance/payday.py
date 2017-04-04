@@ -1,9 +1,13 @@
 import datetime
 import sys
+from util import logger
 
-import dateutil.parser as dp
-import dateutil.relativedelta as drel
-import dateutil.rrule as dr
+try:
+    import dateutil.parser as dp
+    import dateutil.relativedelta as drel
+    import dateutil.rrule as dr
+except ImportError:
+    logger.error("Install dateutil: >pip install pyton-dateutil")
 
 
 class Paydays:

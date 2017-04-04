@@ -21,8 +21,7 @@ def run(cmd):
                                {'description': cmd.other, 'datetime': cmd.created})
         cmd.config.save()
 
-    sum_ = cmd.config.root.find('Reset').pyval
-    sum_ += sum([0-_.pyval for _ in cmd.config.root.findall('Transaction')])
+    sum_ = get_sum(cmd)
 
     tweet_text = "${} available for next {} days, ${:.2f}/day".format(
         sum_,
@@ -30,3 +29,9 @@ def run(cmd):
         sum_/payday.days_next)
 
     tweet = cmd.session.update_status(tweet_text)
+
+
+def get_sum(cmd):
+    sum_ = cmd.config.root.find('Reset').pyval
+    sum_ += sum([0-_.pyval for _ in cmd.config.root.findall('Transaction')])
+    return sum_
