@@ -12,8 +12,10 @@ A_TOKEN_SECRET = do_not_upload.A_TOKEN_SECRET
 
 def run():
     with session.APISession(c_key=C_KEY, c_secret=C_SECRET, a_token=A_TOKEN, a_token_secret=A_TOKEN_SECRET)as twtr:
-        for msg in twtr.direct_messages():
-            cmd = command.parse_dm(msg)
+        messages = twtr.direct_messages()
+        messages.reverse()
+        for msg in messages:
+            cmd = command.make_cmd_from_dm(msg, twtr)
             if cmd.valid:
                 cmd.run()
             elif not cmd.known_cmd:

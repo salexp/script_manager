@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Config xmlns:py="http://codespeak.net/lxml/objectify/pytype" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" py:pytype="TREE">
+  <Reset description="Paycheck" datetime="2017-04-04 19:03:06">720.38</Reset>
+  <Transaction description="Credit" datetime="2017-04-04 19:36:46">411.68</Transaction>
+  <Transaction description="Parking" datetime="2017-04-04 19:36:50">32.87</Transaction>
+</Config>
