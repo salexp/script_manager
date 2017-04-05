@@ -4,7 +4,7 @@ from util import logger
 try:
     from lxml import etree, objectify
 except ImportError:
-    logger.error("Install dateutil: >pip install pyton-dateutil")
+    logger.error("Install dateutil: >pip install lxml")
 
 
 class CmdConfig(object):
