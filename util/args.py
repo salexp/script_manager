@@ -18,6 +18,8 @@ class _Args(argparse.ArgumentParser):
         self.add_argument('-l', action='store', dest='log_file',
                           help='Specifies log file used. Uses {} if not specified.'.format(
                               os.path.basename(sys.argv[0]).replace('.py', '.log')))
+        self.add_argument('-s', action='store', dest='script_options',
+                          help='Script specific options and flags to utilize.')
 
         self._parsed = self.parse_args(sys.argv[1:])
 
@@ -44,6 +46,10 @@ class _Args(argparse.ArgumentParser):
     @property
     def log_file(self):
         return self._parsed.log_file
+
+    @property
+    def script_options(self):
+        return self._parsed.script_options
 
 
 sys.modules['util.args'] = _Args()
