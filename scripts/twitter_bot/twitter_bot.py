@@ -16,17 +16,17 @@ A_TOKEN_SECRET = do_not_upload.A_TOKEN_SECRET
 def run():
     with session.APISession(c_key=C_KEY, c_secret=C_SECRET, a_token=A_TOKEN, a_token_secret=A_TOKEN_SECRET)as twtr:
         cmd = None
-        if args.script_options is None:
+        if args.script_option is None:
             # Check for new DM commands and run
             messages = twtr.direct_messages()
             messages.reverse()
             for msg in messages:
                 cmd = command.make_cmd_from_dm(msg, twtr)
-        elif args.script_options == 'payday':
+        elif args.script_option == 'payday':
             today = datetime.now().date()
             if today in payday:
                 # Reset transaction log on payday
-                cmd = command.make_cmd_from_server(args.script_options, twtr)
+                cmd = command.make_cmd_from_server(args.script_option, twtr)
 
         if cmd is not None:
             if cmd.valid:
