@@ -1,3 +1,4 @@
+from datetime import datetime
 from importlib import import_module
 from scripts.config import CmdConfig
 from util import config
@@ -8,16 +9,19 @@ commands = {
     '$': 'skip',
     '$r': 'receipt',
 }
+server_options = {
+    'payday': '$rr {} Auto-payday'.format(config['Twitter/payday'])
+}
 
 
 class Command:
-    def __init__(self, msg, session, force_text=None):
+    def __init__(self, created, requestor, text, session, msg=None, force_text=None):
         self.message = msg
         self.session = session
 
-        self.created = msg.created_at
-        self.requester = msg.sender_screen_name
-        self.text = msg.text if force_text is None else force_text
+        self.created = created
+        self.requester = requestor
+        self.text = text if force_text is None else force_text
 
         key, other = self.text.partition(' ')[::2]
         value, other = other.partition(' ')[::2]
@@ -45,8 +49,9 @@ class Command:
             self.config = None
 
     def clear(self):
-        self.message.destroy()
-        logger.info("Deleted message from: {}".format(self.requester))
+        if self.message is not None:
+            self.message.destroy()
+            logger.info("Deleted message from: {}".format(self.requester))
 
     def run(self):
         logger.info("Beginning Twitter command: {} ({}), {}: {}".format(self.key, self.option, self.command, self.value))
@@ -55,9 +60,26 @@ class Command:
 
 
 def make_cmd_from_dm(message, session):
+    created = message.created_at
+    requestor = message.sender_screen_name
+    text = message.text
+
     if message.sender_screen_name in authorized_users:
-        cmd = Command(message, session)
+        cmd = Command(created=created, requestor=requestor, text=text, session=session, msg=message)
     else:
         logger.info("Process as skip from: {}".format(message.sender_screen_name))
-        cmd = Command(message, session, force_text="$")
+        cmd = Command(created=created, requestor=requestor, text=text, session=session, msg=message, force_text="$")
+    return cmd
+
+
+def make_cmd_from_server(server_option, session):
+    created = datetime.now()
+    requestor = 'Server'
+
+    if server_option in server_options:
+        text = server_options[server_option]
+        cmd = Command(created=created, requestor=requestor, text=text, session=session)
+    else:
+        logger.info("Process option as skip: {}".format(server_option))
+        cmd = Command(created=created, requestor=requestor, text='', session=session, force_text="$")
     return cmd
