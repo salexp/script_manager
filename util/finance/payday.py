@@ -24,7 +24,7 @@ class Paydays:
         start = dp.parse(str(start_date))
 
         rr = dr.rrule(dr.WEEKLY, dtstart=start, count=54)
-        self.paydays = rr[::2]
+        self.paydays = [_.date() for _ in rr[::2]]
 
     def __getitem__(self, item):
         return self.paydays[item]
