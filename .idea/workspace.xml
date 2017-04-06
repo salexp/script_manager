@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a6191d0-e720-42de-98ea-dc64e13e219c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/receipt.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/default.ini" afterPath="$PROJECT_DIR$/default.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/twitter_bot/cmds/command.py" afterPath="$PROJECT_DIR$/scripts/twitter_bot/cmds/command.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/twitter_bot/cmds/receipt.py" afterPath="$PROJECT_DIR$/scripts/twitter_bot/cmds/receipt.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/twitter_bot/twitter_bot.py" afterPath="$PROJECT_DIR$/scripts/twitter_bot/twitter_bot.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/args.py" afterPath="$PROJECT_DIR$/util/args.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/finance/payday.py" afterPath="$PROJECT_DIR$/util/finance/payday.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,8 +36,8 @@
           <file leaf-file-name="twitter_bot.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/twitter_bot/twitter_bot.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+                <state relative-caret-position="204">
+                  <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
                   <folding>
                     <element signature="e#0#29#0" expanded="true" />
                   </folding>
@@ -82,8 +76,8 @@
           <file leaf-file-name="script_manager.log" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/script_manager.log">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="14756">
-                  <caret line="868" column="0" lean-forward="false" selection-start-line="868" selection-start-column="0" selection-end-line="868" selection-end-column="0" />
+                <state relative-caret-position="15062">
+                  <caret line="886" column="0" lean-forward="false" selection-start-line="886" selection-start-column="0" selection-end-line="886" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -205,8 +199,8 @@
         <option value="$PROJECT_DIR$/util/args.py" />
         <option value="$PROJECT_DIR$/default.ini" />
         <option value="$PROJECT_DIR$/scripts/twitter_bot/cmds/command.py" />
-        <option value="$PROJECT_DIR$/scripts/twitter_bot/twitter_bot.py" />
         <option value="$PROJECT_DIR$/util/finance/payday.py" />
+        <option value="$PROJECT_DIR$/scripts/twitter_bot/twitter_bot.py" />
       </list>
     </option>
   </component>
@@ -965,8 +959,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script_manager.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14756">
-          <caret line="868" column="0" lean-forward="false" selection-start-line="868" selection-start-column="0" selection-end-line="868" selection-end-column="0" />
+        <state relative-caret-position="15062">
+          <caret line="886" column="0" lean-forward="false" selection-start-line="886" selection-start-column="0" selection-end-line="886" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1037,8 +1031,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/twitter_bot/twitter_bot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="204">
+          <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

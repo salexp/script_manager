@@ -12,8 +12,6 @@ C_SECRET = do_not_upload.C_SECRET
 A_TOKEN = do_not_upload.A_TOKEN
 A_TOKEN_SECRET = do_not_upload.A_TOKEN_SECRET
 
-today = datetime.now().date()
-
 
 def run():
     with session.APISession(c_key=C_KEY, c_secret=C_SECRET, a_token=A_TOKEN, a_token_secret=A_TOKEN_SECRET)as twtr:
@@ -24,9 +22,11 @@ def run():
             messages.reverse()
             for msg in messages:
                 cmd = command.make_cmd_from_dm(msg, twtr)
-        elif args.script_options == 'payday' and today in payday:
-            # Reset transaction log on payday
-            cmd = command.make_cmd_from_server(args.script_options, twtr)
+        elif args.script_options == 'payday':
+            today = datetime.now().date()
+            if today in payday:
+                # Reset transaction log on payday
+                cmd = command.make_cmd_from_server(args.script_options, twtr)
 
         if cmd is not None:
             if cmd.valid:
