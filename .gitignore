@@ -90,3 +90,9 @@ ENV/
 
 # Other added stuff
 **/do_not_upload.py
+/*.xml
+*.1
+*.2
+*.3
+*.4
+*.5
