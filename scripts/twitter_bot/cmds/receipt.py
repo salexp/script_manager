@@ -18,7 +18,7 @@ def run(cmd):
         tweet_text = "${} available for next {} days, ${:.2f}/day".format(
             sum_,
             payday.days_next,
-            sum_/payday.days_next
+            sum_/payday.days_next if payday.days_next > 0 else 0
         )
     elif cmd.option == 'r':
         # Reset transactions
