@@ -10,16 +10,14 @@ def run(cmd):
 
     if cmd.option is None:
         # Add reciept to current list of transactions
-        cmd.config.add_element('Transaction', value,
-                               {'description': cmd.other, 'datetime': cmd.created})
-        cmd.config.save()
-
-        sum_ = get_sum(cfg=cmd.config)
-        tweet_text = "${} available for next {} days, ${:.2f}/day".format(
-            sum_,
-            payday.days_next,
-            sum_/payday.days_next if payday.days_next > 0 else 0
-        )
+        tweet_text = add_receipt(command=cmd, value=value)
+    elif cmd.option == 'e':
+        # Edit last transaction
+        transactions = cmd.config.findall('Transaction')
+        if transactions:
+            latest = transactions[-1]
+            add_receipt(command=cmd, value=0-latest.pyval, description="Edit previous")
+            tweet_text = add_receipt(command=cmd, value=value)
     elif cmd.option == 'r':
         # Reset transactions
         previous_sum = get_sum(cfg=cmd.config)
@@ -40,6 +38,24 @@ def run(cmd):
 
     if tweet_text is not None:
         tweet = cmd.session.update_status(tweet_text)
+
+
+def add_receipt(command, value, description=None):
+    if description is None:
+        description = command.other
+
+    command.config.add_element('Transaction', value,
+                               {'description': description, 'datetime': command.created})
+    command.config.save()
+
+    sum_ = get_sum(cfg=command.config)
+    tweet_text = "${} available for next {} days, ${:.2f}/day".format(
+        sum_,
+        payday.days_next,
+        sum_/payday.days_next if payday.days_next > 0 else 0
+    )
+
+    return tweet_text
 
 
 def get_sum(cfg):
