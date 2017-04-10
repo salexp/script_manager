@@ -13,7 +13,7 @@ def run(cmd):
         tweet_text = add_receipt(command=cmd, value=value)
     elif cmd.option == 'e':
         # Edit last transaction
-        transactions = cmd.config.findall('Transaction')
+        transactions = cmd.config.root.findall('Transaction')
         if transactions:
             latest = transactions[-1]
             add_receipt(command=cmd, value=0-latest.pyval, description="Edit previous")
