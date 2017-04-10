@@ -36,7 +36,7 @@ def run():
             today = datetime.now().date()
             if today in payday:
                 # Reset transaction log on payday
-                cmd = command.make_cmd_from_server(args.script_option, twtr)
+                commands.append(command.make_cmd_from_server(args.script_option, twtr))
 
         for cmd in commands:
             if cmd.valid:
