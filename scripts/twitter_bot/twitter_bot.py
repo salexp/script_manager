@@ -15,13 +15,13 @@ A_TOKEN_SECRET = do_not_upload.A_TOKEN_SECRET
 
 def run():
     with session.APISession(c_key=C_KEY, c_secret=C_SECRET, a_token=A_TOKEN, a_token_secret=A_TOKEN_SECRET)as twtr:
-        cmd = None
+        commands = []
         if args.script_option is None:
             # Check for new DM commands and run
             messages = twtr.direct_messages()
             messages.reverse()
             for msg in messages:
-                cmd = command.make_cmd_from_dm(msg, twtr)
+                commands.append(command.make_cmd_from_dm(msg, twtr))
         elif args.script_option == 'clear_status':
             count = 0
             statuses = twtr.home_timeline()
@@ -38,7 +38,7 @@ def run():
                 # Reset transaction log on payday
                 cmd = command.make_cmd_from_server(args.script_option, twtr)
 
-        if cmd is not None:
+        for cmd in commands:
             if cmd.valid:
                 cmd.run()
             elif not cmd.known_cmd:
