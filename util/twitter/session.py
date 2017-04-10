@@ -31,3 +31,12 @@ class APISession(tweepy.API):
         except TweepError as e:
             logger.debug("Error attempting to authenticate")
             return False
+
+    def clear_timeline(self):
+        count = 0
+        statuses = self.home_timeline()
+        while len(statuses):
+            for status in statuses:
+                status.destroy()
+                count += 1
+            statuses = self.home_timeline()

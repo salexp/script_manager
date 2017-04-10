@@ -1,3 +1,4 @@
+from tweepy import TweepError
 from util import config
 from util import logger
 from util.finance import payday
@@ -37,7 +38,11 @@ def run(cmd):
         logger.info("Unknown option for receipt: {}".format(cmd.option))
 
     if tweet_text is not None:
-        tweet = cmd.session.update_status(tweet_text)
+        try:
+            tweet = cmd.session.update_status(tweet_text)
+        except TweepError:
+            cmd.session.clear_timeline()
+            tweet = cmd.session.update_status(tweet_text)
 
 
 def add_receipt(command, value, description=None):

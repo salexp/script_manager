@@ -23,13 +23,7 @@ def run():
             for msg in messages:
                 commands.append(command.make_cmd_from_dm(msg, twtr))
         elif args.script_option == 'clear_status':
-            count = 0
-            statuses = twtr.home_timeline()
-            while len(statuses):
-                for status in statuses:
-                    status.destroy()
-                    count += 1
-                statuses = twtr.home_timeline()
+            count = twtr.clear_timeline()
             if count:
                 logger.info("Deleted {} statuses from {} timeline.".format(count, twtr.me().screen_name))
         elif args.script_option == 'payday':
