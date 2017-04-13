@@ -30,8 +30,8 @@ def run(cmd):
 
         tweet_text = "${} available for next {} days, ${:.2f}/day. Spent ${} last period".format(
             value,
-            payday.days_next+1,
-            value/(payday.days_next+1),
+            payday.days_next,
+            value/payday.days_next,
             previous_sum
         )
     else:
@@ -56,8 +56,8 @@ def add_receipt(command, value, description=None):
     sum_ = get_sum(cfg=command.config)
     tweet_text = "${} available for next {} days, ${:.2f}/day".format(
         sum_,
-        payday.days_next,
-        sum_/payday.days_next if payday.days_next > 0 else 0
+        payday.days_next-1,
+        (sum_/(payday.days_next-1)) if payday.days_next > 1 else 0
     )
 
     return tweet_text
