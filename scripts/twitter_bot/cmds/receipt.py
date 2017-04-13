@@ -28,11 +28,18 @@ def run(cmd):
                                {'description': cmd.other, 'datetime': cmd.created})
         cmd.config.save()
 
-        tweet_text = "${} available for next {} days, ${:.2f}/day. Spent ${} last period".format(
+        tweet_text = "${:.2f} available for next {} days, ${:.2f}/day. Spent ${} last period".format(
             value,
             payday.days_next,
             value/payday.days_next,
             previous_sum
+        )
+    elif cmd.option == 's':
+        sum_ = get_sum(cfg=cmd.config)
+        tweet_text = "${:.2f} available for next {} days, ${:.2f}/day".format(
+            sum_,
+            payday.days_next-1,
+            (sum_/(payday.days_next-1)) if payday.days_next > 1 else 0
         )
     else:
         logger.info("Unknown option for receipt: {}".format(cmd.option))
@@ -54,7 +61,7 @@ def add_receipt(command, value, description=None):
     command.config.save()
 
     sum_ = get_sum(cfg=command.config)
-    tweet_text = "${} available for next {} days, ${:.2f}/day".format(
+    tweet_text = "${:.2f} available for next {} days, ${:.2f}/day".format(
         sum_,
         payday.days_next-1,
         (sum_/(payday.days_next-1)) if payday.days_next > 1 else 0
