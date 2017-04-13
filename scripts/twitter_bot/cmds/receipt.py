@@ -6,7 +6,11 @@ from util.sql import database
 
 
 def run(cmd):
-    value = float(cmd.value.replace('$', ''))
+    if cmd.value != '':
+        value = float(cmd.value.replace('$', ''))
+    else:
+        value = ''
+
     tweet_text = None
 
     if cmd.option is None:
