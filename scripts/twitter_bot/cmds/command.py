@@ -8,9 +8,10 @@ authorized_users = config['Twitter/authorized_users']
 commands = {
     '$': 'skip',
     '$r': 'receipt',
+    '$v': 'pto',
 }
 server_options = {
-    'payday': '$rr {} Auto-payday'.format(config['Twitter/payday'])
+    'payday': '$rr {} Auto-payday'.format(config['Finance/payday'])
 }
 
 
@@ -25,6 +26,7 @@ class Command:
 
         key, other = self.text.partition(' ')[::2]
         value, other = other.partition(' ')[::2]
+        value = None if value == '' else value
 
         full_key = key.ljust(3)
 

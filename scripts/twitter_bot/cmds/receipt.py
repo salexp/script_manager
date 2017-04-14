@@ -6,10 +6,10 @@ from util.sql import database
 
 
 def run(cmd):
-    if cmd.value != '':
+    if cmd.value is not None:
         value = float(cmd.value.replace('$', ''))
     else:
-        value = ''
+        value = cmd.value
 
     tweet_text = None
 
