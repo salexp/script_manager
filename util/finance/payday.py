@@ -14,17 +14,14 @@ except ImportError:
 class Paydays:
     def __init__(self):
         self.today = datetime.datetime.now().date()
-        year = self.today.year
 
-        if year < 2021 or 2027 < year:
-            day = 1
-        else:
-            day = 7
-        d = datetime.date(year, 1, day)
+        incr_count = 540
+
+        d = datetime.date(2017, 1, 1)
         start_date = self._next_weekday(3, d)
         start = dp.parse(str(start_date))
 
-        rr = dr.rrule(dr.WEEKLY, dtstart=start, count=54)
+        rr = dr.rrule(dr.WEEKLY, dtstart=start, count=incr_count)
         self.paydays = [_.date() for _ in rr[::2]]
 
         pto_start = config['Finance/pto_start']
@@ -32,7 +29,7 @@ class Paydays:
                                                    '%m/%d/%Y').date()
         self.pto_rate = config['Finance/pto_rate']
 
-        rrpd = dr.rrule(dr.WEEKLY, dtstart=pto_startdate, count=54)
+        rrpd = dr.rrule(dr.WEEKLY, dtstart=pto_startdate, count=incr_count)
         self.ptodays = {_.date(): pto_start+i*self.pto_rate for i, _ in enumerate(rrpd)}
 
         self._next = None
@@ -67,11 +64,7 @@ class Paydays:
     @property
     def next(self):
         if self._next is None:
-            next_ = self._next_weekday(3)
-            if next_ not in self.paydays:
-                next_ = self._next_weekday(3, next_)
-
-            self._next = next_
+            self._next = self.next_by_date(self.today)
 
         return self._next
 
@@ -92,11 +85,7 @@ class Paydays:
     @property
     def previous(self):
         if self._previous is None:
-            prev = self._prev_weekday(3)
-            if prev not in self.paydays:
-                prev = self._prev_weekday(3, prev)
-
-            self._previous = prev
+            self._previous = self.previous_by_date(self.today)
 
         return self._previous
 
