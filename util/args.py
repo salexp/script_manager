@@ -21,7 +21,7 @@ class _Args(argparse.ArgumentParser):
         self.add_argument('-s', action='store', dest='script_option',
                           help='Script specific options and flags to utilize.')
 
-        if len(sys.argv) > 1 and 'script_manager' in sys.argv[0]:
+        if 'script_manager' in sys.argv[0]:
             self._parsed = self.parse_args(sys.argv[1:])
         else:
             self._parsed = None
