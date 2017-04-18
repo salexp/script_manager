@@ -40,3 +40,5 @@ class APISession(tweepy.API):
                 status.destroy()
                 count += 1
             statuses = self.home_timeline()
+
+        return count
