@@ -44,11 +44,17 @@ class Command:
         if self.valid:
             self.command = commands.get(self.key)
             self.module = import_module('scripts.twitter_bot.cmds.{}'.format(self.command))
-            self.config = CmdConfig(command=self, file_name="{}.xml".format(self.command))
         else:
             self.command = None
             self.module = None
-            self.config = None
+
+        self._config = None
+
+    @property
+    def config(self):
+        if self._config is None:
+            self._config = CmdConfig(command=self, file_name="{}.xml".format(self.command))
+        return self._config
 
     def clear(self):
         if self.message is not None:
