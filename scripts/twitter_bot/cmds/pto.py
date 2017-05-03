@@ -7,10 +7,14 @@ from util.finance import payday
 
 def run(cmd):
     value = cmd.value
-    month, dayyear = value.partition('/')[::2]
-    day, year = dayyear.partition('/')[::2]
-    if year in ('', None):
-        year = payday.today.year
+    if value is not None:
+        month, dayyear = value.partition('/')[::2]
+        day, year = dayyear.partition('/')[::2]
+        if year in ('', None):
+            year = payday.today.year
+    else:
+        month, day, year = payday.today.month, payday.today.day, payday.today.year
+        
     value_mdy = '/'.join(str(_) for _ in [month, day, year])
     tweet_text = None
 
