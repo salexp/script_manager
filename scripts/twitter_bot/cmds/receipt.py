@@ -25,7 +25,7 @@ def run(cmd):
             tweet_text = add_receipt(command=cmd, value=value)
     elif cmd.option == 'r':
         # Reset transactions
-        previous_sum = get_sum(cfg=cmd.config)
+        previous_sum = get_spent(cfg=cmd.config)
 
         cmd.config.reset()
         cmd.config.add_element('Reset', value,
@@ -72,6 +72,10 @@ def add_receipt(command, value, description=None):
     )
 
     return tweet_text
+
+
+def get_spent(cfg):
+    return sum([0 - _.pyval for _ in cfg.root.findall('Transaction')])
 
 
 def get_sum(cfg):
