@@ -1,3 +1,4 @@
+import argparse
 from flask import Flask, Response
 from flask import json, render_template, request
 from util.groupme.groupme import GMeBot
@@ -22,4 +23,8 @@ def thugbot_listen():
 
 
 if __name__ == '__main__':
-    app.run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-ip', action='store', dest='ip_address', nargs='?')
+    parser.add_argument('-p', action='store', dest='port', nargs='?')
+    args = parser.parse_args()
+    app.run(host=args.ip_address, port=args.port)
