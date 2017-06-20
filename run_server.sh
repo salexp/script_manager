@@ -3,7 +3,7 @@ pid=$(pgrep -f server_main.py)
 
 if [ "$pid" != "" ]
 then
-	kill "$pid"
+	pkill -f server_main.py
 fi
 
 cd /home/stuart/script_manager
