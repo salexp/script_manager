@@ -19,7 +19,7 @@ class GMeBot:
         self.session.post(self.uri, data=data)
 
     def listen(self, data):
-        if data.get('user_id', self.bot_id) != self.bot_id:
+        if data.get('sender_type') != 'bot':
             self.last_heard = data
             self.say("Commands:\n!help\n!stats")
 
