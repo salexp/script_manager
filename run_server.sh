@@ -1,5 +1,5 @@
 #!/bin/bash
-pid=$(pgrep -f script_manager/server_main.py)
+pid=$(pgrep -f server_main.py)
 
 if [ "$pid" != "" ]
 then
