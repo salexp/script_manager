@@ -1,7 +1,7 @@
 import argparse
 from flask import Flask, Response
-from flask import json, render_template, request
-from util.groupme.groupme import GMeBot
+from flask import render_template, request
+from util.groupme.bot import GMeBot
 from util.groupme.do_not_upload import BOT_ID, GROUP_ID
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ bot = GMeBot(BOT_ID, GROUP_ID)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return Response("<div><p>Hi!</p></div>")
 
 
 @app.route('/bot/thugbot/callback', methods=['POST'])
