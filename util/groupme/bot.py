@@ -38,7 +38,7 @@ class GMeBot(object):
         return text
 
     def say_help(self):
-        text = "Commands:{}".format("\n".join(self.commands.keys()))
+        text = "Commands:\n{}".format("\n".join(self.commands.keys()))
         return self.say(text)
 
 
@@ -46,7 +46,7 @@ class ThugBot(GMeBot):
     def __init__(self, bot_id, group_id):
         GMeBot.__init__(self, bot_id, group_id)
 
-        self.add_command('picks', self.say_picks)
+        self.add_command('!picks', self.say_picks)
 
     def say_picks(self):
         text = "{}\n{}".format(self.last_heard.sender, ", ".join(['1.1', '2.1', '2.6', '4.1', '5.1']))
