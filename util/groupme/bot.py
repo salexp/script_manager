@@ -6,7 +6,7 @@ from message import GMeMessage
 from do_not_upload import BOT_ID, GROUP_ID
 
 
-class GMeBot:
+class GMeBot(object):
     def __init__(self, bot_id, group_id):
         self.bot_id = bot_id
         self.group_id = group_id
@@ -14,11 +14,15 @@ class GMeBot:
         self.uri = "https://api.groupme.com/v3/bots/post"
         self.session = session()
 
-        self.commands = {
+        self._commands = {
             '!help': self.say_help
         }
 
         self.last_heard = None
+
+    @property
+    def commands(self):
+        return self._commands
 
     def __post(self, data):
         self.session.post(self.uri, data=data)
@@ -36,3 +40,8 @@ class GMeBot:
 
     def say_help(self):
         self.say("Commands:\n!help")
+
+
+class ThugBot(GMeBot):
+    def __init__(self, bot_id, group_id):
+        GMeBot.__init__(self, bot_id, group_id)

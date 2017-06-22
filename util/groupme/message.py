@@ -20,5 +20,5 @@ class GMeMessage:
     @property
     def command(self):
         if self.is_command and self._command is None:
-            self._is_command = self.data['text'].partition(' ')[0]
-        return self._is_command
+            self._command = self.data['text'].partition(' ')[0].lower()
+        return self._command

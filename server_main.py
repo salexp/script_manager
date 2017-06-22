@@ -1,11 +1,11 @@
 import argparse
 from flask import Flask, Response
 from flask import render_template, request
-from util.groupme.bot import GMeBot
+from util.groupme.bot import ThugBot
 from util.groupme.do_not_upload import BOT_ID, GROUP_ID
 
 app = Flask(__name__)
-bot = GMeBot(BOT_ID, GROUP_ID)
+thugbot = ThugBot(BOT_ID, GROUP_ID)
 
 
 @app.route('/')
@@ -16,7 +16,7 @@ def index():
 @app.route('/bot/thugbot/callback', methods=['POST'])
 def thugbot_listen():
     if request.content_type == 'application/json':
-        bot.listen(request.json)
+        thugbot.listen(request.json)
         return "Heard"
     else:
         return "Ignored"
