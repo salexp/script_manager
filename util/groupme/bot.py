@@ -1,9 +1,6 @@
-import json
-import requests
+from collections import OrderedDict
 from requests import session
-from group import GMeGroup
 from message import GMeMessage
-from do_not_upload import BOT_ID, GROUP_ID
 
 
 class GMeBot(object):
@@ -14,9 +11,7 @@ class GMeBot(object):
         self.uri = "https://api.groupme.com/v3/bots/post"
         self.session = session()
 
-        self._commands = {
-            '!help': self.say_help
-        }
+        self._commands = OrderedDict([('!help', self.say_help)])
 
         self.last_heard = None
 
@@ -26,6 +21,9 @@ class GMeBot(object):
 
     def __post(self, data):
         self.session.post(self.uri, data=data)
+
+    def add_command(self, text, func):
+        self._commands[text] = func
 
     def listen(self, data):
         if data.get('sender_type') != 'bot':
@@ -37,11 +35,19 @@ class GMeBot(object):
     def say(self, text):
         data = {'bot_id': self.bot_id, 'text': text}
         self.__post(data)
+        return text
 
     def say_help(self):
-        self.say("Commands:\n!help")
+        text = "Commands:{}".format("\n".join(self.commands.keys()))
+        return self.say(text)
 
 
 class ThugBot(GMeBot):
     def __init__(self, bot_id, group_id):
         GMeBot.__init__(self, bot_id, group_id)
+
+        self.add_command('picks', self.say_picks)
+
+    def say_picks(self):
+        text = "{}\n{}".format(self.last_heard.sender, ", ".join(['1.1', '2.1', '2.6', '4.1', '5.1']))
+        return self.say(text)
