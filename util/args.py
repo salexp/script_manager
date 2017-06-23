@@ -21,14 +21,14 @@ class _Args(argparse.ArgumentParser):
         self.add_argument('-s', action='store', dest='script_option',
                           help='Script specific options and flags to utilize.')
 
-        if 'script_manager' in sys.argv[0]:
+        if 'script_manager.py' in sys.argv[0]:
             self._parsed = self.parse_args(sys.argv[1:])
         else:
             self._parsed = None
 
-    def __getattr__(self, item):
-        print "Add property for completeness: {}".format(item)
-        return getattr(self._parsed, item)
+    # def __getattr__(self, item):
+    #     print "Add property for completeness: {}".format(item)
+    #     return getattr(self._parsed, item)
 
     @property
     def scripts(self):

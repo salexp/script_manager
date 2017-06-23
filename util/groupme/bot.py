@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from requests import session
 from message import GMeMessage
+from util.sql.database import Database
 
 
 class GMeBot(object):
@@ -10,6 +11,7 @@ class GMeBot(object):
 
         self.uri = "https://api.groupme.com/v3/bots/post"
         self.session = session()
+        self.db = None
 
         self._commands = OrderedDict([('!help', self.say_help)])
 
@@ -45,6 +47,8 @@ class GMeBot(object):
 class ThugBot(GMeBot):
     def __init__(self, bot_id, group_id):
         GMeBot.__init__(self, bot_id, group_id)
+        self.db = Database('Fantasy', user='local', password='',
+                           host='127.0.0.1', port='3306')
 
         self.add_command('!picks', self.say_picks)
 
