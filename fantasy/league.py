@@ -1,31 +1,33 @@
 from copy import deepcopy
 from datetime import datetime
 
-from fantasy.fantasy_data import rankings
-from fantasy.fantasy_data import schedule
-from fantasy.fantasy_data.owner import Owner
-from fantasy.nfl_data import player
+from fantasy.owner import Owner
+from fantasy.rankings import Rankings
+from fantasy.schedule import Schedule
 from util.fantasy import plotter
 from util.fantasy.utilities import *
 from util.sql.database import Database
 
 
 class League:
-    def __init__(self, name, id, database_settings):
+    def __init__(self, espn_id, database_settings):
         self.db = Database(**database_settings)
-        self.id = id
-        self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % id
+        self.espn_id = espn_id
+        self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % espn_id
         # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
 
-        query = """SELECT * FROM Users WHERE LEAGUE_ID={}""".format(self.id)
+        query = """SELECT * FROM Leagues WHERE LEAGUE_ESPNID={}""".format(espn_id)
+        self.db_entry = self.db.query_return_dict_single(query)
+        self.league_name = self.db_entry['LEAGUE_NAME']
+
+        query = """SELECT * FROM Users WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
         owners = self.db.query_return_dict_lookup(query, 'USER_ESPNNAME')
-        self.owners = {k: Owner(k, self) for k, v in owners.items()}
+        self.owners = {k: Owner(k, self, v) for k, v in owners.items()}
 
         self.current_week = None
         self.current_year = None
         self.historic_playoffs = None
         self.future_playoffs = None
-        self.league_name = name
         self.lineup_positions = []
         self.players = {}
         self.power_rankings = {}
@@ -33,15 +35,10 @@ class League:
         self.records = Records(self)
         self.years = {}
 
-    def update_database(self):
-        for y, year in self.years.items():
-            for w, week in year.schedule.weeks.items():
-                week.update_database()
-
-    def add_schedule(self, year, sheet):
+    def add_history(self, year, sheet, push_database=False):
         if not self.years.get(year):
             self.years[year] = Year()
-        sch = schedule.Schedule(self, sheet, year)
+        sch = Schedule(self, sheet, year)
         self.years[year].schedule = sch
         self.update_season_records(year)
         if sch.complete:
@@ -49,6 +46,10 @@ class League:
         else:
             self.current_year = year
             self.current_week = sch.current_week
+
+        if push_database:
+            # Add something to add schedule to database
+            pass
 
     def add_games(self, year, book):
         for w in range(1, len(self.years[year].schedule.weeks) + 1):
@@ -58,7 +59,7 @@ class League:
             week.add_details(sheet)
 
     def generate_rankings(self, year=None, week=None, plot=False):
-        rkngs = rankings.Rankings(self)
+        rkngs = Rankings(self)
         if year is None:
             year = max(self.years.keys())
         if week is None:
@@ -167,7 +168,7 @@ class League:
         weeks_left = schedule.week_list[int(self.current_week):]
         games_left = [i for s in [schedule.weeks[w].games for w in weeks_left] for i in s]
         games_left = [g for g in games_left if g.is_regular_season]
-        if g.is_regular_season:
+        if games_left and g.is_regular_season:
             game_outcomes = range(0, 2 ** (len(weeks_left) * len(schedule.weeks[weeks_left[0]].games)))
             game_outcomes = [bin(g).split('b')[1].zfill(len(weeks_left) * len(schedule.weeks[weeks_left[0]].games))
                              for g in game_outcomes]

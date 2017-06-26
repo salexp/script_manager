@@ -11,6 +11,8 @@ class Database:
         self.host = host
         self.port = port
 
+        self.test_mode = False
+
         try:
             cnx = mysql.connector.connect(
                 user=user,
@@ -60,6 +62,9 @@ class Database:
 
     # --- Database methods
 
+    def commit(self):
+        self._connection.commit()
+
     def query_count(self, query):
         result = self.query_return(query)
         return result[0][0]
@@ -85,10 +90,15 @@ class Database:
         output = {r[key]: r for r in result}
         return output
 
-    def query_set(self, query):
+    def query_return_dict_single(self, query):
+        result = self.query_return_dict(query)
+        if result:
+            return result[0]
+
+    def query_set(self, query, params=()):
         if not self.test_mode:
             if not self.persistent_cursor: self._open_cursor()
-            self._cursor.execute(query)
+            self._cursor.execute(query, params)
             if not self.persistent_cursor: self._close_cursor()
         else:
             pass

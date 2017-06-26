@@ -72,7 +72,10 @@ class Metrics:
             te.append(matchup.roster.te.points)
             dst.append(matchup.roster.dst.points)
             k.append(matchup.roster.k.points)
-            bench.append(matchup.roster.bench_points / len(matchup.roster.bench))
+            if len(matchup.roster.bench):
+                bench.append(matchup.roster.bench_points / len(matchup.roster.bench))
+            else:
+                bench.append(0.0)
             for pg in matchup.roster.bench:
                 if not pg.bye:
                     plyr = pg.player

@@ -115,6 +115,44 @@ def get_oppnt(yr, xr):
     return oppnt
 
 
+def is_regular_season(year, week):
+    year = int(year)
+    week = int(week)
+
+    return week <= 13
+
+
+def is_postseason(year, week):
+    year = int(year)
+    week = int(week)
+
+    return week > 13
+
+
+def is_consolation(year, week, game):
+    return is_postseason(year, week) and not is_playoffs(year, week, game)
+
+
+def is_playoffs(year, week, game):
+    year = int(year)
+    week = int(week)
+    game = int(game)
+
+    return (year == 2010 and week == 14 and game <= 2) \
+           or (year == 2010 and week == 15 and game == 1) \
+           or (year-2000 in [11, 12, 13, 14, 15, 16] and week in [14, 15] and game < 3) \
+           or (week == 16 and game == 1)
+
+
+def is_championship(year, week, game):
+    year = int(year)
+    week = int(week)
+    game = int(game)
+
+    return (year == 2010 and week == 15 and game == 1) \
+           or (year-2000 in [11, 12, 13, 14, 15, 16] and week == 16 and game == 1)
+
+
 def make_score(pa, pb):
     return "{}-{}".format(pa if pa > pb else pb, pa if pa < pb else pb)
 

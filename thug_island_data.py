@@ -3,13 +3,11 @@ Thug Island Fantasy League Stats and Computer Rankings - Stuart Petty (stu.petty
 Created for 2016 season
 """
 import xlrd
-from fantasy.fantasy_data import league
+from fantasy.league import League
 
 
 def main():
-    thug_island = league.League("Thug Island", id="190153",
-                                database_settings={'name': 'Fantasy', 'user': 'local'}
-                                )
+    thug_island = League(espn_id=190153, database_settings={'name': 'Fantasy', 'user': 'local'})
 
     work_book = xlrd.open_workbook('fantasy/resources/thug_island_history.xls')
     years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
@@ -17,7 +15,7 @@ def main():
         if len(years) < 7:
             yi = int(year[-1])
         work_sheet = work_book.sheet_by_index(yi)
-        thug_island.add_schedule(year, work_sheet)
+        thug_island.add_history(year, work_sheet)
 
     del thug_island.owners["Cody Blain"]
 
@@ -35,7 +33,9 @@ def main():
     #                                power=True,
     #                                seasons=True,
     #                                rcds=20)
+    thug_island.db.open_cursor()
     thug_island.update_database()
+    thug_island.db.close()
 
     # print output
     # with open("ff_data.txt", "w") as f:

@@ -1,158 +1,22 @@
-from fantasy.fantasy_data import owner
-from fantasy.nfl_data import player
-from fantasy.nfl_data import roster
+from nfl_data import player
 from util.fantasy.utilities import *
 
 
-class Schedule:
-    def __init__(self, league, sh, year):
-        self.complete = False
-        self.league = league
-        self.owners = []
-        self.year = year
-
-        self.week_list = []
-        self.weeks = {}
-
-        wek = 0
-        found_division = False
-        for r in range(sh.nrows):
-            if "WEEK" in sh.cell_value(r, 0) or "ROUND" in sh.cell_value(r, 0):
-                wek += 1
-                week = Week(self, str(wek), sh, r)
-                self.add_week(week)
-                self.complete = week.complete
-                if not len(self.owners):
-                    self.owners = week.owners
-                if self.complete:
-                    self.league.years[year].current_week = week.number
-                    self.league.years[year].current_year = year
-            elif "Byes" in sh.cell_value(r, 0):
-                found_division = True
-                for owner in self.owners:
-                    if owner not in week.owners:
-                        owner.add_division_championship(year)
-
-        if not found_division and self.complete:
-            for wi, week in enumerate(self.week_list):
-                if self.weeks[week].is_postseason():
-                    break
-
-            standings = []
-            for owner in self.owners:
-                rcd = owner.seasons[year].wl_records[wi]
-                w = int(rcd.split('-')[0])
-                l = int(rcd.split('-')[1])
-                t = 0 if len(rcd.split('-')) < 3 else int(rcd.split('-')[2])
-                standings.append([owner.name, w, l, t, owner.division])
-
-            standings = sorted(standings, key=lambda p: (p[1], p[3]), reverse=True)
-
-            found = {"East": False, "West": False}
-            for i, f in enumerate(standings):
-                if not found.get(f[4]):
-                    found[f[4]] = f[0]
-                    self.league.owners[f[0]].add_division_championship(year)
-
-    def add_week(self, w):
-        self.week_list.append(w.number)
-        self.weeks[w.number] = w
-
-
-class Week:
-    def __init__(self, schedule, wek, sh, i):
-        self.complete = False
-        self.league = schedule.league
-        self.owners = []
-        self.schedule = schedule
-        self.number = wek
-        self.year = schedule.year
-
-        self.records = Records(self)
-        self.games = []
-
-        idx = 0
-        while sh.cell_value(i, 0) != "" and i <= sh.nrows - 1:
-            # If 'at'
-            if sh.cell_value(i, 2) != "":
-                idx += 1
-                row = [sh.cell_value(i, c) for c in range(sh.ncols)]
-                game = Game(self, row, index=idx, detailed=False)
-                self.games.append(game)
-                self.owners += [game.away_owner, game.home_owner]
-                if game.played:
-                    self.complete = True
-                    schedule.current_week = wek
-            i += 1
-            if i == sh.nrows:
-                break
-
-        self.records.update()
-
-    def update_database(self):
-        for game in self.games:
-            game.update_database()
-
-    def add_details(self, sh):
-        for c in range(sh.ncols):
-            if sh.cell_value(1, c) in self.league.owners:
-                game = self.find_game(sh.cell_value(1, c))
-
-                table = []
-                for ir in range(0, sh.nrows):
-                    table.append([sh.cell_value(ir, ic) for ic in range(c, c + 5)])
-
-                game.build_from_matchup(table)
-
-    def find_game(self, owner_name):
-        for game in self.games:
-            if owner_name in [game.away_owner_name, game.home_owner_name]:
-                return game
-
-    def is_postseason(self):
-        return is_postseason(self.year, self.number)
-
-    def is_regular_season(self):
-        return is_regular_season(self.year, self.number)
-
-
-class Records:
-    def __init__(self, week):
-        self.alltime_roster = None
-        self.finish = {"Games": []}
+class Game:
+    def __init__(self, week, data, index, detailed=False, db_entry=None):
+        self.detailed = detailed
+        self.index = index
         self.league = week.league
+        self.schedule = week.schedule
         self.week = week
         self.year = week.year
 
-    def make_roster(self):
-        rstr = roster.GameRoster()
-        for game in self.week.games:
-            for mtch in [game.away_matchup, game.home_matchup]:
-                for plyr in mtch.roster.starters + mtch.roster.bench:
-                    rstr.add_player(plyr, force="Bench")
+        self._db_entry = db_entry
+        if db_entry:
+            self._id = db_entry['GAME_ID']
+        else:
+            self._id = None
 
-        rstr.make_optimal()
-        opt = rstr.optimal
-        opt.update_points()
-        self.alltime_roster = opt
-
-    def update(self):
-        if self.week.complete and self.week.is_regular_season():
-            rcd = self.finish
-            matchups = [g.home_matchup for g in self.week.games]
-            matchups += [g.away_matchup for g in self.week.games]
-            matchups = sorted(matchups, key=lambda p: p.pf, reverse=True)
-            rcd["Games"] = matchups
-            for i, mtch in enumerate(matchups):
-                rcd[mtch.owner.name] = i + 1
-                mtch.owner.records.points_finish["All"].append(i + 1)
-                if not mtch.owner.records.points_finish.get(self.year):
-                    mtch.owner.records.points_finish[self.year] = []
-                mtch.owner.records.points_finish[self.year].append(i + 1)
-
-
-class Game:
-    def __init__(self, week, data, index, detailed=False):
         self.away_matchup = None
         self.away_owner = None
         self.away_owner_name = None
@@ -161,7 +25,6 @@ class Game:
         self.away_score = None
         self.away_team = None
         self.away_win = None
-        self.detailed = detailed
         self.expended = None
         self.home_matchup = None
         self.home_owner = None
@@ -171,17 +34,12 @@ class Game:
         self.home_score = None
         self.home_team = None
         self.home_win = None
-        self.index = index
-        self.league = week.league
         self.played = False
         self.preview = None
         self.raw_details = None
         self.raw_summary = None
-        self.schedule = week.schedule
         self.score = None
-        self.week = week
         self.winner = None
-        self.year = week.year
         self.is_regular_season = is_regular_season(self.year, self.week.number)
         self.is_postseason = is_postseason(self.year, self.week.number)
         self.is_consolation = is_consolation(self.year, self.week.number, self.index)
@@ -193,9 +51,54 @@ class Game:
         else:
             self.build_from_summary(data)
 
-    def update_database(self):
+    @property
+    def db_entry(self):
+        if self._db_entry is None:
+            query = """SELECT * FROM Games WHERE YEAR={} AND WEEK={} AND AWAY_OWNER_ID={} AND HOME_OWNER_ID={}""".format(
+                self.year, self.week.number, self.away_owner.id, self.home_owner.id
+            )
+            db_entry = self.league.db.query_return_dict_single(query)
+            if db_entry:
+                self._db_entry = db_entry
+                self._id = self.db_entry['GAME_ID']
+            else:
+                self._db_entry = None
+                self._id = False
+        return self._db_entry
+
+    @property
+    def id(self):
+        if self._id is None:
+            query = """SELECT * FROM Games WHERE YEAR={} AND WEEK={} AND AWAY_OWNER_ID={} AND HOME_OWNER_ID={}""".format(
+                self.year, self.week.number, self.away_owner.id, self.home_owner.id
+            )
+            db_entry = self.league.db.query_return_dict_single(query)
+            if db_entry:
+                self._db_entry = db_entry
+                self._id = self.db_entry['GAME_ID']
+            else:
+                self._db_entry = None
+                self._id = False
+        return self._id
+
+    def add_to_database(self):
         db = self.league.db
-        True
+        query = """
+        INSERT INTO Games (LEAGUE_ID, YEAR, WEEK, AWAY_OWNER_ID, HOME_OWNER_ID, AWAY_SCORE, HOME_SCORE, POSTSEASON,
+        PLAYOFFS, CHAMPIONSHIP) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """
+        params = (
+            self.year, self.week.number, self.away_owner.id, self.home_owner.id, self.away_score,
+            self.home_score, self.is_postseason, self.is_playoffs, self.is_championship
+        )
+        db.query_set(query, params)
+
+    def update_db_score(self):
+        if self.db_entry['AWAY_SCORE'] != self.away_score and self.db_entry['HOME_SCORE'] != self.home_score:
+            query = """UPDATE Games SET AWAY_SCORE={0}, HOME_SCORE={1} WHERE GAME_ID={2};""".format(
+                self.away_score, self.home_score, self.id)
+
+            self.league.db.query_set(query)
 
     def build_from_summary(self, row):
         self.raw_summary = row
@@ -274,47 +177,6 @@ class Game:
 
     def create_preview(self):
         self.preview = GamePreview(self)
-
-    def update_database(self):
-        pass
-
-
-def is_regular_season(year, week):
-    year = int(year)
-    week = int(week)
-
-    return week <= 13
-
-
-def is_postseason(year, week):
-    year = int(year)
-    week = int(week)
-
-    return week > 13
-
-
-def is_consolation(year, week, game):
-    return is_postseason(year, week) and not is_playoffs(year, week, game)
-
-
-def is_playoffs(year, week, game):
-    year = int(year)
-    week = int(week)
-    game = int(game)
-
-    return (year == 2010 and week == 14 and game <= 2) \
-           or (year == 2010 and week == 15 and game == 1) \
-           or (year-2000 in [11, 12, 13, 14, 15, 16] and week in [14, 15] and game < 3) \
-           or (week == 16 and game == 1)
-
-
-def is_championship(year, week, game):
-    year = int(year)
-    week = int(week)
-    game = int(game)
-
-    return (year == 2010 and week == 15 and game == 1) \
-           or (year-2000 in [11, 12, 13, 14, 15, 16] and week == 16 and game == 1)
 
 
 class GamePreview:

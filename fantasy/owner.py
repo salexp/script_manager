@@ -1,32 +1,21 @@
 from fantasy.nfl_data import roster
 from util.fantasy.utilities import *
 
-divisions = {
-    "Andrew Lee": "East",
-    "Ben Mytelka": "West",
-    "Cody Blain": "West",
-    "Connor Wiseman": "East",
-    "Eric Price": "West",
-    "James Furlong": "East",
-    "josh watson": "East",
-    "Rande Revilla": "West",
-    "Stuart Petty": "East",
-    "Thomas Singleton": "West",
-    "Trevor Watson": "West",
-}
-
 
 class Owner:
-    def __init__(self, name, league):
+    def __init__(self, name, league, db_entry):
+        self.db_entry = db_entry
+        self.division = db_entry['USER_DIVISION']
+        self.league = league
+        self.name = name
+        self.id = db_entry['USER_ID']
+
         self.attrib = Attributes(self)
         self.active = []
         self.championships = []
         self.championship_games = []
-        self.division = divisions[name]
         self.division_championships = []
         self.games = {}
-        self.league = league
-        self.name = name
         self.playoffs = []
         self.playoff_games = []
         self.records = Records(self)
