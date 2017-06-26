@@ -3,30 +3,40 @@ from datetime import datetime
 
 from fantasy.fantasy_data import rankings
 from fantasy.fantasy_data import schedule
+from fantasy.fantasy_data.owner import Owner
 from fantasy.nfl_data import player
 from util.fantasy import plotter
 from util.fantasy.utilities import *
+from util.sql.database import Database
 
 
 class League:
-    def __init__(self, name, id=None):
+    def __init__(self, name, id, database_settings):
+        self.db = Database(**database_settings)
+        self.id = id
+        self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % id
+        # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
+
+        query = """SELECT * FROM Users WHERE LEAGUE_ID={}""".format(self.id)
+        owners = self.db.query_return_dict_lookup(query, 'USER_ESPNNAME')
+        self.owners = {k: Owner(k, self) for k, v in owners.items()}
+
         self.current_week = None
         self.current_year = None
         self.historic_playoffs = None
         self.future_playoffs = None
         self.league_name = name
         self.lineup_positions = []
-        self.owners = {}
         self.players = {}
         self.power_rankings = {}
         self.rankings = []
         self.records = Records(self)
         self.years = {}
 
-        if id is not None:
-            self.id = id
-            self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % id
-            # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
+    def update_database(self):
+        for y, year in self.years.items():
+            for w, week in year.schedule.weeks.items():
+                week.update_database()
 
     def add_schedule(self, year, sheet):
         if not self.years.get(year):

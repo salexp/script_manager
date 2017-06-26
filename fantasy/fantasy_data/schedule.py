@@ -89,6 +89,10 @@ class Week:
 
         self.records.update()
 
+    def update_database(self):
+        for game in self.games:
+            game.update_database()
+
     def add_details(self, sh):
         for c in range(sh.ncols):
             if sh.cell_value(1, c) in self.league.owners:
@@ -189,6 +193,10 @@ class Game:
         else:
             self.build_from_summary(data)
 
+    def update_database(self):
+        db = self.league.db
+        True
+
     def build_from_summary(self, row):
         self.raw_summary = row
         [self.away_team, self.away_record] = row[0].replace(" (", "(").replace(")", "").split("(")
@@ -200,11 +208,7 @@ class Game:
             self.played = True
             self.score = score
 
-        if self.away_owner_name not in self.league.owners:
-            self.league.owners[self.away_owner_name] = owner.Owner(self.away_owner_name, self.league)
         away = self.league.owners[self.away_owner_name]
-        if self.home_owner_name not in self.league.owners:
-            self.league.owners[self.home_owner_name] = owner.Owner(self.home_owner_name, self.league)
         home = self.league.owners[self.home_owner_name]
         self.away_owner = self.league.owners[self.away_owner_name]
         self.home_owner = self.league.owners[self.home_owner_name]

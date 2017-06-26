@@ -80,6 +80,11 @@ class Database:
         if not self.persistent_cursor: self._close_cursor()
         return result
 
+    def query_return_dict_lookup(self, query, key):
+        result = self.query_return_dict(query)
+        output = {r[key]: r for r in result}
+        return output
+
     def query_set(self, query):
         if not self.test_mode:
             if not self.persistent_cursor: self._open_cursor()
