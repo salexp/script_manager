@@ -13,7 +13,7 @@ def run(cmd):
 
     tweet_text = None
 
-    if cmd.option is None:
+    if cmd.option is None and value is not None:
         # Add reciept to current list of transactions
         tweet_text = add_receipt(command=cmd, value=value)
     elif cmd.option == 'e':
