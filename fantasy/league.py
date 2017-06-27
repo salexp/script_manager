@@ -3,7 +3,8 @@ from datetime import datetime
 
 from fantasy.owner import Owner
 from fantasy.rankings import Rankings
-from fantasy.schedule import Schedule
+from fantasy.schedule import Schedule, schedule_from_sheet
+from fantasy.year import Year
 from util.fantasy import plotter
 from util.fantasy.utilities import *
 from util.sql.database import Database
@@ -24,6 +25,19 @@ class League:
         owners = self.db.query_return_dict_lookup(query, 'USER_ESPNNAME')
         self.owners = {k: Owner(k, self, v) for k, v in owners.items()}
 
+        query = """SELECT * FROM Games WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
+        games = self.db.query_return_dict_lookup(query, 'GAME_ID')
+        self.db_games = games
+
+        query = """SELECT DISTINCT YEAR FROM Games WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
+        years = self.db.query_return(query)
+        self.years = {y: Year() for y in years}
+
+        self.games = {}
+        for y in years:
+            query = """SELECT * FROM Games WHERE LEAGUE_ESPNID={} and YEAR={}""".format(self.espn_id, y)
+            self.games[y] = query
+
         self.current_week = None
         self.current_year = None
         self.historic_playoffs = None
@@ -32,24 +46,30 @@ class League:
         self.players = {}
         self.power_rankings = {}
         self.rankings = []
-        self.records = Records(self)
+        self.records = LeagueRecords(self)
         self.years = {}
 
-    def add_history(self, year, sheet, push_database=False):
-        if not self.years.get(year):
-            self.years[year] = Year()
-        sch = Schedule(self, sheet, year)
-        self.years[year].schedule = sch
-        self.update_season_records(year)
-        if sch.complete:
-            pass
-        else:
-            self.current_year = year
-            self.current_week = sch.current_week
+    def add_history(self, years, book, push_database=False):
+        for yi, year in enumerate(years):
+            if len(years) < 7:
+                yi = int(year[-1])
 
-        if push_database:
-            # Add something to add schedule to database
-            pass
+            sheet = book.sheet_by_index(yi)
+
+            if not self.years.get(year):
+                self.years[year] = Year()
+            sch = schedule_from_sheet(self, sheet, year)
+            self.years[year].schedule = sch
+            self.update_season_records(year)
+            if sch.complete:
+                pass
+            else:
+                self.current_year = year
+                self.current_week = sch.current_week
+
+            if push_database:
+                # Add something to add schedule to database
+                pass
 
     def add_games(self, year, book):
         for w in range(1, len(self.years[year].schedule.weeks) + 1):
@@ -424,44 +444,45 @@ class League:
             next_week = str(int(week) + 1)
             year = self.current_year
 
-            owner_ranks = self.rankings[-1].ranks
+            if next_week in self.years[year].schedule.weeks.keys():
+                owner_ranks = self.rankings[-1].ranks
 
-            body += "[b]Matchup Previews[/b]\n"
-            gms = self.years[year].schedule.weeks[next_week].games
-            for gm in gms:
-                gm.create_preview()
-                p = gm.preview
-                body += "[{0}] [u]{1}[/u] at\n".format(owner_ranks[gm.away_owner.name]+1, gm.away_team.rstrip().encode("utf-8"))
-                body += "[{0}] [u]{1}[/u]\n".format(owner_ranks[gm.home_owner.name]+1, gm.home_team.rstrip().encode("utf-8"))
-                body += "{0}| S:{1}{2:.1f}{1}{3:.0f} ML:{1}{4} O:{5}{6} O/U:{7:.1f}\n".format(
-                    gm.away_owner.initials(),
-                    "+" if p.home_favorite else " ",
-                    p.away_spread,
-                    p.away_payout,
-                    p.away_moneyline,
-                    "+" if p.under_favorite and p.over_payout != 100 else " -" if p.over_payout != 100 else "",
-                    "{:.0f}".format(p.over_payout) if p.over_payout != 100 else "PUSH",
-                    p.ou,)
-                body += "{0}| S:{1}{2:.1f}{1}{3:.0f} ML:{1}{4} U:{5}{6}\n".format(
-                    gm.home_owner.initials(),
-                    "+" if p.away_favorite else " ",
-                    p.home_spread,
-                    p.home_payout,
-                    p.home_moneyline,
-                    "+" if p.over_favorite and p.under_payout != 100 else " -"if p.under_payout != 100 else "",
-                    "{:.0f}".format(p.under_payout) if p.under_payout != 100 else "PUSH",)
+                body += "[b]Matchup Previews[/b]\n"
+                gms = self.years[year].schedule.weeks[next_week].games
+                for gm in gms:
+                    gm.create_preview()
+                    p = gm.preview
+                    body += "[{0}] [u]{1}[/u] at\n".format(owner_ranks[gm.away_owner.name]+1, gm.away_team.rstrip().encode("utf-8"))
+                    body += "[{0}] [u]{1}[/u]\n".format(owner_ranks[gm.home_owner.name]+1, gm.home_team.rstrip().encode("utf-8"))
+                    body += "{0}| S:{1}{2:.1f}{1}{3:.0f} ML:{1}{4} O:{5}{6} O/U:{7:.1f}\n".format(
+                        gm.away_owner.initials(),
+                        "+" if p.home_favorite else " ",
+                        p.away_spread,
+                        p.away_payout,
+                        p.away_moneyline,
+                        "+" if p.under_favorite and p.over_payout != 100 else " -" if p.over_payout != 100 else "",
+                        "{:.0f}".format(p.over_payout) if p.over_payout != 100 else "PUSH",
+                        p.ou,)
+                    body += "{0}| S:{1}{2:.1f}{1}{3:.0f} ML:{1}{4} U:{5}{6}\n".format(
+                        gm.home_owner.initials(),
+                        "+" if p.away_favorite else " ",
+                        p.home_spread,
+                        p.home_payout,
+                        p.home_moneyline,
+                        "+" if p.over_favorite and p.under_payout != 100 else " -"if p.under_payout != 100 else "",
+                        "{:.0f}".format(p.under_payout) if p.under_payout != 100 else "PUSH",)
 
-                away_opp_rcd = gm.away_owner.records.opponents[gm.home_owner.name]["All"]
-                home_opp_rcd = gm.home_owner.records.opponents[gm.away_owner.name]["All"]
-                away_all = away_opp_rcd.percent() > home_opp_rcd.percent()
-                home_all = away_opp_rcd.percent() < home_opp_rcd.percent()
-                tied_all = away_opp_rcd.percent() == home_opp_rcd.percent()
-                body += "{0} {1} all-time {2}\n".format(
-                    gm.away_owner.first_name() if away_all else gm.home_owner.first_name() if home_all else "Series",
-                    "leads" if not tied_all else "tied",
-                    away_opp_rcd.to_string(pfpa=False) if away_all else home_opp_rcd.to_string(pfpa=False))
+                    away_opp_rcd = gm.away_owner.records.opponents[gm.home_owner.name]["All"]
+                    home_opp_rcd = gm.home_owner.records.opponents[gm.away_owner.name]["All"]
+                    away_all = away_opp_rcd.percent() > home_opp_rcd.percent()
+                    home_all = away_opp_rcd.percent() < home_opp_rcd.percent()
+                    tied_all = away_opp_rcd.percent() == home_opp_rcd.percent()
+                    body += "{0} {1} all-time {2}\n".format(
+                        gm.away_owner.first_name() if away_all else gm.home_owner.first_name() if home_all else "Series",
+                        "leads" if not tied_all else "tied",
+                        away_opp_rcd.to_string(pfpa=False) if away_all else home_opp_rcd.to_string(pfpa=False))
 
-                body += "\n"
+                    body += "\n"
 
         if rcds:
             if games:
@@ -604,15 +625,7 @@ class League:
         return body
 
 
-class Year:
-    def __init__(self):
-        self.current_week = None
-        self.current_year = None
-        self.owner_seasons = {}
-        self.schedule = None
-
-
-class Records:
+class LeagueRecords:
     def __init__(self, league):
         self.league = league
         self.games = {"Highest Scoring": [], "Lowest Scoring": [], "Highest Margin": [], "Lowest Margin": [],

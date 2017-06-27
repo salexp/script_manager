@@ -11,11 +11,7 @@ def main():
 
     work_book = xlrd.open_workbook('fantasy/resources/thug_island_history.xls')
     years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
-    for yi, year in enumerate(years):
-        if len(years) < 7:
-            yi = int(year[-1])
-        work_sheet = work_book.sheet_by_index(yi)
-        thug_island.add_history(year, work_sheet)
+    thug_island.add_history(years, work_book)
 
     del thug_island.owners["Cody Blain"]
 
@@ -26,20 +22,21 @@ def main():
 
     thug_island.recursive_rankings()
 
-    # output = thug_island.to_string(games=True,
-    #                                mtchups=True,
-    #                                owners=True,
-    #                                plyffs=False,
-    #                                power=True,
-    #                                seasons=True,
-    #                                rcds=20)
-    thug_island.db.open_cursor()
-    thug_island.update_database()
-    thug_island.db.close()
+    output = thug_island.to_string(games=True,
+                                   mtchups=True,
+                                   owners=True,
+                                   plyffs=False,
+                                   power=True,
+                                   seasons=True,
+                                   rcds=20)
 
-    # print output
-    # with open("ff_data.txt", "w") as f:
-    #     print >> f, output
+    with open("ff_data.txt", "w") as f:
+        print >> f, output
+
+    with open("ff_data.txt", "rb") as f1:
+        with open("ff_data_base.txt", "rb") as f2:
+            assert f1.read() == f2.read()
+
     True
 
 if __name__ == "__main__":
