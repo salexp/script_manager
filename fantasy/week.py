@@ -1,4 +1,4 @@
-from fantasy.game import Game
+from fantasy.game import ExcelGame, game_from_sheet
 from nfl_data import roster
 from util.fantasy.utilities import *
 
@@ -21,7 +21,7 @@ class Week:
             if sh.cell_value(i, 2) != "":
                 idx += 1
                 row = [sh.cell_value(i, c) for c in range(sh.ncols)]
-                game = Game(self, row, index=idx, detailed=False)
+                game = game_from_sheet(self, row, index=idx, detailed=False)
                 self.games.append(game)
                 self.owners += [game.away_owner, game.home_owner]
                 if game.played:

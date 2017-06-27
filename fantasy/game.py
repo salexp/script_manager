@@ -3,7 +3,76 @@ from util.fantasy.utilities import *
 
 
 class Game:
-    def __init__(self, week, data, index, detailed=False, db_entry=None):
+    def __init__(self, week, db_id, db_entry=None):
+        self._db_entry = db_entry
+        self.db_id = db_id
+        self.league = week.league
+        self.schedule = week.schedule
+        self.week = week
+        self.year = week.year
+
+        self.detailed = None
+
+        self._away_owner = None
+        self._home_owner = None
+
+        self._away_matchup = None
+        self._away_record = None
+        self._away_roster = None
+        self._away_score = None
+        self._away_team = None
+        self._away_win = None
+        self._expended = None
+        self._home_matchup = None
+        self._home_record = None
+        self._home_roster = None
+        self._home_score = None
+        self._home_team = None
+        self._home_win = None
+        self._played = False
+        self._preview = None
+        self._raw_details = None
+        self._raw_summary = None
+        self._score = None
+        self._winner = None
+        self._is_regular_season = is_regular_season(self._year, self._week.number)
+        self._is_postseason = is_postseason(self._year, self._week.number)
+        self._is_consolation = is_consolation(self._year, self._week.number, self._index)
+        self._is_playoffs = is_playoffs(self._year, self._week.number, self._index)
+        self._is_championship = is_championship(self._year, self._week.number, self._index)
+
+    @property
+    def away_owner(self):
+        if self._away_owner is None:
+            owner_id = self.db_entry.get('AWAY_OWNER_ID')
+            self._away_owner = self.league.find_owner(owner_id, 'USER_ID')
+        return self._away_owner
+
+    @property
+    def away_owner_name(self):
+        return self.away_owner.name
+
+    @property
+    def db_entry(self):
+        if self._db_entry is None:
+            query = """SELECT * FROM Games WHERE GAME_ID={}""".format(self.db_id)
+            self._db_entry = self.league.db.query_return_dict_single(query)
+        return self._db_entry
+
+    @property
+    def home_owner(self):
+        if self._home_owner is None:
+            owner_id = self.db_entry.get('HOME_OWNER_ID')
+            self._home_owner = self.league.find_owner(owner_id, 'USER_ID')
+        return self._home_owner
+
+    @property
+    def home_owner_name(self):
+        return self.home_owner.name
+
+
+class ExcelGame:
+    def __init__(self, week, data, index, detailed=False):
         self.detailed = detailed
         self.index = index
         self.league = week.league
@@ -11,11 +80,8 @@ class Game:
         self.week = week
         self.year = week.year
 
-        self._db_entry = db_entry
-        if db_entry:
-            self._id = db_entry['GAME_ID']
-        else:
-            self._id = None
+        self._db_entry = None
+        self._id = None
 
         self.away_matchup = None
         self.away_owner = None
@@ -62,7 +128,7 @@ class Game:
                 self._db_entry = db_entry
                 self._id = self.db_entry['GAME_ID']
             else:
-                self._db_entry = None
+                self._db_entry = {}
                 self._id = False
         return self._db_entry
 
@@ -82,16 +148,17 @@ class Game:
         return self._id
 
     def add_to_database(self):
-        db = self.league.db
-        query = """
-        INSERT INTO Games (LEAGUE_ID, YEAR, WEEK, AWAY_OWNER_ID, HOME_OWNER_ID, AWAY_SCORE, HOME_SCORE, POSTSEASON,
-        PLAYOFFS, CHAMPIONSHIP) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
-        """
-        params = (
-            self.year, self.week.number, self.away_owner.id, self.home_owner.id, self.away_score,
-            self.home_score, self.is_postseason, self.is_playoffs, self.is_championship
-        )
-        db.query_set(query, params)
+        if not self.db_entry:
+            db = self.league.db
+            query = """
+            INSERT INTO Games (LEAGUE_ESPNID, YEAR, WEEK, AWAY_OWNER_ID, HOME_OWNER_ID, AWAY_SCORE, HOME_SCORE, POSTSEASON,
+            PLAYOFFS, CHAMPIONSHIP) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+            """
+            params = (
+                self.league.espn_id, self.year, self.week.number, self.away_owner.id, self.home_owner.id,
+                self.away_score, self.home_score, self.is_postseason, self.is_playoffs, self.is_championship
+            )
+            db.query_set(query, params)
 
     def update_db_score(self):
         if self.db_entry['AWAY_SCORE'] != self.away_score and self.db_entry['HOME_SCORE'] != self.home_score:
@@ -263,3 +330,7 @@ class GamePreview:
         self.moneyline = average([abs(n) for n in money_lines])
         self.away_moneyline = money_lines[0]
         self.home_moneyline = money_lines[1]
+
+
+def game_from_sheet(week, data, index, detailed=False, db_entry=None):
+    return ExcelGame(week, data, index, detailed)

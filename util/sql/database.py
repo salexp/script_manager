@@ -94,6 +94,8 @@ class Database:
         result = self.query_return_dict(query)
         if result:
             return result[0]
+        else:
+            return {}
 
     def query_set(self, query, params=()):
         if not self.test_mode:

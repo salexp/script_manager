@@ -52,7 +52,7 @@ class Metrics:
 
         if length is None:
             length = int(self.week)
-        years = [str(y) for y in range(int(self.year)-1, int(self.year)+1)]
+        years = [y for y in range(int(self.year)-1, int(self.year)+1)]
         matchups = []
         for y in years:
             matchups += owner.seasons[y].matchups

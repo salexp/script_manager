@@ -31,7 +31,7 @@ class League:
 
         query = """SELECT DISTINCT YEAR FROM Games WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
         years = self.db.query_return(query)
-        self.years = {y: Year() for y in years}
+        self.years = {y[0]: Year() for y in years}
 
         self.games = {}
         for y in years:
@@ -47,13 +47,9 @@ class League:
         self.power_rankings = {}
         self.rankings = []
         self.records = LeagueRecords(self)
-        self.years = {}
 
     def add_history(self, years, book, push_database=False):
         for yi, year in enumerate(years):
-            if len(years) < 7:
-                yi = int(year[-1])
-
             sheet = book.sheet_by_index(yi)
 
             if not self.years.get(year):
@@ -67,9 +63,18 @@ class League:
                 self.current_year = year
                 self.current_week = sch.current_week
 
-            if push_database:
-                # Add something to add schedule to database
-                pass
+        if push_database:
+            for y, year in self.years.items():
+                for w, week in year.schedule.weeks.items():
+                    for game in week.games:
+                        game.add_to_database()
+
+            self.db.commit()
+
+    def find_owner(self, value, key):
+        for o, owner in self.owners.items():
+            if value == owner.db_entry[key]:
+                return owner
 
     def add_games(self, year, book):
         for w in range(1, len(self.years[year].schedule.weeks) + 1):
