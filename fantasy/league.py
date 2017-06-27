@@ -29,14 +29,8 @@ class League:
         games = self.db.query_return_dict_lookup(query, 'GAME_ID')
         self.db_games = games
 
-        query = """SELECT DISTINCT YEAR FROM Games WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
-        years = self.db.query_return(query)
-        self.years = {y[0]: Year() for y in years}
-
-        self.games = {}
-        for y in years:
-            query = """SELECT * FROM Games WHERE LEAGUE_ESPNID={} and YEAR={}""".format(self.espn_id, y)
-            self.games[y] = query
+        years = sorted(list(set([_['YEAR'] for k, _ in self.db_games.items()])))
+        self.years = {y: Year() for y in years}
 
         self.current_week = None
         self.current_year = None
