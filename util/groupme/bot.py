@@ -27,12 +27,22 @@ class GMeBot(object):
     def add_command(self, text, func):
         self._commands[text] = func
 
-    def listen(self, data):
-        if data.get('sender_type') != 'bot':
-            msg = GMeMessage(data=data, listening=self)
-            self.last_heard = msg
-            if msg.command in self.commands.keys():
-                self.commands.get(msg.command)()
+    def listen(self, data, store=False):
+        if data.get('group_id') == self.group_id:
+            if self.db and store:
+                query = """INSERT INTO GroupMe (GROUP_ID, CREATED_AT, USER_ID, SENDER_ID, SENDER_NAME, SENDER_TYPE,
+                MESSAGE_TEXT) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+                params = (data['group_id'], data['created_at'], data['user_id'], data['sender_id'], data['name'],
+                          data['sender_type'], data['text'])
+
+                self.db.query_set(query=query, params=params)
+                self.db.commit()
+
+            if data.get('sender_type') != 'bot':
+                msg = GMeMessage(data=data, listening=self)
+                self.last_heard = msg
+                if msg.command in self.commands.keys():
+                    self.commands.get(msg.command)()
 
     def say(self, text):
         data = {'bot_id': self.bot_id, 'text': text}

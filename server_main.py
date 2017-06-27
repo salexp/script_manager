@@ -16,7 +16,7 @@ def index():
 @app.route('/bot/thugbot/callback', methods=['POST'])
 def thugbot_listen():
     if request.content_type == 'application/json':
-        thugbot.listen(request.json)
+        thugbot.listen(request.json, store=True)
         return "Heard"
     else:
         return "Ignored"
