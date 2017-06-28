@@ -10,6 +10,10 @@ class Owner:
         self.name = name
         self.id = db_entry['USER_ID']
 
+        self.first_name = self.name.split(" ")[0].capitalize()
+        self.last_name = self.name.split(" ")[1].capitalize()
+        self.initials = self.first_name[0] + self.last_name[0]
+
         self.attrib = Attributes(self)
         self.active = []
         self.championships = []

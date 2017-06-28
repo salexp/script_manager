@@ -34,7 +34,7 @@ def main():
         print >> f, output
 
     with open("ff_data.txt", "rb") as f1:
-        with open("ff_data_base.txt", "rb") as f2:
+        with open("fantasy/resources/ff_data_base.txt", "rb") as f2:
             assert f1.read() == f2.read()
 
     True

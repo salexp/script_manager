@@ -1,7 +1,7 @@
 import argparse
 from flask import Flask, Response
 from flask import render_template, request
-from util.groupme.bot import TestBot, ThugBot
+from util.groupme.bot.thugbot import TestBot, ThugBot
 from util.groupme.do_not_upload import BOT_ID_TEST, GROUP_ID_TEST
 from util.groupme.do_not_upload import BOT_ID_THUG, GROUP_ID_THUG
 

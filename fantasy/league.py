@@ -11,26 +11,23 @@ from util.sql.database import Database
 
 
 class League:
-    def __init__(self, espn_id, database_settings):
-        self.db = Database(**database_settings)
+    def __init__(self, espn_id, database_settings=None, database_connection=None):
+        if database_connection:
+            self.db = database_connection
+        elif database_settings:
+            self.db = Database(**database_settings)
+        else:
+            raise Exception("Missing database connection")
+
         self.espn_id = espn_id
         self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % espn_id
         # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
 
-        query = """SELECT * FROM Leagues WHERE LEAGUE_ESPNID={}""".format(espn_id)
-        self.db_entry = self.db.query_return_dict_single(query)
-        self.league_name = self.db_entry['LEAGUE_NAME']
-
-        query = """SELECT * FROM Users WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
-        owners = self.db.query_return_dict_lookup(query, 'USER_ESPNNAME')
-        self.owners = {k: Owner(k, self, v) for k, v in owners.items()}
-
-        query = """SELECT * FROM Games WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
-        games = self.db.query_return_dict_lookup(query, 'GAME_ID')
-        self.db_games = games
-
-        years = sorted(list(set([_['YEAR'] for k, _ in self.db_games.items()])))
-        self.years = {y: Year() for y in years}
+        self._db_games = None
+        self._db_entry = None
+        self._league_name = None
+        self._owners = None
+        self._years = None
 
         self.current_week = None
         self.current_year = None
@@ -41,6 +38,42 @@ class League:
         self.power_rankings = {}
         self.rankings = []
         self.records = LeagueRecords(self)
+
+    @property
+    def db_games(self):
+        if self._db_games is None:
+            query = """SELECT * FROM Games WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
+            games = self.db.query_return_dict_lookup(query, 'GAME_ID')
+            self._db_games = games
+        return self._db_games
+
+    @property
+    def db_entry(self):
+        if self._db_entry is None:
+            query = """SELECT * FROM Leagues WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
+            self._db_entry = self.db.query_return_dict_single(query)
+        return self._db_entry
+
+    @property
+    def league_name(self):
+        if self._league_name is None:
+            self._league_name = self.db_entry['LEAGUE_NAME']
+        return self._league_name
+
+    @property
+    def owners(self):
+        if self._owners is None:
+            query = """SELECT * FROM Users WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
+            owners = self.db.query_return_dict_lookup(query, 'USER_ESPNNAME')
+            self._owners = {k: Owner(k, self, v) for k, v in owners.items()}
+        return self._owners
+
+    @property
+    def years(self):
+        if self._years is None:
+            years = sorted(list(set([_['YEAR'] for k, _ in self.db_games.items()])))
+            self._years = {y: Year() for y in years}
+        return self._years
 
     def add_history(self, years, book, push_database=False):
         for yi, year in enumerate(years):

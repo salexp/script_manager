@@ -1,7 +1,6 @@
 from collections import OrderedDict
 from requests import session
-from message import GMeMessage
-from util.sql.database import Database
+from util.groupme.message import GMeMessage
 
 
 class GMeBot(object):
@@ -12,6 +11,7 @@ class GMeBot(object):
         self.uri = "https://api.groupme.com/v3/bots/post"
         self.session = session()
         self.db = None
+        self.fantasy = None
 
         self._commands = OrderedDict([('!help', self.say_help)])
 
@@ -51,28 +51,4 @@ class GMeBot(object):
 
     def say_help(self):
         text = "Commands:\n{}".format("\n".join(self.commands.keys()))
-        return self.say(text)
-
-
-class ThugBot(GMeBot):
-    def __init__(self, bot_id, group_id):
-        GMeBot.__init__(self, bot_id, group_id)
-        self.db = Database('Fantasy', user='local', password='',
-                           host='127.0.0.1', port='3306')
-
-    def say(self, text):
-        pass
-
-
-class TestBot(ThugBot):
-    def __init__(self, bot_id, group_id):
-        ThugBot.__init__(self, bot_id, group_id)
-
-        self.add_command('!picks', self.say_picks)
-
-    def say(self, text):
-        GMeBot.say(self, text)
-
-    def say_picks(self):
-        text = "{}\n{}".format(self.last_heard.sender, ", ".join(['1.1', '2.1', '2.6', '4.1', '5.1']))
         return self.say(text)
