@@ -31,9 +31,9 @@ class GMeBot(object):
         if data.get('group_id') == self.group_id:
             if self.db and store:
                 query = """INSERT INTO GroupMe (GROUP_ID, CREATED_AT, USER_ID, SENDER_ID, SENDER_NAME, SENDER_TYPE,
-                SOURCE_GUID, MESSAGE_TEXT) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+                MESSAGE_TEXT) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
                 params = (data['group_id'], data['created_at'], data['user_id'], data['sender_id'], data['name'],
-                          data['sender_type'], data['source_guid'], data['text'])
+                          data['sender_type'], data['text'])
 
                 self.db.query_set(query=query, params=params)
                 self.db.commit()
