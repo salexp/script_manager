@@ -94,16 +94,15 @@ class QuandlWiki(Quandl):
             data = self.get_company_data(tick)
 
             data_set = data['dataset_data']['data']
-            all_data_set = [[tick] + [str(_[0])] + _[1:] for _ in data_set]
+            all_data_set = tuple([[tick] + [str(_[0])] + _[1:] for _ in data_set])
 
-            query = """INSERT INTO Historic (`TICKER`,{}) VALUES {} ON DUPLICATE KEY UPDATE HISTORIC_ID=HISTORIC_ID;
-            """.format(
-                ','.join(['`{}`'.format(_) for _ in data['dataset_data']['column_names']]),
-                str([tuple(_) for _ in all_data_set])[1:-1]
+            query = """INSERT INTO Historic (`TICKER`,{}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE HISTORIC_ID=HISTORIC_ID;""".format(
+                ','.join(['`{}`'.format(_) for _ in data['dataset_data']['column_names']])
             )
 
             if all_data_set:
-                self.db.query_set(query=query)
+                self.db.query_set_many(query=query, params=all_data_set)
                 self.db.commit()
 
             print "Done: {}".format(tick)

@@ -104,3 +104,11 @@ class Database:
             if not self.persistent_cursor: self._close_cursor()
         else:
             pass
+
+    def query_set_many(self, query, params=[]):
+        if not self.test_mode:
+            if not self.persistent_cursor: self._open_cursor()
+            self._cursor.executemany(query, params)
+            if not self.persistent_cursor: self._close_cursor()
+        else:
+            pass
