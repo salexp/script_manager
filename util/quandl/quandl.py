@@ -90,7 +90,7 @@ class QuandlWiki(Quandl):
     def update_database(self):
         tickers = self.stock_ticker_list
 
-        for tick in tickers[60:]:
+        for tick in tickers:
             data = self.get_company_data(tick)
 
             data_set = data['dataset_data']['data']
