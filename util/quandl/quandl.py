@@ -6,6 +6,8 @@ import zipfile
 from requests import session
 from util.sql.database import Database
 
+from util import logger
+
 
 class Quandl:
     def __init__(self, api_key, data_set, database_settings):
@@ -105,4 +107,4 @@ class QuandlWiki(Quandl):
                 self.db.query_set_many(query=query, params=all_data_set)
                 self.db.commit()
 
-            print "Done: {}".format(tick)
+            logger.info("Done: %s, %s" % (tick, len(all_data_set)))
