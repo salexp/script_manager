@@ -1,6 +1,7 @@
 from datetime import datetime
 from importlib import import_module
-from scripts.config import CmdConfig
+
+from scripts.twitter_bot.config import Config
 from util import config
 from util import logger
 
@@ -53,7 +54,7 @@ class Command:
     @property
     def config(self):
         if self._config is None:
-            self._config = CmdConfig(command=self, file_name="{}.xml".format(self.command))
+            self._config = Config(command=self, file_name="{}.xml".format(self.command))
         return self._config
 
     def clear(self):

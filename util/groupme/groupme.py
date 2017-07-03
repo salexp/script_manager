@@ -1,3 +1,8 @@
+import json
+from requests import session
+from util.groupme.group import GMeGroup
+
+
 class GroupMe:
     def __init__(self, auth_id):
         self.auth_id = auth_id

@@ -7,7 +7,7 @@ except ImportError:
     logger.error("Install lxml: >pip install lxml")
 
 
-class CmdConfig(object):
+class Config(object):
     def __init__(self, command, file_name, force_new=False):
         self.command = command
         self.file_name = file_name
