@@ -1,6 +1,7 @@
 import csv
 import json
 import os
+import time
 import zipfile
 from requests import session
 from util.sql.database import Database
@@ -28,8 +29,10 @@ class Quandl:
         return r
 
     def _url(self, *args):
-        url = self.uri + "/".join(args) + '?api_key=' + self.api_key
-        return url
+        url = '{}{}'.format(self.uri, "/".join(args))
+        arg_key = '&' if '?' in url else '?'
+        url_key = "{}{}api_key={}".format(url, arg_key, self.api_key)
+        return url_key
 
     def _meta_url(self, *args):
         url = self.meta_uri + "/".join(args) + '?api_key=' + self.api_key
@@ -82,8 +85,14 @@ class QuandlWiki(Quandl):
         if start_date is None:
             url = self._url(ticker, 'data.json')
         else:
-            url = self._url(ticker, 'data?start_date={}.json'.format(start_date))
+            url = self._url(ticker, 'data.json?start_date={}'.format(start_date))
         r = self._get(url)
+
+        if r.status_code == 429:
+            logger.info(r.content)
+            time.sleep(1.0)
+            r = self._get(url)
+
         if r.status_code == 200:
             data = json.loads(r.content)
             return data
