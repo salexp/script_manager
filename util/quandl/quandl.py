@@ -1,5 +1,4 @@
 import csv
-import datetime
 import json
 import os
 import zipfile
@@ -59,9 +58,9 @@ class QuandlWiki(Quandl):
     @property
     def last_updated(self):
         if self._last_updated is None:
-            query = """SELECT DISTINCT Date FROM Historic;"""
+            query = """SELECT MAX(Date) AS Date FROM Finance.Historic;"""
             result = self.db.query_return(query=query)
-            self._last_updated = max(result)
+            self._last_updated = result[0][0]
         return self._last_updated
 
     @property
@@ -79,7 +78,7 @@ class QuandlWiki(Quandl):
 
         return self._stock_ticket_list
 
-    def get_company_data(self, ticker, start_date=None):
+    def download_company_data(self, ticker, start_date=None):
         if start_date is None:
             url = self._url(ticker, 'data.json')
         else:
@@ -89,11 +88,11 @@ class QuandlWiki(Quandl):
             data = json.loads(r.content)
             return data
 
-    def update_database(self):
+    def update_database(self, start_date=None):
         tickers = self.stock_ticker_list
 
         for tick in tickers:
-            data = self.get_company_data(tick)
+            data = self.download_company_data(ticker=tick, start_date=start_date)
 
             data_set = data['dataset_data']['data']
             all_data_set = tuple([[tick] + [str(_[0])] + _[1:] for _ in data_set])
