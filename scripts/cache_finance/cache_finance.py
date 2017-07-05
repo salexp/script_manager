@@ -12,7 +12,7 @@ def run():
     qw = QuandlWiki(api_key=API_KEY, database_settings={'name': 'Finance', 'user': 'local'})
 
     if args.script_option.lower() == 'today':
-        start_date = datetime.datetime.now().date()
+        start_date = datetime.datetime.now().date()-datetime.timedelta(days=2)
     elif args.script_option is not None:
         start_date = datetime.datetime.strptime(args.script_option, "%Y-%m-%d").date()
     else:
