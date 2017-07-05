@@ -88,11 +88,6 @@ class QuandlWiki(Quandl):
             url = self._url(ticker, 'data.json?start_date={}'.format(start_date))
         r = self._get(url)
 
-        if r.status_code == 429:
-            logger.info(r.content)
-            time.sleep(1.0)
-            r = self._get(url)
-
         if r.status_code == 200:
             data = json.loads(r.content)
             return data
@@ -116,3 +111,4 @@ class QuandlWiki(Quandl):
                 self.db.commit()
 
             logger.info("Done: %s, %s" % (tick, len(all_data_set)))
+            time.sleep(0.3)
