@@ -110,5 +110,6 @@ class QuandlWiki(Quandl):
                 self.db.query_set_many(query=query, params=all_data_set)
                 self.db.commit()
 
-            logger.info("Done: %s, %s" % (tick, len(all_data_set)))
             time.sleep(0.3)
+
+        logger.info("Cached %s tickers." % len(tickers))
