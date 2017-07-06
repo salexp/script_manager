@@ -2,6 +2,7 @@ import tweepy
 from tweepy.error import TweepError
 
 from util import logger
+from util.limiter import limiter
 
 
 class APISession(tweepy.API):
@@ -42,3 +43,23 @@ class APISession(tweepy.API):
             statuses = self.home_timeline()
 
         return count
+
+    @limiter(2, 1.0)
+    def search(self, *args, **kwargs):
+        return super(APISession, self).search(*args, **kwargs)
+
+    def recursive_search(self, query, max_count=1000, increment=100):
+        all_results = []
+        n = 99999 + increment
+        max_id = None
+
+        while n >= increment:
+            results = self.search(query, count=increment, max_id=max_id)
+            n = results.count
+            max_id = results.max_id
+            all_results += [_ for _ in results]
+
+            if len(all_results) > max_count:
+                break
+
+        return all_results
