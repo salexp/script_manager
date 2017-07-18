@@ -17,7 +17,7 @@ class AlphaVantage:
 
         self.session = session()
 
-    @limiter(200, 3600.0)
+    @limiter(200, 60.0)
     def _get(self, uri, **kwargs):
         r = self.session.get(uri, **kwargs)
         return r
