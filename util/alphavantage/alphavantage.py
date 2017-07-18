@@ -34,18 +34,19 @@ class AlphaVantage:
     def update_database(self, tickers):
         for tick in tickers:
             data = self.download_intraday(tick)
-            data_set = data['Time Series (1min)']
+            if 'Error Message' not in data.keys():
+                data_set = data['Time Series (1min)']
 
-            all_data_set = []
-            for k, v in data_set.items():
-                set = [tick, k, v['1. open'], v['2. high'], v['3. low'], v['4. close'], v['5. volume']]
-                all_data_set.append(set)
+                all_data_set = []
+                for k, v in data_set.items():
+                    set = [tick, k, v['1. open'], v['2. high'], v['3. low'], v['4. close'], v['5. volume']]
+                    all_data_set.append(set)
 
-            query = """INSERT INTO Historic (`TICKER`,`Datetime`,`Open`,`High`,`Low`,`Close`,`Volume`,`Intraday`) VALUES 
-            (%s, %s, %s, %s, %s, %s, %s, 1) ON DUPLICATE KEY UPDATE HISTORIC_ID=HISTORIC_ID;"""
+                query = """INSERT INTO Historic (`TICKER`,`Datetime`,`Open`,`High`,`Low`,`Close`,`Volume`,`Intraday`) VALUES 
+                (%s, %s, %s, %s, %s, %s, %s, 1) ON DUPLICATE KEY UPDATE HISTORIC_ID=HISTORIC_ID;"""
 
-            if all_data_set:
-                self.db.query_set_many(query=query, params=all_data_set)
-                self.db.commit()
+                if all_data_set:
+                    self.db.query_set_many(query=query, params=all_data_set)
+                    self.db.commit()
 
         logger.info("Cached intraday for %s tickers." % len(tickers))
