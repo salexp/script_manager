@@ -2,6 +2,7 @@ import datetime
 import json
 from requests import session
 from util.limiter import limiter
+from util.retries import retries
 from util.sql.database import Database
 
 from util import logger
@@ -17,6 +18,7 @@ class AlphaVantage:
 
         self.session = session()
 
+    @retries(1, 30.0)
     @limiter(200, 60.0)
     def _get(self, uri, **kwargs):
         r = self.session.get(uri, **kwargs)
