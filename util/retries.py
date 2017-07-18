@@ -10,7 +10,6 @@ def retries(retries_count=0, wait_time=0.0):
             while current_count < max_runs:
                 try:
                     current_count += 1
-                    print current_count
                     ret = func(*args, **kwargs)
                     return ret
                 except Exception as e:
