@@ -5,6 +5,8 @@ from util.groupme.bot.thugbot import TestBot, ThugBot
 from util.groupme.do_not_upload import BOT_ID_TEST, GROUP_ID_TEST
 from util.groupme.do_not_upload import BOT_ID_THUG, GROUP_ID_THUG
 
+from util import logger
+
 app = Flask(__name__)
 testbot = TestBot(BOT_ID_TEST, GROUP_ID_TEST)
 thugbot = ThugBot(BOT_ID_THUG, GROUP_ID_THUG)
@@ -38,4 +40,8 @@ if __name__ == '__main__':
     parser.add_argument('-ip', action='store', dest='ip_address', nargs='?')
     parser.add_argument('-p', action='store', dest='port', nargs='?')
     args = parser.parse_args()
-    app.run(host=args.ip_address, port=args.port)
+    try:
+        app.run(host=args.ip_address, port=args.port)
+    except Exception as e:
+        logger.exception(e)
+        raise e
