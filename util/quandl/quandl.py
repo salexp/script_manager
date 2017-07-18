@@ -57,6 +57,7 @@ class QuandlWiki(Quandl):
 
         self._last_updated = None
         self._stock_ticket_list = None
+        self._twitter_searches = None
 
     @property
     def last_updated(self):
@@ -81,6 +82,14 @@ class QuandlWiki(Quandl):
 
         return self._stock_ticket_list
 
+    @property
+    def twitter_searches(self):
+        if self._twitter_searches is None:
+            query = """SELECT * FROM Finance.Searches"""
+            result = self.db.query_return_dict(query=query)
+            self._twitter_searches = result
+        return self._twitter_searches
+
     def download_company_data(self, ticker, start_date=None):
         if start_date is None:
             url = self._url(ticker, 'data.json')
@@ -101,10 +110,10 @@ class QuandlWiki(Quandl):
             data_set = data['dataset_data']['data']
             all_data_set = tuple([[tick] + [str(_[0])] + _[1:] for _ in data_set])
 
-            query = """INSERT INTO Historic (`TICKER`,{}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            ON DUPLICATE KEY UPDATE HISTORIC_ID=HISTORIC_ID;""".format(
-                ','.join(['`{}`'.format(_) for _ in data['dataset_data']['column_names']])
-            )
+            query = """INSERT INTO Historic (`TICKER`,`Datetime`,`Open`,`High`,`Low`,`Close`,`Volume`,`Ex-Dividend`,
+                `Split Ratio`,`Adj. Open`,`Adj. High`,`Adj. Low`,`Adj. Close`,`Adj. Volume`) VALUES 
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON DUPLICATE KEY 
+                UPDATE HISTORIC_ID=HISTORIC_ID;"""
 
             if all_data_set:
                 self.db.query_set_many(query=query, params=all_data_set)

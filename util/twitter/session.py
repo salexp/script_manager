@@ -1,5 +1,6 @@
 import tweepy
-from tweepy.error import TweepError
+from tweepy.error import TweepError, RateLimitError
+from util.twitter.search import EmptyResults
 
 from util import logger
 from util.limiter import limiter
@@ -15,6 +16,8 @@ class APISession(tweepy.API):
         tweepy.API.__init__(self, auth)
 
         self.active = self._open()
+
+        self.search_count = 0
 
     def __enter__(self):
         return self
@@ -44,22 +47,28 @@ class APISession(tweepy.API):
 
         return count
 
-    @limiter(2, 1.0)
+    @limiter(450, 900)
     def search(self, *args, **kwargs):
-        return super(APISession, self).search(*args, **kwargs)
+        self.search_count += 1
+        try:
+            return super(APISession, self).search(*args, **kwargs)
+        except RateLimitError:
+            logger.warning("Hit rate limit for searching after %s searches" % self.search_count)
+            return EmptyResults()
 
-    def recursive_search(self, query, max_count=1000, increment=100):
+    def search_all(self, query, max_count=None, increment=100):
         all_results = []
         n = 99999 + increment
         max_id = None
 
         while n >= increment:
-            results = self.search(query, count=increment, max_id=max_id)
+            results = self.search(query, count=max_count, max_id=max_id, result_type='recent')
             n = results.count
             max_id = results.max_id
             all_results += [_ for _ in results]
 
-            if len(all_results) > max_count:
+            if max_count is not None and len(all_results) > max_count:
+                all_results = all_results[:max_count]
                 break
 
         return all_results

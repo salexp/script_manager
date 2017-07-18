@@ -1,5 +1,6 @@
 lxml
 python-dateutil
-mysql-connector-python==2.1.5
+mysql-connector==2.1.4
 mysql-python==1.2.5
 tweepy==3.5.0
+xlrd
