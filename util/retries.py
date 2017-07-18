@@ -1,4 +1,5 @@
 import time
+from util import logger
 
 
 def retries(retries_count=0, wait_time=0.0):
@@ -16,6 +17,7 @@ def retries(retries_count=0, wait_time=0.0):
                     if current_count == max_runs:
                         raise e
                     else:
+                        logger.warning("Function failed to run, retrying: %s" % func.__name__)
                         time.sleep(wait_time)
 
         return wrapper
