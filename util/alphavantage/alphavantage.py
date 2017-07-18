@@ -1,5 +1,7 @@
+import datetime
 import json
 from requests import session
+from util.limiter import limiter
 from util.sql.database import Database
 
 from util import logger
@@ -15,6 +17,7 @@ class AlphaVantage:
 
         self.session = session()
 
+    @limiter(200, 3600.0)
     def _get(self, uri, **kwargs):
         r = self.session.get(uri, **kwargs)
         return r
@@ -31,7 +34,7 @@ class AlphaVantage:
             data = json.loads(r.content)
             return data
 
-    def update_database(self, tickers):
+    def update_database(self, tickers, start_date=None):
         for tick in tickers:
             data = self.download_intraday(tick)
             if 'Error Message' not in data.keys():
@@ -40,7 +43,9 @@ class AlphaVantage:
                 all_data_set = []
                 for k, v in data_set.items():
                     set = [tick, k, v['1. open'], v['2. high'], v['3. low'], v['4. close'], v['5. volume']]
-                    all_data_set.append(set)
+                    dt = datetime.datetime.strptime(k, "%Y-%m-%d %H:%M:%S")
+                    if start_date is None or dt.date() >= start_date:
+                        all_data_set.append(set)
 
                 query = """INSERT INTO Historic (`TICKER`,`Datetime`,`Open`,`High`,`Low`,`Close`,`Volume`,`Intraday`) VALUES 
                 (%s, %s, %s, %s, %s, %s, %s, 1) ON DUPLICATE KEY UPDATE HISTORIC_ID=HISTORIC_ID;"""

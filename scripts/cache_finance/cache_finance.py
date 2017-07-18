@@ -22,7 +22,8 @@ def run():
 
     if args.script_option is not None and args.script_option.lower() == 'intraday':
             av = AlphaVantage(api_key=VAPI_KEY, database_settings=db_settings)
-            av.update_database(qw.stock_ticker_list)
+            start_date = datetime.datetime.now().date()
+            av.update_database(tickers=qw.stock_ticker_list, start_date=start_date)
 
     if args.script_option is not None and '-' in args.script_option:
         start_date = datetime.datetime.strptime(args.script_option, "%Y-%m-%d").date()
