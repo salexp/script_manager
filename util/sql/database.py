@@ -2,9 +2,11 @@ import mysql.connector
 from mysql.connector import ProgrammingError
 
 from util import logger
+from util.retries import retries
 
 
 class Database:
+    @retries(3, 20.0)
     def __init__(self, name, user='root', password='', host='127.0.0.1', port='3306'):
         self.name = name
         self.user = user
@@ -13,16 +15,12 @@ class Database:
 
         self.test_mode = False
 
-        try:
-            cnx = mysql.connector.connect(
-                user=user,
-                password=password,
-                host=host,
-                port=port,
-                database=name)
-        except ProgrammingError:
-            logger.error("Database does not exist: {}".format(name))
-            raise
+        cnx = mysql.connector.connect(
+            user=user,
+            password=password,
+            host=host,
+            port=port,
+            database=name)
 
         self._connection = cnx
         self._cursor = cnx.cursor()
