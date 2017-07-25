@@ -2,6 +2,8 @@ from collections import OrderedDict
 from requests import session
 from util.groupme.message import GMeMessage
 
+from util import logger
+
 
 class GMeBot(object):
     def __init__(self, bot_id, group_id):
@@ -29,11 +31,15 @@ class GMeBot(object):
 
     def listen(self, data, store=False):
         if data.get('group_id') == self.group_id:
+            logger.debug("DB: %s, Store: %s" % (self.db is not None, store))
             if self.db and store:
                 query = """INSERT INTO GroupMe (GROUP_ID, CREATED_AT, USER_ID, SENDER_ID, SENDER_NAME, SENDER_TYPE,
                 MESSAGE_TEXT) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
                 params = (data['group_id'], data['created_at'], data['user_id'], data['sender_id'], data['name'],
                           data['sender_type'], data['text'])
+
+                logger.debug("Query: %s" % query)
+                logger.debug("Params: %s" % ','.join(params))
 
                 self.db.query_set(query=query, params=params)
                 self.db.commit()
