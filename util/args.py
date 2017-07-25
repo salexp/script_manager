@@ -7,7 +7,7 @@ import argparse
 class _Args(argparse.ArgumentParser):
     def __init__(self):
         argparse.ArgumentParser.__init__(self)
-        self.add_argument('scripts', nargs='?',
+        self.add_argument('scripts', nargs='+',
                           help='Script to run. Can be used multiple times to run multiple scripts.')
         self.add_argument('-d', action='store_true', dest='debug_mode',
                           help='Run scripts in debug mode.')
@@ -21,7 +21,7 @@ class _Args(argparse.ArgumentParser):
         self.add_argument('-s', action='store', dest='script_option',
                           help='Script specific options and flags to utilize.')
 
-        if 'script_manager.py' in sys.argv[0] or 'server_main.py' in sys.argv[0]:
+        if 'script_manager.py' in sys.argv[0]:
             self._parsed = self.parse_args(sys.argv[1:])
         else:
             self._parsed = None
