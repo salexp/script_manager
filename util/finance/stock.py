@@ -1,9 +1,12 @@
 import csv
+import mysql.connector
 import os
 import urllib2
 from collections import OrderedDict
 from util.plotter.candlestick import Candlestick
 from util.sql.database import Database
+
+from util import logger
 
 
 class Stock:
@@ -85,9 +88,14 @@ class Stock:
                         ','.join(['`{}`'.format(k) for k in data.keys()]),
                         ','.join(['%s']+['%s' for _ in data.itervalues()]))
 
-                    self.db.query_set(query=query, params=
-                        tuple([self.ticker]+[_ if _ not in ('None', 'none', 'NONE', None) else None for _ in data.itervalues()]))
-                    self.db.commit()
+                    try:
+                        self.db.query_set(query=query, params=
+                            tuple([self.ticker]+[_ if _ not in ('None', 'none', 'NONE', None) else None for _ in data.itervalues()]))
+                        self.db.commit()
+                    except mysql.connector.DataError as e:
+                        logger.info('%s : %s' % (self.ticker, data['QUARTER_END']))
+                        logger.info(e.msg)
+
 
 DB_MAP = {
     'Quarter end': 'QUARTER_END',
@@ -138,9 +146,12 @@ def filter_exceptions(ticker, data):
     if ticker == 'AMAT':
         if ('QUARTER_END', '2009-07-26') in data.items():
             data['P_E_RATIO'] = None
-    if ticker == 'CSC':
+    elif ticker == 'CSC':
         if ('QUARTER_END', '2017-03-31') in data.items():
             data['BOOK_VALUE_OF_EQUITY_PER_SHARE'] = None
             data['FREE_CASH_FLOW_PER_SHARE'] = None
+    elif ticker == 'EMC':
+        if ('QUARTER_END', '2003-06-30') in data.items():
+            data['P_E_RATIO'] = None
 
     return data
