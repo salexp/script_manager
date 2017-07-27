@@ -78,6 +78,8 @@ class Stock:
                 for row in reader:
                     data = OrderedDict((DB_MAP[k], row[k]) for k in columns)
 
+                    data = filter_exceptions(self.ticker, data)
+
                     query = """INSERT INTO Fundamentals (`TICKER`,{}) VALUES ({}) ON DUPLICATE KEY 
                     UPDATE FUNDAMENTALS_ID=FUNDAMENTALS_ID;""".format(
                         ','.join(['`{}`'.format(k) for k in data.keys()]),
@@ -130,3 +132,11 @@ DB_MAP = {
     'Free cash flow per share': 'FREE_CASH_FLOW_PER_SHARE',
     'Current ratio': 'CURRENT_RATIO',
 }
+
+
+def filter_exceptions(ticker, data):
+    if ticker == 'AMAT':
+        if ('P_E_RATIO', '432345564227567000') in data:
+            data['P_E_RATIO'] = None
+
+    return data
