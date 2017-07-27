@@ -26,7 +26,7 @@ class Database:
         self._cursor = cnx.cursor()
         self.persistent_cursor = False
 
-        logger.info("Opened connection to MySQL database: {}".format(self.name))
+        # logger.info("Opened connection to MySQL database: {}".format(self.name))
 
     def __enter__(self):
         return self
@@ -52,7 +52,7 @@ class Database:
     def close(self):
         self._close_connection()
         self._close_cursor()
-        logger.info("Closed connection to MySQL database: {}".format(self.name))
+        # logger.info("Closed connection to MySQL database: {}".format(self.name))
 
     def close_cursor(self):
         self._cursor.close()
