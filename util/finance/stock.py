@@ -86,7 +86,7 @@ class Stock:
                         ','.join(['%s']+['%s' for _ in data.itervalues()]))
 
                     self.db.query_set(query=query, params=
-                        tuple([self.ticker]+[_ if 'none' not in _.lower() else None for _ in data.itervalues()]))
+                        tuple([self.ticker]+[_ if _ not in ('None', 'none', 'NONE', None) else None for _ in data.itervalues()]))
                     self.db.commit()
 
 DB_MAP = {
@@ -136,7 +136,7 @@ DB_MAP = {
 
 def filter_exceptions(ticker, data):
     if ticker == 'AMAT':
-        if ('P_E_RATIO', '432345564227567000') in data:
+        if ('P_E_RATIO', '432345564227567616') in data.items():
             data['P_E_RATIO'] = None
 
     return data
