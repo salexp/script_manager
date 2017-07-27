@@ -136,7 +136,11 @@ DB_MAP = {
 
 def filter_exceptions(ticker, data):
     if ticker == 'AMAT':
-        if ('P_E_RATIO', '432345564227567616') in data.items():
+        if ('QUARTER_END', '2009-07-26') in data.items():
             data['P_E_RATIO'] = None
+    if ticker == 'CSC':
+        if ('QUARTER_END', '2017-03-31') in data.items():
+            data['BOOK_VALUE_OF_EQUITY_PER_SHARE'] = None
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
 
     return data
