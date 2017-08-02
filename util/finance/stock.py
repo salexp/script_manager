@@ -153,5 +153,104 @@ def filter_exceptions(ticker, data):
     elif ticker == 'EMC':
         if ('QUARTER_END', '2003-06-30') in data.items():
             data['P_E_RATIO'] = None
+    elif ticker == 'ESRX':
+        if ('QUARTER_END', '2008-09-30') in data.items():
+            data['CURRENT_RATIO'] = None
+    elif ticker == 'ETN':
+        if ('QUARTER_END', '1995-06-30') in data.items():
+            data['CURRENT_RATIO'] = None
+    elif ticker == 'NTAP':
+        if ('QUARTER_END', '2002-04-26') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'NUE':
+        if ('QUARTER_END', '2000-07-01') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '2000-04-01') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1999-10-02') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1999-07-03') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1998-12-31') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1998-10-03') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1998-07-04') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1998-04-04') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1997-10-04') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1997-07-05') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1997-04-05') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1996-12-31') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1996-09-28') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1996-06-29') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1996-03-30') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1995-12-31') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1995-09-30') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1995-07-01') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1995-04-01') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1994-12-31') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1994-10-01') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1994-07-02') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+        if ('QUARTER_END', '1994-04-02') in data.items():
+            data['FREE_CASH_FLOW_PER_SHARE'] = None
+    elif ticker == 'NWL':
+        if ('QUARTER_END', '2005-09-30') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'RDC':
+        if ('QUARTER_END', '2015-09-30') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'THC':
+        if ('QUARTER_END', '2001-11-30') in data.items():
+            data['CURRENT_RATIO'] = None
+        if ('QUARTER_END', '2000-11-30') in data.items():
+            data['CURRENT_RATIO'] = None
+        if ('QUARTER_END', '2000-08-31') in data.items():
+            data['CURRENT_RATIO'] = None
+    elif ticker == 'TMO':
+        if ('QUARTER_END', '2002-03-30') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'VRSN':
+        if ('QUARTER_END', '2000-03-31') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'WYNN':
+        if ('QUARTER_END', '2013-12-31') in data.items():
+            data['P_B_RATIO'] = None
+    elif ticker == 'ANR':
+        if ('QUARTER_END', '2007-12-31') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'ASH':
+        if ('QUARTER_END', '2013-09-30') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'CIEN':
+        if ('QUARTER_END', '2007-01-31') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'SAPE':
+        if ('QUARTER_END', '2004-06-30') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'UIS':
+        if ('QUARTER_END', '1997-09-30') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'WEN':
+        if ('QUARTER_END', '2013-06-30') in data.items():
+            data['P_E_RATIO'] = None
+    elif ticker == 'GRA':
+        if ('QUARTER_END', '2000-03-31') in data.items():
+            data['CURRENT_RATIO'] = None
 
     return data
