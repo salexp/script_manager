@@ -10,6 +10,8 @@ from util import logger
 
 
 class Stock:
+    SMA_TIMES = [5, 10, 20, 50, 100, 200]
+
     def __init__(self, ticker, database_settings=None, database_connection=None):
         self.ticker = ticker
 
@@ -21,19 +23,26 @@ class Stock:
             raise Exception("Missing database connection")
 
         self._data_def = None
+        self._data_points = None
         self._data_set = None
         self._has_fundamentals = None
+        self._sma_times = None
 
         self.fundamentals_filename = '{}_quarterly_financial_data.csv'.format(self.ticker)
         self.fundamentals_file = os.path.join('resources/fundamentals', self.fundamentals_filename)
 
     @property
     def data_def(self):
+        if self._data_def is None:
+            e = AttributeError("Please use set_data() to define data range.")
+            raise e
         return self._data_def
 
     @property
-    def candlestick(self):
-        return Candlestick(ticker=self.ticker, data=self.data_set, intraday=self.data_def['intraday'])
+    def data_points(self):
+        if self._data_points is None:
+            self._data_points = [s['Datetime'] for s in self.data_set]
+        return self._data_points
 
     @property
     def data_set(self):
@@ -57,6 +66,16 @@ class Stock:
         if self._has_fundamentals is None:
             self._has_fundamentals = os.path.isfile(self.fundamentals_file)
         return self._has_fundamentals
+
+    @property
+    def sma_times(self):
+        if self._sma_times is None:
+            self._sma_times = [t for t in Stock.SMA_TIMES if t <= 0.5*len(self.data_points)][-3:]
+        return self._sma_times
+
+    def candlestick(self, sma=False):
+        return Candlestick(ticker=self.ticker, data=self.data_set,
+                           intraday=self.data_def['intraday'], sma_list=self.sma_times if sma else None)
 
     def download_fundamentals(self):
         url = 'http://www.stockpup.com/data/{}'.format(self.fundamentals_filename)

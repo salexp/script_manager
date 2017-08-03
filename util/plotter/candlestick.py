@@ -8,7 +8,7 @@ from util.utilities import *
 
 
 class Candlestick:
-    def __init__(self, ticker, data, intraday=False):
+    def __init__(self, ticker, data, intraday=False, sma_list=None):
         quotes = [(date2num(d['Datetime']),
                    d['Open'],
                    d['High'],
@@ -37,6 +37,14 @@ class Candlestick:
             ax.set_xticklabels([num2date(quotes[index][0]).strftime('%d-%b-%y') for index in ax.get_xticks()])
 
         ls, rs = candlestick_ohlc(ax=ax, quotes=weekday_quotes, width=bar_width, colorup='#77d879', colordown='#db3f3f')
+
+        if sma_list is not None:
+            for sma in sma_list:
+                x = [_[0] for _ in weekday_quotes]
+                closes = [_[4] for _ in weekday_quotes]
+                y = calc_sma(closes, sma)
+                x = x[-len(y):]
+                ax.plot(x, y)
 
         if not intraday:
             for r in rs:

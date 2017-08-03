@@ -1,6 +1,16 @@
 import datetime
 
 
+def calc_sma(nums, length):
+    averages = []
+    for i, n in enumerate(nums):
+        if i >= length-1:
+            avg = sum(nums[i-length+1:i+1]) / length
+            averages.append(avg)
+
+    return averages
+
+
 def first_per_month(datetimes):
     found_months = []
     output = []
