@@ -22,21 +22,26 @@ def run():
             results = twr.search_all(search['SEARCH_TERM'], max_count=20)
             twts = tweets_from_list(results)
 
-    if args.script_option is not None and args.script_option.lower() == 'intraday':
+    elif args.script_option is not None and args.script_option.lower() == 'intraday':
         av = AlphaVantage(api_key=VAPI_KEY, database_settings=db_settings)
         start_date = datetime.datetime.now().date()
         av.update_database(tickers=qw.stock_ticker_list, start_date=start_date)
 
-    if args.script_option is not None and args.script_option.lower() == 'fundamentals':
+    elif args.script_option is not None and args.script_option.lower() == 'fundamentals':
         db = Database(**db_settings)
         for t in qw.stock_ticker_list:
             stock = Stock(ticker=t, database_connection=db)
             stock.download_fundamentals()
             stock.update_fundamentals_database()
 
-    if args.script_option is not None and '-' in args.script_option:
+    elif args.script_option is not None and '-' in args.script_option:
         start_date = datetime.datetime.strptime(args.script_option, "%Y-%m-%d").date()
         qw.update_database(start_date=start_date)
+
+    elif args.script_option is not None and '!' in args.script_option:
+        ticker = args.script_option.replace('!', '')
+        av = AlphaVantage(api_key=VAPI_KEY, database_settings=db_settings)
+        av.update_database(tickers=[ticker])
 
     if args.script_option is None:
         start_date = datetime.datetime.now().date()-datetime.timedelta(days=2)

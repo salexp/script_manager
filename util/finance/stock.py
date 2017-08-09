@@ -32,6 +32,10 @@ class Stock:
         self.fundamentals_file = os.path.join('resources/fundamentals', self.fundamentals_filename)
 
     @property
+    def close(self):
+        return self.data_set[-1]['Close']
+
+    @property
     def data_def(self):
         if self._data_def is None:
             e = AttributeError("Please use set_data() to define data range.")
@@ -58,7 +62,8 @@ class Stock:
 
             query += ";"
 
-            self._data_set = self.db.query_return_dict(query=query)
+            data_set = self.db.query_return_dict(query=query)
+            self._data_set = sorted(data_set, key=lambda k: k['Datetime'])
         return self._data_set
 
     @property
@@ -68,10 +73,26 @@ class Stock:
         return self._has_fundamentals
 
     @property
+    def high(self):
+        return max(d['High'] for d in self.data_set)
+
+    @property
+    def low(self):
+        return min(d['Low'] for d in self.data_set)
+
+    @property
+    def open(self):
+        return self.data_set[0]['Open']
+
+    @property
     def sma_times(self):
         if self._sma_times is None:
             self._sma_times = [t for t in Stock.SMA_TIMES if t <= 0.5*len(self.data_points)][-3:]
         return self._sma_times
+
+    @property
+    def volume(self):
+        return sum(d['Volume'] for d in self.data_set)
 
     def candlestick(self, sma=False):
         return Candlestick(ticker=self.ticker, data=self.data_set,

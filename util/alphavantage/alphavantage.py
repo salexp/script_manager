@@ -9,10 +9,15 @@ from util import logger
 
 
 class AlphaVantage:
-    def __init__(self, api_key, database_settings):
+    def __init__(self, api_key, database_settings=None, database_connection=None):
         self.api_key = api_key
 
-        self.db = Database(**database_settings)
+        if database_connection:
+            self.db = database_connection
+        elif database_settings:
+            self.db = Database(**database_settings)
+        else:
+            raise Exception("Missing database connection")
 
         self.uri = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=1min&outputsize=full&apikey="
 
