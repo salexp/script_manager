@@ -1,6 +1,8 @@
+import keyring
+import time
 from copy import deepcopy
 from datetime import datetime
-
+from selenium import webdriver
 from fantasy.owner import Owner
 from fantasy.rankings import Rankings
 from fantasy.schedule import Schedule, schedule_from_sheet
@@ -25,6 +27,7 @@ class League:
 
         self._db_games = None
         self._db_entry = None
+        self._driver = None
         self._league_name = None
         self._owners = None
         self._years = None
@@ -75,7 +78,7 @@ class League:
             self._years = {y: Year() for y in years}
         return self._years
 
-    def add_history(self, years, book, push_database=False):
+    def add_history(self, years, book, push_database=None):
         for yi, year in enumerate(years):
             sheet = book.sheet_by_index(yi)
 
@@ -90,18 +93,55 @@ class League:
                 self.current_year = year
                 self.current_week = sch.current_week
 
-        if push_database:
-            for y, year in self.years.items():
+        if push_database is not None:
+            for y in push_database:
+                year = self.years[y]
                 for w, week in year.schedule.weeks.items():
                     for game in week.games:
                         game.add_to_database()
 
             self.db.commit()
 
+    def download_history(self, years, book):
+        for year in years:
+            yi = year % 10
+            sh = book.get_sheet(yi)
+
+            self.get_driver().get("http://games.espn.com/ffl/schedule?leagueId={}&seasonId={}".format(self.espn_id, year))
+            table = self.get_driver().find_element_by_class_name('tableBody')
+            rows = table.find_elements_by_xpath('.//tr')
+            for ri, row in enumerate(rows):
+                cols = row.find_elements_by_xpath('.//td|.//th')
+                for ci, col in enumerate(cols):
+                    sh.write(ri, ci, col.text.rstrip())
+
     def find_owner(self, value, key):
         for o, owner in self.owners.items():
             if value == owner.db_entry[key]:
                 return owner
+
+    def get_driver(self):
+        if self._driver is None:
+            drv = webdriver.Chrome()
+            drv.get("http://www.espn.com/login")
+            frms = drv.find_elements_by_xpath('(//iframe)')
+            drv.switch_to.frame(frms[0])
+            drv.find_element_by_xpath("(//input)[1]").send_keys("legosap")
+            drv.find_element_by_xpath("(//input)[2]").send_keys(keyring.get_password('system', 'espn'))
+            drv.find_element_by_xpath("(//button[2])").click()
+            drv.switch_to.default_content()
+
+            waiting = True
+            while waiting:
+                try:
+                    drv.find_element_by_class_name('user')
+                    waiting = False
+                except:
+                    waiting = True
+
+            drv.get(self.url)
+            self._driver = drv
+        return self._driver
 
     def add_games(self, year, book):
         for w in range(1, len(self.years[year].schedule.weeks) + 1):

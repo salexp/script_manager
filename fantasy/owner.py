@@ -10,6 +10,8 @@ class Owner:
         self.name = name
         self.id = db_entry['USER_ID']
 
+        self.url = self.league.url + "&teamId=" + str(self.id)
+
         self.first_name = self.name.split(" ")[0].capitalize()
         self.last_name = self.name.split(" ")[1].capitalize()
         self.initials = self.first_name[0] + self.last_name[0]
@@ -204,6 +206,9 @@ class Owner:
 
     def last_name(self):
         return self.name.split(" ")[1].capitalize()
+
+    def load_webpage(self):
+        self.league.get_driver().get(self.url)
 
 
 class Matchup:

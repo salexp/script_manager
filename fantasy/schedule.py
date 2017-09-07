@@ -4,6 +4,7 @@ from fantasy.week import Week
 class Schedule:
     def __init__(self, league, year):
         self.complete = False
+        self.current_week = None
         self.league = league
         self.owners = []
         self.year = year

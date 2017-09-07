@@ -16,9 +16,9 @@ class Week:
         self.games = []
 
         idx = 0
-        while sh.cell_value(i, 0) != "" and i <= sh.nrows - 1:
+        while sh.cell_value(i, 0)  not in ("", " ") and i <= sh.nrows - 1:
             # If 'at'
-            if sh.cell_value(i, 2) != "":
+            if sh.cell_value(i, 2) not in ("", " "):
                 idx += 1
                 row = [sh.cell_value(i, c) for c in range(sh.ncols)]
                 game = game_from_sheet(self, row, index=idx, detailed=False)

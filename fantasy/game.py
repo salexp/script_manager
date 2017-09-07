@@ -148,17 +148,17 @@ class ExcelGame:
         return self._id
 
     def add_to_database(self):
-        if not self.db_entry:
-            db = self.league.db
-            query = """
-            INSERT INTO Games (LEAGUE_ESPNID, YEAR, WEEK, AWAY_OWNER_ID, HOME_OWNER_ID, AWAY_SCORE, HOME_SCORE, POSTSEASON,
-            PLAYOFFS, CHAMPIONSHIP) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-            """
-            params = (
-                self.league.espn_id, self.year, self.week.number, self.away_owner.id, self.home_owner.id,
-                self.away_score, self.home_score, self.is_postseason, self.is_playoffs, self.is_championship
-            )
-            db.query_set(query, params)
+        db = self.league.db
+        query = """
+        INSERT INTO Games (LEAGUE_ESPNID, YEAR, WEEK, AWAY_OWNER_ID, HOME_OWNER_ID, AWAY_SCORE, HOME_SCORE, POSTSEASON,
+        PLAYOFFS, CHAMPIONSHIP) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE
+        AWAY_SCORE=COALESCE(VALUES(AWAY_SCORE), AWAY_SCORE), HOME_SCORE=COALESCE(VALUES(HOME_SCORE), HOME_SCORE);
+        """
+        params = (
+            self.league.espn_id, self.year, self.week.number, self.away_owner.id, self.home_owner.id,
+            self.away_score, self.home_score, self.is_postseason, self.is_playoffs, self.is_championship
+        )
+        db.query_set(query, params)
 
     def update_db_score(self):
         if self.db_entry['AWAY_SCORE'] != self.away_score and self.db_entry['HOME_SCORE'] != self.home_score:
