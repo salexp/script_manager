@@ -9,6 +9,7 @@ class Owner:
         self.league = league
         self.name = name
         self.id = db_entry['USER_ID']
+        self.espn_id = db_entry['ESPN_USER_ID']
 
         self.url = self.league.url + "&teamId=" + str(self.id)
 

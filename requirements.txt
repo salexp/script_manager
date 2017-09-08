@@ -2,5 +2,7 @@ lxml
 python-dateutil
 mysql-connector==2.1.4
 mysql-python==1.2.5
+selenium
 tweepy==3.5.0
 xlrd
+xlutils

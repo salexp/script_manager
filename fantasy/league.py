@@ -2,6 +2,7 @@ import keyring
 import time
 from copy import deepcopy
 from datetime import datetime
+from operator import itemgetter
 from selenium import webdriver
 from fantasy.owner import Owner
 from fantasy.rankings import Rankings
@@ -101,6 +102,57 @@ class League:
                         game.add_to_database()
 
             self.db.commit()
+
+    def download_games(self, year, book):
+        schedule = self.years[year].schedule
+        for w, week in sorted(schedule.weeks.items()[0:1], key=itemgetter(1)):
+            print w
+            wi = int(w) - 1
+            sh = book.get_sheet(wi)
+            if week.complete:
+                write_col = -6
+                for game in week.games:
+                    write_row = 0
+                    write_col += 6
+
+                    self.get_driver().get(game.url)
+
+                    try:
+                        has_bench = True
+                        self.get_driver().find_element_by_class_name('playerTableShowHideGroupLink').click()
+                    except:
+                        has_bench = False
+
+                    team_infos = self.get_driver().find_element_by_xpath('//*[@id="teamInfos"]')
+
+                    team_infos_lines = team_infos.text.split('\n')
+                    for line in team_infos_lines:
+                        sh.write(write_row, write_col, line)
+                        write_row += 1
+
+                    write_row += 1
+
+                    if has_bench:
+                        team_l_starters = self.get_driver().find_element_by_xpath('//*[@id="playertable_0"]')
+                        team_l_bench = self.get_driver().find_element_by_xpath('//*[@ id="playertable_1"]')
+                        team_r_starters = self.get_driver().find_element_by_xpath('//*[@ id="playertable_2"]')
+                        team_r_bench = self.get_driver().find_element_by_xpath('//*[@ id="playertable_3"]')
+                        team_l_details = [team_l_starters, team_l_bench]
+                        team_r_details = [team_r_starters, team_r_bench]
+                    else:
+                        team_l_starters = self.get_driver().find_element_by_xpath('//*[@id="playertable_0"]')
+                        team_r_starters = self.get_driver().find_element_by_xpath('//*[@ id="playertable_1"]')
+                        team_l_details = [team_l_starters]
+                        team_r_details = [team_r_starters]
+
+                    for detail in [team_l_details, team_r_details]:
+                        for table in detail:
+                            rows = table.find_elements_by_xpath('.//tr')
+                            for ri, row in enumerate(rows):
+                                cols = row.find_elements_by_xpath('.//td')
+                                write_row += 1
+                                for ci, col in enumerate(cols):
+                                    sh.write(write_row, write_col+ci, col.text)
 
     def download_history(self, years, book):
         for year in years:

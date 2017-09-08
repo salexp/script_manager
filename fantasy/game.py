@@ -80,8 +80,11 @@ class ExcelGame:
         self.week = week
         self.year = week.year
 
+
+
         self._db_entry = None
         self._id = None
+        self._url = None
 
         self.away_matchup = None
         self.away_owner = None
@@ -146,6 +149,13 @@ class ExcelGame:
                 self._db_entry = None
                 self._id = False
         return self._id
+
+    @property
+    def url(self):
+        if self._url is None:
+            self._url = "http://games.espn.com/ffl/boxscorequick?leagueId={}&teamId={}&scoringPeriodId={}&seasonId={}&view=scoringperiod&version=quick".format(
+                self.league.espn_id, self.home_owner.espn_id, self.week.number, self.year)
+        return self._url
 
     def add_to_database(self):
         db = self.league.db

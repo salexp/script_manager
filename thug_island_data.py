@@ -7,7 +7,8 @@ from xlutils.copy import copy
 from fantasy.league import League
 
 
-DOWNLOAD_HISTORY = True
+DOWNLOAD_HISTORY = False
+DOWNLOAD_GAMES = True
 
 
 def main():
@@ -27,6 +28,15 @@ def main():
     thug_island.add_history(years, work_book, push_database=[2017])
 
     del thug_island.owners["Cody Blain"]
+
+    year_file = 'fantasy/resources/thug_island_2017.xls'
+
+    if DOWNLOAD_GAMES:
+        rb = xlrd.open_workbook(year_file)
+        work_book = copy(rb)
+        year = 2016
+        thug_island.download_games(year=year, book=work_book)
+        work_book.save(year_file)
 
     work_book = xlrd.open_workbook('fantasy/resources/thug_island_2015.xls')
     thug_island.add_games(2015, work_book)
