@@ -105,8 +105,7 @@ class League:
 
     def download_games(self, year, book):
         schedule = self.years[year].schedule
-        for w, week in sorted(schedule.weeks.items()[0:1], key=itemgetter(1)):
-            print w
+        for w, week in sorted(schedule.weeks.items(), key=itemgetter(1)):
             wi = int(w) - 1
             sh = book.get_sheet(wi)
             if week.complete:

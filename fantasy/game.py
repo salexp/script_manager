@@ -80,8 +80,6 @@ class ExcelGame:
         self.week = week
         self.year = week.year
 
-
-
         self._db_entry = None
         self._id = None
         self._url = None

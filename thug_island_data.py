@@ -25,7 +25,7 @@ def main():
 
     work_book = xlrd.open_workbook(history_file)
     years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
-    thug_island.add_history(years, work_book, push_database=[2017])
+    thug_island.add_history(years, work_book, push_database=None)
 
     del thug_island.owners["Cody Blain"]
 
@@ -34,7 +34,7 @@ def main():
     if DOWNLOAD_GAMES:
         rb = xlrd.open_workbook(year_file)
         work_book = copy(rb)
-        year = 2016
+        year = 2017
         thug_island.download_games(year=year, book=work_book)
         work_book.save(year_file)
 
@@ -42,6 +42,8 @@ def main():
     thug_island.add_games(2015, work_book)
     work_book = xlrd.open_workbook('fantasy/resources/thug_island_2016.xls')
     thug_island.add_games(2016, work_book)
+    work_book = xlrd.open_workbook('fantasy/resources/thug_island_2017.xls')
+    thug_island.add_games(2017, work_book)
 
     thug_island.recursive_rankings()
 
