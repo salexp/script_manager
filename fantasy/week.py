@@ -68,7 +68,7 @@ class WeekRecords:
         rstr = roster.GameRoster()
         for game in self.week.games:
             for mtch in [game.away_matchup, game.home_matchup]:
-                for plyr in mtch.roster.starters + mtch.roster.bench:
+                for plyr in mtch.roster.starters:
                     rstr.add_player(plyr, force="Bench")
 
         rstr.make_optimal()

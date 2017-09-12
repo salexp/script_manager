@@ -7,12 +7,18 @@ from xlutils.copy import copy
 from fantasy.league import League
 
 
-DOWNLOAD_HISTORY = False
+CURRENT_YEAR = 2017
+CURRENT_WEEK = 1
+
+DOWNLOAD_HISTORY = True
+FULL_HISTORY = False
 DOWNLOAD_GAMES = True
 
 
 def main():
     thug_island = League(espn_id=190153, database_settings={'name': 'Fantasy', 'user': 'local'})
+    thug_island.current_year = CURRENT_YEAR
+    thug_island.current_week = CURRENT_WEEK
 
     history_file = 'fantasy/resources/thug_island_history.xls'
 
@@ -20,7 +26,7 @@ def main():
         rb = xlrd.open_workbook(history_file)
         work_book = copy(rb)
         years = [2017]
-        thug_island.download_history(years=years, book=work_book)
+        thug_island.download_history(years=years, book=work_book, full_history=FULL_HISTORY)
         work_book.save(history_file)
 
     work_book = xlrd.open_workbook(history_file)
@@ -49,18 +55,18 @@ def main():
 
     output = thug_island.to_string(games=True,
                                    mtchups=True,
-                                   owners=True,
+                                   owners=False,
                                    plyffs=False,
                                    power=True,
-                                   seasons=True,
-                                   rcds=20)
+                                   seasons=False,
+                                   rcds=False)
 
     with open("ff_data.txt", "w") as f:
         print >> f, output
 
-    with open("ff_data.txt", "rb") as f1:
-        with open("fantasy/resources/ff_data_base.txt", "rb") as f2:
-            assert f1.read() == f2.read()
+    # with open("ff_data.txt", "rb") as f1:
+    #     with open("fantasy/resources/ff_data_base.txt", "rb") as f2:
+    #         assert f1.read() == f2.read()
 
     True
 

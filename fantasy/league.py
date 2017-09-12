@@ -153,7 +153,8 @@ class League:
                                 for ci, col in enumerate(cols):
                                     sh.write(write_row, write_col+ci, col.text)
 
-    def download_history(self, years, book):
+    def download_history(self, years, book, full_history=True):
+        week_str = "week {}".format(self.current_week)
         for year in years:
             yi = year % 10
             sh = book.get_sheet(yi)
@@ -161,10 +162,16 @@ class League:
             self.get_driver().get("http://games.espn.com/ffl/schedule?leagueId={}&seasonId={}".format(self.espn_id, year))
             table = self.get_driver().find_element_by_class_name('tableBody')
             rows = table.find_elements_by_xpath('.//tr')
+
+            start_write = False
             for ri, row in enumerate(rows):
                 cols = row.find_elements_by_xpath('.//td|.//th')
                 for ci, col in enumerate(cols):
-                    sh.write(ri, ci, col.text.rstrip())
+                    if full_history or start_write:
+                        sh.write(ri, ci, col.text.rstrip())
+                    elif week_str in col.text.lower() and year == self.current_year:
+                        sh.write(ri, ci, col.text.rstrip())
+                        start_write = True
 
     def find_owner(self, value, key):
         for o, owner in self.owners.items():
