@@ -36,6 +36,9 @@ def computer_rankings(league):
         x = [i+2 for i in range(2, int(week))]
         y = [10-r for r in owner_ranks[owner]]
 
+        if not x and not y:
+            return
+
         # Plot line
         ax.plot(x, y, '.-', lw=1.3, color=owner_color(lo))
         plt.text(x[-1] + 0.175, y[-1], lo.team_names[-1], color=owner_color(lo), fontsize=9)

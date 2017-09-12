@@ -10,9 +10,11 @@ from fantasy.league import League
 CURRENT_YEAR = 2017
 CURRENT_WEEK = 1
 
-DOWNLOAD_HISTORY = True
+DOWNLOAD_HISTORY = False
 FULL_HISTORY = False
-DOWNLOAD_GAMES = True
+DOWNLOAD_GAMES = False
+
+FUTURE_PLAYOFFS = False
 
 
 def main():
@@ -51,7 +53,7 @@ def main():
     work_book = xlrd.open_workbook('fantasy/resources/thug_island_2017.xls')
     thug_island.add_games(2017, work_book)
 
-    thug_island.recursive_rankings()
+    thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS)
 
     output = thug_island.to_string(games=True,
                                    mtchups=True,

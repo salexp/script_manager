@@ -413,7 +413,7 @@ class League:
             if chc[0] == chc[2]:
                 owner.add_division_championship(self.current_year)
 
-    def recursive_rankings(self, year=None):
+    def recursive_rankings(self, year=None, playoffs=True):
         if year is None:
             year = max(self.years.keys())
 
@@ -424,8 +424,9 @@ class League:
         for week in weeks:
             self.generate_rankings(week=week, plot=week is weeks[-1])
 
-        self.make_historic_playoffs()
-        self.make_future_playoffs()
+        if playoffs:
+            self.make_historic_playoffs()
+            self.make_future_playoffs()
 
     def search_players(self, name="   ", position="   "):
         found = []
@@ -503,7 +504,10 @@ class League:
             body += "[b]Week {} Computer Rankings[/b]\n".format(int(week)+1)
             for rnk in rnks:
                 owner = self.owners[rnk[0]]
-                diff = self.rankings[i_last_week].ranks[owner.name] - self.rankings[i_week].ranks[owner.name]
+                if i_last_week is not None:
+                    diff = self.rankings[i_last_week].ranks[owner.name] - self.rankings[i_week].ranks[owner.name]
+                else:
+                    diff = False
                 diff = " -- " if not diff else "+{}".format(diff) if diff > 0 else " {}".format(diff)
                 body += "{0} ({1}) [{2:.4f}] {3}{4}{5} ({6})\n".format(rnk[2],
                                                                        diff,
@@ -521,14 +525,24 @@ class League:
 
             body += "\n"
             rstr = self.years[year].schedule.weeks[week].records.alltime_roster
-            body += "[b]Team of the Week (Week {})[/b]\n".format(week)
-            pos = ["QB", "RB1", "RB2", "WR1", "WR2", "FLX", "TE", "DST", "K"]
-            for p, plyr in enumerate([rstr.qb, rstr.rb1, rstr.rb2, rstr.wr1, rstr.wr2, rstr.flx, rstr.te, rstr.dst, rstr.k]):
-                body += "{0}. {1} ({2}, {3}) - {4}\n".format(pos[p],
-                                                             plyr.name,
-                                                             plyr.owner.name,
-                                                             "benched" if plyr.slot == "Bench" else "started",
-                                                             plyr.points)
+            body += "[b]Team Bonuses (Week {})[/b]\n".format(week)
+            winner_names = sorted([o.first_name for o in self.years[year].schedule.weeks[week].winning_owners])
+            body += "W: {}\n".format(', '.join(winner_names))
+            body += "PF: {} ({})\n".format(self.years[year].schedule.weeks[week].highest_score.pf,
+                                                 self.years[year].schedule.weeks[week].highest_score.owner.first_name)
+            pos = ["QB1", "RB1", "WR1"]
+            for p, plyr in enumerate([rstr.qb, rstr.rb1, rstr.wr1]):
+                body += "{0}. {1} ({2}) - {3}\n".format(pos[p],
+                                                        plyr.name,
+                                                        plyr.owner.name,
+                                                        plyr.points)
+            other_players = sorted([rstr.te, rstr.dst, rstr.k], key=lambda p: p.points, reverse=True)
+            top_other = other_players[0]
+            body += "{0}. {1} ({2}) - {3}\n".format(top_other.slot,
+                                                    top_other.name,
+                                                    top_other.owner.name,
+                                                    top_other.points)
+
             body += "Total Score: {}\n".format(rstr.starter_points)
 
         if owners:
@@ -585,7 +599,7 @@ class League:
                     body += "[{0}] [u]{1}[/u] at\n".format(owner_ranks[gm.away_owner.name]+1, gm.away_team.rstrip().encode("utf-8"))
                     body += "[{0}] [u]{1}[/u]\n".format(owner_ranks[gm.home_owner.name]+1, gm.home_team.rstrip().encode("utf-8"))
                     body += "{0}| S:{1}{2:.1f}{1}{3:.0f} ML:{1}{4} O:{5}{6} O/U:{7:.1f}\n".format(
-                        gm.away_owner.initials(),
+                        gm.away_owner.initials,
                         "+" if p.home_favorite else " ",
                         p.away_spread,
                         p.away_payout,
@@ -594,7 +608,7 @@ class League:
                         "{:.0f}".format(p.over_payout) if p.over_payout != 100 else "PUSH",
                         p.ou,)
                     body += "{0}| S:{1}{2:.1f}{1}{3:.0f} ML:{1}{4} U:{5}{6}\n".format(
-                        gm.home_owner.initials(),
+                        gm.home_owner.initials,
                         "+" if p.away_favorite else " ",
                         p.home_spread,
                         p.home_payout,
@@ -608,7 +622,7 @@ class League:
                     home_all = away_opp_rcd.percent() < home_opp_rcd.percent()
                     tied_all = away_opp_rcd.percent() == home_opp_rcd.percent()
                     body += "{0} {1} all-time {2}\n".format(
-                        gm.away_owner.first_name() if away_all else gm.home_owner.first_name() if home_all else "Series",
+                        gm.away_owner.first_name if away_all else gm.home_owner.first_name if home_all else "Series",
                         "leads" if not tied_all else "tied",
                         away_opp_rcd.to_string(pfpa=False) if away_all else home_opp_rcd.to_string(pfpa=False))
 
@@ -752,7 +766,7 @@ class League:
                                                                   "*" if ows.championship else "",
                                                                   ows.year)
 
-        return body
+        return body.rstrip('\n')
 
 
 class LeagueRecords:

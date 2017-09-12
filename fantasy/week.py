@@ -15,6 +15,10 @@ class Week:
         self.records = WeekRecords(self)
         self.games = []
 
+        self._highest_score = None
+        self._losing_owners = None
+        self._winning_owners = None
+
         idx = 0
         while sh.cell_value(i, 0)  not in ("", " ") and i <= sh.nrows - 1:
             # If 'at'
@@ -32,6 +36,28 @@ class Week:
                 break
 
         self.records.update()
+
+    @property
+    def highest_score(self):
+        if self._highest_score is None:
+            if self.complete and self.winning_owners:
+                winning_matchups = [o.games[self.year][self.number] for o in self.winning_owners]
+                sorted_matchups = sorted(winning_matchups, key=lambda m: m.pf, reverse=True)
+                self._highest_score = sorted_matchups[0]
+        return self._highest_score
+
+    @property
+    def losing_owners(self):
+        if self._losing_owners is None:
+            if self.complete:
+                self._losing_owners = [o for o in self.owners if o.games[self.year][self.number].lost]
+        return self._losing_owners
+
+    @property
+    def winning_owners(self):
+        if self._winning_owners is None:
+            self._winning_owners = [o for o in self.owners if o.games[self.year][self.number].won]
+        return self._winning_owners
 
     def add_details(self, sh):
         for c in range(sh.ncols):
