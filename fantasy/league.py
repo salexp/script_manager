@@ -15,12 +15,8 @@ from util.sql.database import Database
 
 class League:
     def __init__(self, espn_id, database_settings=None, database_connection=None):
-        if database_connection:
-            self.db = database_connection
-        elif database_settings:
-            self.db = Database(**database_settings)
-        else:
-            raise Exception("Missing database connection")
+        self.database_settings = database_settings
+        self._db = database_connection
 
         self.espn_id = espn_id
         self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % espn_id
@@ -42,6 +38,12 @@ class League:
         self.power_rankings = {}
         self.rankings = []
         self.records = LeagueRecords(self)
+
+    @property
+    def db(self):
+        if self._db is None:
+            self._db = Database(**self.database_settings)
+        return self._db
 
     @property
     def db_games(self):
@@ -71,6 +73,16 @@ class League:
             owners = self.db.query_return_dict_lookup(query, 'USER_ESPNNAME')
             self._owners = {k: Owner(k, self, v) for k, v in owners.items()}
         return self._owners
+
+    @property
+    def power_rankings_simple(self):
+        if self.power_rankings.get(self.current_week):
+            pwr_ranks = self.power_rankings.get(self.current_week)
+            owner_names = [r[0].split()[0] for r in pwr_ranks]
+            out_str = '\n'.join(["{}. {}".format(i+1, o) for i, o in enumerate(owner_names)])
+            return out_str.rstrip('\n')
+        else:
+            return
 
     @property
     def years(self):
@@ -542,8 +554,6 @@ class League:
                                                     top_other.name,
                                                     top_other.owner.name,
                                                     top_other.points)
-
-            body += "Total Score: {}\n".format(rstr.starter_points)
 
         if owners:
             body += "\n"

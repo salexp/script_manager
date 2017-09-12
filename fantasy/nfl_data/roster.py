@@ -103,19 +103,19 @@ class GameRoster:
         rbs = []
         if self.rb1 is not None: rbs += [self.rb1]
         if self.rb2 is not None: rbs += [self.rb2]
+        if self.rb3 is not None: rbs += [self.rb3]
         wrs = []
         if self.wr1 is not None: wrs += [self.wr1]
         if self.wr2 is not None: wrs += [self.wr2]
+        if self.wr3 is not None: wrs += [self.wr3]
         tes = []
         if self.te is not None: tes += [self.te]
         dsts = []
         if self.dst is not None: dsts += [self.dst]
         ks = []
         if self.k is not None: ks += [self.k]
-        lst = self.bench
-        if self.flx is not None:
-            lst.append(self.flx)
-        for plyr in lst:
+
+        for plyr in self.bench:
             if plyr.player.position == "QB":
                 qbs.append(plyr)
             elif plyr.player.position == "RB":

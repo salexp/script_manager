@@ -5,6 +5,8 @@ Created for 2016 season
 import xlrd
 from xlutils.copy import copy
 from fantasy.league import League
+from util.groupme.bot.thugbot import ThugBot
+from util.groupme.do_not_upload import *
 
 
 CURRENT_YEAR = 2017
@@ -13,6 +15,7 @@ CURRENT_WEEK = 1
 DOWNLOAD_HISTORY = False
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
+GROUP_ME = False
 
 FUTURE_PLAYOFFS = False
 
@@ -66,9 +69,11 @@ def main():
     with open("ff_data.txt", "w") as f:
         print >> f, output
 
-    # with open("ff_data.txt", "rb") as f1:
-    #     with open("fantasy/resources/ff_data_base.txt", "rb") as f2:
-    #         assert f1.read() == f2.read()
+    if GROUP_ME:
+        thug_bot = ThugBot(bot_id=BOT_ID_THUG, group_id=GROUP_ID_THUG, fantasy=thug_island)
+        bot_says = "COMPUTER RANKINGS:\n" + thug_island.power_rankings_simple
+        raw_input("Confirm posting to GroupMe? ")
+        thug_bot.say(bot_says)
 
     True
 
