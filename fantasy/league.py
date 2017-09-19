@@ -1,9 +1,11 @@
 import keyring
-import time
+import os
+import xlrd
 from copy import deepcopy
 from datetime import datetime
 from operator import itemgetter
 from selenium import webdriver
+from xlutils.copy import copy
 from fantasy.owner import Owner
 from fantasy.rankings import Rankings
 from fantasy.schedule import Schedule, schedule_from_sheet
@@ -14,14 +16,16 @@ from util.sql.database import Database
 
 
 class League:
-    def __init__(self, espn_id, database_settings=None, database_connection=None):
+    def __init__(self, espn_id, database_settings=None, database_connection=None, resources_folder=None, update_resources=False, full_update=False):
         self.database_settings = database_settings
         self._db = database_connection
 
         self.espn_id = espn_id
+        self.resources_folder = resources_folder
         self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % espn_id
         # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
 
+        self._current_year = None
         self._db_games = None
         self._db_entry = None
         self._driver = None
@@ -30,7 +34,6 @@ class League:
         self._years = None
 
         self.current_week = None
-        self.current_year = None
         self.historic_playoffs = None
         self.future_playoffs = None
         self.lineup_positions = []
@@ -38,6 +41,39 @@ class League:
         self.power_rankings = {}
         self.rankings = []
         self.records = LeagueRecords(self)
+
+        if resources_folder is not None:
+            history_file = self.file_string.format('history')
+            year_files = {}
+            for year in self.years_list:
+                year_file = self.file_string.format(year)
+                if os.path.isfile(year_file):
+                    year_files[year] = year_file
+
+            if update_resources:
+                rb = xlrd.open_workbook(history_file)
+                work_book = copy(rb)
+                years = self.years_list if full_update else [self.current_year]
+                self.download_history(years=years, book=work_book, full_history=full_update)
+                work_book.save(history_file)
+
+                rb = xlrd.open_workbook(year_files[self.current_year])
+                work_book = copy(rb)
+                self.download_games(self.current_year, book=work_book)
+                work_book.save(year_files[self.current_year])
+
+            work_book = xlrd.open_workbook(history_file)
+            self.add_history(self.years_list, work_book, push_database=None)
+
+            for y, year_file in year_files.items():
+                work_book = xlrd.open_workbook(year_file)
+                self.add_games(y, work_book)
+
+    @property
+    def current_year(self):
+        if self._current_year is None:
+            self._current_year = max(self.years_list)
+        return self._current_year
 
     @property
     def db(self):
@@ -59,6 +95,10 @@ class League:
             query = """SELECT * FROM Leagues WHERE LEAGUE_ESPNID={}""".format(self.espn_id)
             self._db_entry = self.db.query_return_dict_single(query)
         return self._db_entry
+
+    @property
+    def file_string(self):
+        return os.path.join(os.getcwd(), self.resources_folder, self.league_name.lower().replace(' ', '_') + '_{}.xls')
 
     @property
     def league_name(self):
@@ -90,6 +130,10 @@ class League:
             years = sorted(list(set([_['YEAR'] for k, _ in self.db_games.items()])))
             self._years = {y: Year() for y in years}
         return self._years
+
+    @property
+    def years_list(self):
+        return sorted(self.years.keys())
 
     def add_history(self, years, book, push_database=None):
         for yi, year in enumerate(years):

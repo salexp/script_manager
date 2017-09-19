@@ -17,6 +17,10 @@ class Schedule:
         self.weeks[w.number] = w
 
 
+def schedule_from_db(league, year):
+    schedule = Schedule(league, year)
+
+
 def schedule_from_sheet(league, sheet, year):
     schedule = Schedule(league, year)
 

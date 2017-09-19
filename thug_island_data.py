@@ -9,52 +9,28 @@ from util.groupme.bot.thugbot import ThugBot
 from util.groupme.do_not_upload import *
 
 
-CURRENT_YEAR = 2017
-CURRENT_WEEK = 1
+DEBUG = False
 
-DOWNLOAD_HISTORY = False
+CURRENT_WEEK = 2
+
 FULL_HISTORY = False
-DOWNLOAD_GAMES = False
+DOWNLOAD_GAMES = True
 GROUP_ME = False
 
 FUTURE_PLAYOFFS = False
 
 
 def main():
-    thug_island = League(espn_id=190153, database_settings={'name': 'Fantasy', 'user': 'local'})
-    thug_island.current_year = CURRENT_YEAR
+    thug_island = League(
+        espn_id=190153,
+        database_settings={'name': 'Fantasy', 'user': 'local'},
+        resources_folder='fantasy/resources',
+        update_resources=DOWNLOAD_GAMES,
+        full_update=FULL_HISTORY
+    )
     thug_island.current_week = CURRENT_WEEK
 
-    history_file = 'fantasy/resources/thug_island_history.xls'
-
-    if DOWNLOAD_HISTORY:
-        rb = xlrd.open_workbook(history_file)
-        work_book = copy(rb)
-        years = [2017]
-        thug_island.download_history(years=years, book=work_book, full_history=FULL_HISTORY)
-        work_book.save(history_file)
-
-    work_book = xlrd.open_workbook(history_file)
-    years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
-    thug_island.add_history(years, work_book, push_database=None)
-
     del thug_island.owners["Cody Blain"]
-
-    year_file = 'fantasy/resources/thug_island_2017.xls'
-
-    if DOWNLOAD_GAMES:
-        rb = xlrd.open_workbook(year_file)
-        work_book = copy(rb)
-        year = 2017
-        thug_island.download_games(year=year, book=work_book)
-        work_book.save(year_file)
-
-    work_book = xlrd.open_workbook('fantasy/resources/thug_island_2015.xls')
-    thug_island.add_games(2015, work_book)
-    work_book = xlrd.open_workbook('fantasy/resources/thug_island_2016.xls')
-    thug_island.add_games(2016, work_book)
-    work_book = xlrd.open_workbook('fantasy/resources/thug_island_2017.xls')
-    thug_island.add_games(2017, work_book)
 
     thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS)
 
@@ -68,6 +44,12 @@ def main():
 
     with open("ff_data.txt", "w") as f:
         print >> f, output
+
+    if DEBUG:
+        with open("ff_data.txt", "r") as f:
+            with open("fantasy/resources/ff_data_base.txt", "r") as fb:
+                broken = f.read() == fb.read()
+                assert not broken
 
     if GROUP_ME:
         thug_bot = ThugBot(bot_id=BOT_ID_THUG, group_id=GROUP_ID_THUG, fantasy=thug_island)

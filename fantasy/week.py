@@ -20,7 +20,7 @@ class Week:
         self._winning_owners = None
 
         idx = 0
-        while sh.cell_value(i, 0)  not in ("", " ") and i <= sh.nrows - 1:
+        while sh.cell_value(i, 0) not in ("", " ") and i <= sh.nrows - 1:
             # If 'at'
             if sh.cell_value(i, 2) not in ("", " "):
                 idx += 1
