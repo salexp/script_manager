@@ -16,7 +16,8 @@ from util.sql.database import Database
 
 
 class League:
-    def __init__(self, espn_id, database_settings=None, database_connection=None, resources_folder=None, update_resources=False, full_update=False):
+    def __init__(self, espn_id, database_settings=None, database_connection=None, resources_folder=None, update_resources=False,
+                 full_update=False, current_week=None):
         self.database_settings = database_settings
         self._db = database_connection
 
@@ -33,7 +34,7 @@ class League:
         self._owners = None
         self._years = None
 
-        self.current_week = None
+        self.current_week = current_week
         self.historic_playoffs = None
         self.future_playoffs = None
         self.lineup_positions = []
@@ -57,13 +58,14 @@ class League:
                 self.download_history(years=years, book=work_book, full_history=full_update)
                 work_book.save(history_file)
 
+            work_book = xlrd.open_workbook(history_file)
+            self.add_history(self.years_list, work_book, push_database=None)
+
+            if update_resources:
                 rb = xlrd.open_workbook(year_files[self.current_year])
                 work_book = copy(rb)
                 self.download_games(self.current_year, book=work_book)
                 work_book.save(year_files[self.current_year])
-
-            work_book = xlrd.open_workbook(history_file)
-            self.add_history(self.years_list, work_book, push_database=None)
 
             for y, year_file in year_files.items():
                 work_book = xlrd.open_workbook(year_file)
@@ -147,7 +149,7 @@ class League:
             if sch.complete:
                 pass
             else:
-                self.current_year = year
+                # self.current_year = year
                 self.current_week = sch.current_week
 
         if push_database is not None:

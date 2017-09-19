@@ -14,8 +14,8 @@ DEBUG = False
 CURRENT_WEEK = 2
 
 FULL_HISTORY = False
-DOWNLOAD_GAMES = True
-GROUP_ME = False
+DOWNLOAD_GAMES = False
+GROUP_ME = True
 
 FUTURE_PLAYOFFS = False
 
@@ -26,9 +26,9 @@ def main():
         database_settings={'name': 'Fantasy', 'user': 'local'},
         resources_folder='fantasy/resources',
         update_resources=DOWNLOAD_GAMES,
-        full_update=FULL_HISTORY
+        full_update=FULL_HISTORY,
+        current_week=CURRENT_WEEK
     )
-    thug_island.current_week = CURRENT_WEEK
 
     del thug_island.owners["Cody Blain"]
 
@@ -54,8 +54,9 @@ def main():
     if GROUP_ME:
         thug_bot = ThugBot(bot_id=BOT_ID_THUG, group_id=GROUP_ID_THUG, fantasy=thug_island)
         bot_says = "COMPUTER RANKINGS:\n" + thug_island.power_rankings_simple
-        raw_input("Confirm posting to GroupMe? ")
-        thug_bot.say(bot_says)
+        yes = raw_input("Confirm posting to GroupMe (Y): ")
+        if yes.lower() in ('y', 'yes'):
+            thug_bot.say(bot_says)
 
     True
 
