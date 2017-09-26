@@ -2,8 +2,6 @@
 Thug Island Fantasy League Stats and Computer Rankings - Stuart Petty (stu.petty92@gmail.com)
 Created for 2016 season
 """
-import xlrd
-from xlutils.copy import copy
 from fantasy.league import League
 from util.groupme.bot.thugbot import ThugBot
 from util.groupme.do_not_upload import *
@@ -11,11 +9,11 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 2
+CURRENT_WEEK = 3
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
-GROUP_ME = True
+GROUP_ME = False
 
 FUTURE_PLAYOFFS = False
 
@@ -34,16 +32,29 @@ def main():
 
     thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS)
 
-    output = thug_island.to_string(games=True,
-                                   mtchups=True,
-                                   owners=False,
-                                   plyffs=False,
-                                   power=True,
-                                   seasons=False,
-                                   rcds=False)
+    thug_island.to_string(
+        outfile="ff_data.txt",
+        title=True,
+        games=True,
+        mtchups=True,
+        owners=False,
+        plyffs=False,
+        power=True,
+        seasons=False,
+        rcds=False
+    )
 
-    with open("ff_data.txt", "w") as f:
-        print >> f, output
+    thug_island.to_string(
+        outfile="ff_data_records.txt",
+        title=False,
+        games=True,
+        mtchups=False,
+        owners=True,
+        plyffs=False,
+        power=False,
+        seasons=True,
+        rcds=50
+    )
 
     if DEBUG:
         with open("ff_data.txt", "r") as f:

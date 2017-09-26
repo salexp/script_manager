@@ -65,11 +65,12 @@ class League:
                 rb = xlrd.open_workbook(year_files[self.current_year])
                 work_book = copy(rb)
                 self.download_games(self.current_year, book=work_book)
-                work_book.save(year_files[self.current_year])
 
             for y, year_file in year_files.items():
                 work_book = xlrd.open_workbook(year_file)
                 self.add_games(y, work_book)
+
+            self.make_historic_playoffs()
 
     @property
     def current_year(self):
@@ -211,6 +212,8 @@ class League:
                                 for ci, col in enumerate(cols):
                                     sh.write(write_row, write_col+ci, col.text)
 
+        book.save(self.file_string.format(year))
+
     def download_history(self, years, book, full_history=True):
         week_str = "week {}".format(self.current_week)
         for year in years:
@@ -339,6 +342,11 @@ class League:
             rkngs.ranks["PR"][owner] = trnk
             power_rankings.append([owner, trnk])
 
+        for key in rkngs.keys.keys():
+            ownr_list = rkngs.ranks[key]['List']
+            for key_owner, _, key_rank in ownr_list:
+                rkngs.owners[key_owner].ranks[key] = key_rank
+
         self.rankings.append(rkngs)
         power_rankings = sorted(power_rankings, key=lambda p: p[1], reverse=True)
         self.power_rankings[week] = add_ranks(power_rankings, 1)
@@ -355,9 +363,13 @@ class League:
         playoffs = {}
         records = ["{}-{}".format(most_wins-i, i) for i in range(most_wins+1)]
         for r in records:
-            playoffs[r] = [0, 0.0]
+            playoffs[r] = {
+                'Championships': 0, 'Championships Pct': 0.0, 'Playoffs': 0, 'Playoffs Pct': 0, 'All': 0.0,
+                'Seasons':
+                    {'Championships': [], 'Playoffs': [], 'All': []}
+            }
 
-        seasons = [y for y in self.years]
+        seasons = [y for y in self.years_list]
         seasons.remove(self.current_year)
         for y in seasons:
             owner_seasons = self.years[y].owner_seasons
@@ -365,8 +377,20 @@ class League:
                 ows = owner_seasons[s]
                 for rcd in records:
                     if rcd in ows.wl_records:
-                        playoffs[rcd][0] += ows.playoffs
-                        playoffs[rcd][1] += 1
+                        playoffs[rcd]['Championships'] += ows.championship
+                        if ows.championship:
+                            playoffs[rcd]['Seasons']['Championships'].append(ows)
+
+                        playoffs[rcd]['Playoffs'] += ows.playoffs
+                        if ows.playoffs:
+                            playoffs[rcd]['Seasons']['Playoffs'].append(ows)
+
+                        playoffs[rcd]['All'] += 1
+                        playoffs[rcd]['Seasons']['All'].append(ows)
+
+        for rcd, ows_results in playoffs.items():
+            playoffs[rcd]['Championships Pct'] = playoffs[rcd]['Championships'] / playoffs[rcd]['All']
+            playoffs[rcd]['Playoffs Pct'] = playoffs[rcd]['Playoffs'] / playoffs[rcd]['All']
 
         self.historic_playoffs = playoffs
 
@@ -549,9 +573,12 @@ class League:
                     records[key] = \
                         sorted(rcd, key=lambda param: param.pag, reverse=False)
 
-    def to_string(self, games=True, mtchups=False, owners=True, plyffs=True, power=True, seasons=True, rcds=10):
+    def to_string(self, outfile, title=True, games=True, mtchups=False, owners=True, plyffs=True, power=True, seasons=True, rcds=10):
         week = self.current_week
-        body = "Week {} Computer Rankings and Matchup Previews\n\n".format(int(week)+1)
+        if title:
+            body = "Week {} Computer Rankings and Matchup Previews\n\n".format(int(week)+1)
+        else:
+            body = ""
 
         if power:
             i_week = int(self.current_week) - 1
@@ -574,8 +601,10 @@ class League:
                                                                        "*" if year in owner.playoffs else "",
                                                                        "*" if year in owner.division_championships else "",
                                                                        owner.seasons[self.current_year].record())
-            body += "** - Clinched division\n"
-            body += "* - Clinched playoffs\n"
+
+            if year in squash_list([o.playoffs for _, o in self.owners.items()]):
+                body += "** - Clinched division\n"
+                body += "* - Clinched playoffs\n"
 
             body += "\n"
             body += "[b]Rankings Graph[/b]\n"
@@ -650,7 +679,6 @@ class League:
                 body += "[b]Matchup Previews[/b]\n"
                 gms = self.years[year].schedule.weeks[next_week].games
                 for gm in gms:
-                    gm.create_preview()
                     p = gm.preview
                     body += "[{0}] [u]{1}[/u] at\n".format(owner_ranks[gm.away_owner.name]+1, gm.away_team.rstrip().encode("utf-8"))
                     body += "[{0}] [u]{1}[/u]\n".format(owner_ranks[gm.home_owner.name]+1, gm.home_team.rstrip().encode("utf-8"))
@@ -677,9 +705,9 @@ class League:
                     away_all = away_opp_rcd.percent() > home_opp_rcd.percent()
                     home_all = away_opp_rcd.percent() < home_opp_rcd.percent()
                     tied_all = away_opp_rcd.percent() == home_opp_rcd.percent()
-                    body += "{0} {1} all-time {2}\n".format(
+                    body += "{0} {1} {2}\n".format(
                         gm.away_owner.first_name if away_all else gm.home_owner.first_name if home_all else "Series",
-                        "leads" if not tied_all else "tied",
+                        "leads series" if not tied_all else "tied",
                         away_opp_rcd.to_string(pfpa=False) if away_all else home_opp_rcd.to_string(pfpa=False))
 
                     body += "\n"
@@ -822,6 +850,9 @@ class League:
                                                                   "*" if ows.championship else "",
                                                                   ows.year)
 
+        with open(outfile, 'w') as f:
+            print >> f, body.rstrip('\n')
+
         return body.rstrip('\n')
 
 
@@ -921,4 +952,3 @@ class LeagueRecords:
                             rcd[-1] = matchup
                     self.league.records.games[key] = \
                         sorted(rcd, key=lambda param: param.win_diff, reverse=False)
-

@@ -82,6 +82,7 @@ class ExcelGame:
 
         self._db_entry = None
         self._id = None
+        self._preview = None
         self._url = None
 
         self.away_matchup = None
@@ -102,7 +103,6 @@ class ExcelGame:
         self.home_team = None
         self.home_win = None
         self.played = False
-        self.preview = None
         self.raw_details = None
         self.raw_summary = None
         self.score = None
@@ -147,6 +147,12 @@ class ExcelGame:
                 self._db_entry = None
                 self._id = False
         return self._id
+
+    @property
+    def preview(self):
+        if self._preview is None:
+            self._preview = GamePreview(self)
+        return self._preview
 
     @property
     def url(self):
@@ -250,16 +256,13 @@ class ExcelGame:
 
             owner.check_roster(mtup)
 
-    def create_preview(self):
-        self.preview = GamePreview(self)
-
 
 class GamePreview:
     def __init__(self, game):
         away_owner = game.away_owner
-        away_owner.attrib.update()
+        away_owner.attrib.update(start_game=game)
         home_owner = game.home_owner
-        home_owner.attrib.update()
+        home_owner.attrib.update(start_game=game)
 
         mu_a = away_owner.attrib.mu
         sigma_a = away_owner.attrib.sigma

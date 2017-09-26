@@ -157,7 +157,7 @@ def make_score(pa, pb):
     return "{}-{}".format(pa if pa > pb else pb, pa if pa < pb else pb)
 
 
-def make_list_games(dict, consolation=False):
+def make_list_games(dict, consolation=False, start_game=None):
     lst = []
     for year in sorted(dict.keys()):
         weeks = dict[year].keys()
@@ -169,7 +169,13 @@ def make_list_games(dict, consolation=False):
             elif mtch.game.played:
                 lst.append(mtch)
 
-    return lst
+    if start_game is not None and start_game in [m.game for m in lst]:
+        start_indx = [m.game for m in lst].index(start_game)
+        out_list = lst[:start_indx]
+    else:
+        out_list = lst
+
+    return out_list
 
 
 def normpdf(x, mu=1.0, sigma=1.0):
@@ -192,6 +198,19 @@ def reverse_bisect(list, x):
     lst = sorted(list)
     bsct = bisect(lst, x)
     return len(list) - bsct
+
+
+def rmdps(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if not (x in seen or seen_add(x))]
+
+
+def squash_list(seq, unique=True):
+    output = [item for sublist in seq for item in sublist]
+    if unique:
+        output = rmdps(output)
+    return output
 
 
 def stats(lst):

@@ -2,6 +2,7 @@ class Rankings:
     def __init__(self, league):
         self.owners = {}
         self.keys = None
+        self.league = league
         self.ranks = {}
         self.roster = None
         self.week = None
@@ -36,7 +37,7 @@ class Metrics:
 
         self.ranks = {}
         for k in self.keys:
-            self.ranks[k] = 0
+            self.ranks[k] = None
 
         qb = []
         rb = []

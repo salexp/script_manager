@@ -1,3 +1,4 @@
+import itertools
 from fantasy.nfl_data import roster
 from util.fantasy.utilities import *
 
@@ -269,6 +270,20 @@ class OwnerSeason:
         self.wl_records = []
         self.year = matchup.year
 
+    @property
+    def highest_win_streak(self):
+        matchup_results = [m.won for m in self.matchups]
+        matchup_bin = ''.join(['1' if r else '0' for r in matchup_results])
+        win_streaks = sorted(map(len, filter(None, matchup_bin.split("0"))))
+        return win_streaks[-1]
+
+    @property
+    def highest_loss_streak(self):
+        matchup_results = [m.won for m in self.matchups]
+        matchup_bin = ''.join(['1' if r else '0' for r in matchup_results])
+        loss_streaks = sorted(map(len, filter(None, matchup_bin.split("1"))))
+        return loss_streaks[-1]
+
     def add_matchup(self, matchup):
         self.wl_records.append(matchup.record)
         if not matchup.game.is_consolation:
@@ -301,8 +316,8 @@ class Attributes:
         self.ssq = 0.0
         self.sigma = 0.0
 
-    def update(self, n_games=10, weighted=True):
-        matchups = make_list_games(self.owner.games)[-n_games:]
+    def update(self, start_game=None, n_games=10, weighted=True):
+        matchups = make_list_games(self.owner.games, start_game=start_game)[-n_games:]
         if weighted:
             points = [[m.pf] * (i+1) for i, m in enumerate(matchups)]
             points = [p for sublist in points for p in sublist]
