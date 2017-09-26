@@ -5,12 +5,12 @@ Week 4 Computer Rankings and Matchup Previews
 2nd. ( -- ) [0.7755] Kareemed in my Pants (3-0)
 3rd. (+1) [0.7456] The Replacements (2-1)
 4th. ( -3) [0.7238] Winner Winner Chicken Leonard (2-1)
-5th. (+5) [0.6597] Return of the Prodigal Son (1-2)
-6th. (+1) [0.6348] Make Fantasy Great Again (1-2)
-7th. (+2) [0.6297] The Mixon Administration (1-2)
-8th. ( -2) [0.6173] Reign of the Superman (1-2)
-9th. ( -4) [0.5912] Forever Billieve (1-2)
-10th ( -2) [0.4950] Jaykle and Hyde (0-3)
+5th. (+2) [0.6348] Make Fantasy Great Again (1-2)
+6th. (+3) [0.6297] The Mixon Administration (1-2)
+7th. ( -1) [0.6173] Reign of the Superman (1-2)
+8th. ( -3) [0.5912] Forever Billieve (1-2)
+9th. ( -1) [0.4950] Jaykle and Hyde (0-3)
+10th ( -- ) [0.3298] Return of the Prodigal Son (1-2)
 
 [b]Rankings Graph[/b]
 [image][/image]
@@ -25,7 +25,7 @@ K. Matt Prater (Thomas Singleton) - 19.0
 
 [b]Matchup Previews[/b]
 [3] [u]The Replacements[/u] at
-[8] [u]Reign of the Superman[/u]
+[7] [u]Reign of the Superman[/u]
 TS| S: -22.8 -140 ML: -160 O:+113 O/U:164.1
 SP| S:+22.8+110 ML:+160 U: -113
 Thomas leads series 6-3
@@ -37,19 +37,19 @@ JF| S:+14.3+130 ML:+190 U:+108
 Series tied 6-6
 
 [4] [u]Winner Winner Chicken Leonard[/u] at
-[10] [u]Jaykle and Hyde[/u]
+[9] [u]Jaykle and Hyde[/u]
 TW| S: -20.9 -120 ML: -190 O: -110 O/U:173.6
 JW| S:+20.9+130 ML:+190 U:+110
 Trevor leads series 5-2
 
-[9] [u]Forever Billieve[/u] at
-[7] [u]The Mixon Administration[/u]
+[8] [u]Forever Billieve[/u] at
+[6] [u]The Mixon Administration[/u]
 EP| S:+18.6+130 ML:+145 O: -103 O/U:184.5
 RR| S: -18.6 -120 ML: -145 U:+103
 Series tied 7-7
 
-[5] [u]Return of the Prodigal Son[/u] at
-[6] [u]Make Fantasy Great Again[/u]
+[10] [u]Return of the Prodigal Son[/u] at
+[5] [u]Make Fantasy Great Again[/u]
 BM| S: -27.0 -145 ML: -185 O:+143 O/U:187.2
 CW| S:+27.0+105 ML:+185 U: -143
 Ben leads series 6-3

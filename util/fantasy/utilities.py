@@ -57,6 +57,23 @@ def add_suffix(num):
     return new
 
 
+AdjOwners = {
+    'Ben Mytelka': {
+        '3': 2.0,
+        '4': 1.0,
+        '5': 1.0,
+        '6': 1.0,
+        '7': 1.0,
+        '8': 1.0,
+        '9': 1.0,
+        '10': 1.0,
+        '11': 1.0,
+        '12': 1.0,
+        '13': 1.0,
+    }
+}
+
+
 def average(lst, rnd=1):
     if len(lst) != 0:
         avg = round(sum([float(i) for i in lst]) / len(lst), rnd)

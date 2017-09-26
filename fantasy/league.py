@@ -3,12 +3,11 @@ import os
 import xlrd
 from copy import deepcopy
 from datetime import datetime
-from operator import itemgetter
 from selenium import webdriver
 from xlutils.copy import copy
 from fantasy.owner import Owner
 from fantasy.rankings import Rankings
-from fantasy.schedule import Schedule, schedule_from_sheet
+from fantasy.schedule import schedule_from_sheet
 from fantasy.year import Year
 from util.fantasy import plotter
 from util.fantasy.utilities import *
@@ -339,6 +338,7 @@ class League:
                 trnk += rkngs.ranks[key][owner][2]
 
             trnk = trnk / hgh
+            trnk /= AdjOwners.get(owner, {}).get(week, 1.0)
             rkngs.ranks["PR"][owner] = trnk
             power_rankings.append([owner, trnk])
 
