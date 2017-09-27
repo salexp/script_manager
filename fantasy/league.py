@@ -3,6 +3,7 @@ import os
 import xlrd
 from copy import deepcopy
 from datetime import datetime
+from pyvirtualdisplay import Display
 from selenium import webdriver
 from xlutils.copy import copy
 from fantasy.owner import Owner
@@ -255,6 +256,8 @@ class League(object):
 
     def get_driver(self):
         if self._driver is None:
+            display = Display(visible=0, size=(800, 600))
+            display.start()
             drv = webdriver.Chrome()
             drv.get("http://www.espn.com/login")
             frms = drv.find_elements_by_xpath('(//iframe)')
