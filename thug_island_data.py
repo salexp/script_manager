@@ -2,6 +2,9 @@
 Thug Island Fantasy League Stats and Computer Rankings - Stuart Petty (stu.petty92@gmail.com)
 Created for 2016 season
 """
+import argparse
+import time
+from datetime import datetime
 from fantasy.league import League
 from util.groupme.bot.thugbot import TestBot, ThugBot
 from util.groupme.do_not_upload import *
@@ -72,7 +75,7 @@ def main():
     True
 
 
-def check_transactions(group_me=True):
+def check_transactions(group_me=True, wait_time=300.0):
     thug_island = League(
         espn_id=190153,
         database_settings={'name': 'Fantasy', 'user': 'local'},
@@ -85,11 +88,30 @@ def check_transactions(group_me=True):
     # thug_bot = ThugBot(bot_id=BOT_ID_TEST, group_id=GROUP_ID_TEST, fantasy=thug_island)
     thug_bot = TestBot(bot_id=BOT_ID_TEST, group_id=GROUP_ID_TEST)
 
-    for transaction in thug_island.get_new_transactions():
-        if 'trade' in transaction.get('type', 'none').lower() and group_me:
-            bot_says = "TRADE ALERT:\n" + transaction.get('text')
-            thug_bot.say(bot_says)
+    while True:
+        print datetime.now()
+        for transaction in thug_island.get_new_transactions():
+            if 'trade' in transaction.get('type', 'none').lower() and group_me:
+                bot_says = "TRADE ALERT:\n" + transaction.get('text')
+                print bot_says
+                thug_bot.say(bot_says)
+            elif group_me:
+                bot_says = "TRANSACTION:\n" + transaction.get('text')
+                print bot_says
+                thug_bot.say(bot_says)
+
+        time.sleep(wait_time)
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-t', '--check-trades', action='store', dest='trades', default=None,
+                        help='Check and post recent trades..')
+
+    args, leftovers = parser.parse_known_args()
+
+    if args.trades is not None:
+        check_transactions(wait_time=args.trades)
+    else:
+        main()
