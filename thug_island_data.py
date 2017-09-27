@@ -93,14 +93,12 @@ def check_transactions(group_me=True, wait_time=300.0):
         for transaction in thug_island.get_new_transactions():
             if 'trade' in transaction.get('type', 'none').lower() and group_me:
                 bot_says = "TRADE ALERT:\n" + transaction.get('text')
-                print bot_says
                 thug_bot.say(bot_says)
             elif group_me:
                 bot_says = "TRANSACTION:\n" + transaction.get('text')
-                print bot_says
                 thug_bot.say(bot_says)
 
-        time.sleep(wait_time)
+        time.sleep(float(wait_time))
 
 
 if __name__ == "__main__":
