@@ -3,7 +3,7 @@ Thug Island Fantasy League Stats and Computer Rankings - Stuart Petty (stu.petty
 Created for 2016 season
 """
 from fantasy.league import League
-from util.groupme.bot.thugbot import ThugBot
+from util.groupme.bot.thugbot import TestBot, ThugBot
 from util.groupme.do_not_upload import *
 
 
@@ -70,6 +70,26 @@ def main():
             thug_bot.say(bot_says)
 
     True
+
+
+def check_transactions(group_me=True):
+    thug_island = League(
+        espn_id=190153,
+        database_settings={'name': 'Fantasy', 'user': 'local'},
+        resources_folder='fantasy/resources',
+        update_resources=DOWNLOAD_GAMES,
+        full_update=FULL_HISTORY,
+        current_week=CURRENT_WEEK
+    )
+
+    # thug_bot = ThugBot(bot_id=BOT_ID_TEST, group_id=GROUP_ID_TEST, fantasy=thug_island)
+    thug_bot = TestBot(bot_id=BOT_ID_TEST, group_id=GROUP_ID_TEST)
+
+    for transaction in thug_island.get_new_transactions():
+        if 'trade' in transaction.get('type', 'none').lower() and group_me:
+            bot_says = "TRADE ALERT:\n" + transaction.get('text')
+            thug_bot.say(bot_says)
+
 
 if __name__ == "__main__":
     main()

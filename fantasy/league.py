@@ -14,7 +14,7 @@ from util.fantasy.utilities import *
 from util.sql.database import Database
 
 
-class League:
+class League(object):
     def __init__(self, espn_id, database_settings=None, database_connection=None, resources_folder=None, update_resources=False,
                  full_update=False, current_week=None):
         self.database_settings = database_settings
@@ -30,6 +30,7 @@ class League:
         self._db_entry = None
         self._driver = None
         self._league_name = None
+        self._recent_transactions = None
         self._owners = None
         self._years = None
 
@@ -125,6 +126,20 @@ class League:
             return out_str.rstrip('\n')
         else:
             return
+
+    @property
+    def recent_transactions(self):
+        if self._recent_transactions is None:
+            query = """SELECT * FROM Transactions;"""
+            result = self.db.query_return(query)
+            transactions = [{'datetime': r[1], 'type': r[2], 'text': r[3]} for r in result]
+            transactions = sorted(transactions, key=lambda d: d['datetime'], reverse=True)
+            self._recent_transactions = transactions
+        return self._recent_transactions
+
+    @recent_transactions.deleter
+    def recent_transactions(self):
+        self._recent_transactions = None
 
     @property
     def years(self):
@@ -260,6 +275,15 @@ class League:
             drv.get(self.url)
             self._driver = drv
         return self._driver
+
+    def get_new_transactions(self):
+        t1 = self.recent_transactions
+        del self.recent_transactions
+        self.upload_transactions()
+        t2 = self.recent_transactions
+        new_transactions = [t for t in t2 if t not in t1]
+
+        return new_transactions
 
     def add_games(self, year, book):
         for w in range(1, len(self.years[year].schedule.weeks) + 1):
@@ -572,6 +596,30 @@ class League:
                             rcd[-1] = ownr_season
                     records[key] = \
                         sorted(rcd, key=lambda param: param.pag, reverse=False)
+
+    def upload_transactions(self):
+        self.get_driver().get("http://games.espn.com/ffl/recentactivity?leagueId={}&activityType=2".format(self.espn_id))
+        table = self.get_driver().find_element_by_xpath("//*[@id='content']/div/div[4]/div/div/div[2]/table")
+        rows = table.find_elements_by_xpath('.//tr')
+        for ri, row in enumerate(rows):
+            if ri > 1:
+                cols = row.find_elements_by_xpath('.//td')
+                col_timedate, col_type, col_players, _ = cols
+
+                trans_time = datetime.strptime(str(self.current_year) + " " + col_timedate.text,
+                                               "%Y %a, %b %d\n%I:%M %p")
+                trans_type = col_type.text.replace("Transaction", "").replace("\n", "").lstrip().rstrip()
+                trans_text = col_players.text
+
+                query = """
+                INSERT INTO Transactions (TRANSACTION_DATETIME, TRANSACTION_TYPE, TRANSACTION_TEXT) VALUES 
+                (%s, %s, %s) ON DUPLICATE KEY UPDATE
+                TRANSACTION_ID=TRANSACTION_ID;
+                """
+                params = (trans_time, trans_type, trans_text)
+                self.db.query_set(query, params)
+
+        self.db.commit()
 
     def to_string(self, outfile, title=True, games=True, mtchups=False, owners=True, plyffs=True, power=True, seasons=True, rcds=10):
         week = self.current_week
