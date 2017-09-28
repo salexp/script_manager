@@ -3,7 +3,6 @@ import os
 import xlrd
 from copy import deepcopy
 from datetime import datetime
-from pyvirtualdisplay import Display
 from selenium import webdriver
 from xlutils.copy import copy
 from fantasy.owner import Owner
@@ -11,6 +10,7 @@ from fantasy.rankings import Rankings
 from fantasy.schedule import schedule_from_sheet
 from fantasy.year import Year
 from util.fantasy import plotter
+from util.fantasy.do_not_upload import ESPN_KEY
 from util.fantasy.utilities import *
 from util.sql.database import Database
 
@@ -254,16 +254,18 @@ class League(object):
             if value == owner.db_entry[key]:
                 return owner
 
-    def get_driver(self):
+    def get_driver(self, headless=True):
         if self._driver is None:
-            display = Display(visible=0, size=(800, 600))
-            display.start()
+            if headless:
+                from pyvirtualdisplay import Display
+                display = Display(visible=0, size=(800, 600))
+                display.start()
             drv = webdriver.Chrome()
             drv.get("http://www.espn.com/login")
             frms = drv.find_elements_by_xpath('(//iframe)')
             drv.switch_to.frame(frms[0])
             drv.find_element_by_xpath("(//input)[1]").send_keys("legosap")
-            drv.find_element_by_xpath("(//input)[2]").send_keys(keyring.get_password('system', 'espn'))
+            drv.find_element_by_xpath("(//input)[2]").send_keys(ESPN_KEY)
             drv.find_element_by_xpath("(//button[2])").click()
             drv.switch_to.default_content()
 
