@@ -21,7 +21,7 @@ def index():
 
 
 @app.route('/bot/server/callback', methods=['POST'])
-def testbot_listen():
+def serverbot_listen():
     if request.content_type == 'application/json':
         serverbot.listen(request.json, store=False)
         return "Heard"
