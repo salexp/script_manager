@@ -1,13 +1,16 @@
 import argparse
 from flask import Flask, Response
-from flask import render_template, request
+from flask import request
+from util.groupme.bot.serverbot import ServerBot
 from util.groupme.bot.thugbot import TestBot, ThugBot
+from util.groupme.do_not_upload import BOT_ID_SERVER, GROUP_ID_SERVER
 from util.groupme.do_not_upload import BOT_ID_TEST, GROUP_ID_TEST
 from util.groupme.do_not_upload import BOT_ID_THUG, GROUP_ID_THUG
 
 from util import logger
 
 app = Flask(__name__)
+serverbot = ServerBot(BOT_ID_SERVER, GROUP_ID_SERVER)
 testbot = TestBot(BOT_ID_TEST, GROUP_ID_TEST)
 thugbot = ThugBot(BOT_ID_THUG, GROUP_ID_THUG)
 
@@ -15,6 +18,15 @@ thugbot = ThugBot(BOT_ID_THUG, GROUP_ID_THUG)
 @app.route('/')
 def index():
     return Response("<div><p>Hi!</p></div>")
+
+
+@app.route('/bot/server/callback', methods=['POST'])
+def testbot_listen():
+    if request.content_type == 'application/json':
+        serverbot.listen(request.json, store=False)
+        return "Heard"
+    else:
+        return "Ignored"
 
 
 @app.route('/bot/testbot/callback', methods=['POST'])
