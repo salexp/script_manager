@@ -14,7 +14,7 @@ class ThugBot(GMeBot):
             self.fantasy = fantasy
 
     def say(self, text):
-        if "COMPUTER RANKINGS" in text:
+        if "COMPUTER RANKINGS" in text or "TRADE ALERT" in text:
             GMeBot.say(self, text)
         else:
             pass
