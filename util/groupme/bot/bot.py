@@ -48,13 +48,13 @@ class GMeBot(object):
                 msg = GMeMessage(data=data, listening=self)
                 self.last_heard = msg
                 if msg.command in self.commands.keys():
-                    self.commands.get(msg.command)()
+                    self.commands.get(msg.command)(msg.data['text'])
 
     def say(self, text):
         data = {'bot_id': self.bot_id, 'text': text}
         self.__post(data)
         return text
 
-    def say_help(self):
+    def say_help(self, text):
         text = "Commands:\n{}".format("\n".join(self.commands.keys()))
         return self.say(text)
