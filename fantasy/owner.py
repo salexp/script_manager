@@ -18,7 +18,7 @@ class Owner:
         self.last_name = self.name.split(" ")[1].capitalize()
         self.initials = self.first_name[0] + self.last_name[0]
 
-        self.attrib = Attributes(self)
+        self.attrib = OwnerAttributes(self)
         self.active = []
         self.championships = []
         self.championship_games = []
@@ -309,7 +309,7 @@ class OwnerSeason:
         return str
 
 
-class Attributes:
+class OwnerAttributes:
     def __init__(self, owner):
         self.owner = owner
         self.mu = 0.0

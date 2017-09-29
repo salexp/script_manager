@@ -1,4 +1,3 @@
-import keyring
 import os
 import xlrd
 from copy import deepcopy

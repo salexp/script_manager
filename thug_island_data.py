@@ -4,8 +4,8 @@ Created for 2016 season
 """
 import argparse
 import time
-from datetime import datetime
 from fantasy.league import League
+from util.groupme.bot.serverbot import ServerBot
 from util.groupme.bot.thugbot import TestBot, ThugBot
 from util.groupme.do_not_upload import *
 
@@ -86,15 +86,17 @@ def check_transactions(group_me=True, wait_time=300.0):
     )
 
     thug_bot = ThugBot(bot_id=BOT_ID_TEST, group_id=GROUP_ID_TEST, fantasy=thug_island)
+    server_bot = ServerBot(BOT_ID_SERVER, GROUP_ID_SERVER)
 
     while True:
         for transaction in thug_island.get_new_transactions():
             if 'trade' in transaction.get('type', 'none').lower() and group_me:
                 bot_says = "TRADE ALERT:\n" + transaction.get('text')
                 thug_bot.say(bot_says)
+                server_bot.say(bot_says)
             elif group_me:
                 bot_says = "TRANSACTION:\n" + transaction.get('text')
-                # thug_bot.say(bot_says)
+                server_bot.say(bot_says)
 
         time.sleep(float(wait_time))
 

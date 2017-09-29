@@ -1,3 +1,6 @@
+from util.statistics.std_normal import StdNormal
+
+
 class Player:
     def __init__(self, info):
         self.games_ir = 0
@@ -10,6 +13,8 @@ class Player:
         self.ppg = 0.0
         self.position = get_position(info[1])
         self.started = []
+
+        self.attributes = PlayerAttributes(self)
 
     def update(self, matchup, info, slot):
         plyr_game = PlayerGame(self, matchup, info, slot)
@@ -31,6 +36,29 @@ class Player:
 class NonePlayer(Player):
     def __init__(self, info):
         Player.__init__(self, info)
+
+
+class PlayerAttributes:
+    def __init__(self, player):
+        self.player = player
+        self.mu = 0.0
+        self.ssq = 0.0
+        self.sigma = 0.0
+
+        if self.player.games_owned > 0:
+            self.update(n_games=self.player.games_owned)
+
+    def check_points(self, points):
+        Z = (points - self.mu) / self.sigma
+        return 1 - StdNormal.get_phi_z(Z)
+
+    def update(self, start_game=None, n_games=10):
+        matchups = self.player.owned[-n_games:]
+        points = [m.points for m in matchups]
+
+        self.mu = sum(points) / len(points)
+        self.ssq = sum(p**2 for p in points)
+        self.sigma = (1.0 / len(points)) * (len(points) * self.ssq - sum(points) ** 2) ** (0.5)
 
 
 class PlayerGame:
