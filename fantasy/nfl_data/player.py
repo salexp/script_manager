@@ -6,6 +6,7 @@ class Player:
         self.games_ir = 0
         self.games_owned = 0
         self.games_started = 0
+        self.benched = []
         self.ir = []
         self.name = get_name(info[1])
         self.owned = []
@@ -15,6 +16,35 @@ class Player:
         self.started = []
 
         self.attributes = PlayerAttributes(self)
+
+        self._games_lost = None
+        self._games_won = None
+        self._games_started_lost = None
+        self._games_started_won = None
+
+    @property
+    def games_lost(self):
+        if self._games_lost is None:
+            self._games_lost = sum([g.matchup.lost for g in self.owned])
+        return self._games_lost
+
+    @property
+    def games_won(self):
+        if self._games_won is None:
+            self._games_won = sum([g.matchup.won for g in self.owned])
+        return self._games_won
+
+    @property
+    def games_started_lost(self):
+        if self._games_started_lost is None:
+            self._games_started_lost = sum([g.matchup.lost for g in self.started])
+        return self._games_started_lost
+
+    @property
+    def games_started_won(self):
+        if self._games_started_won is None:
+            self._games_started_won = sum([g.matchup.won for g in self.started])
+        return self._games_started_won
 
     def update(self, matchup, info, slot):
         plyr_game = PlayerGame(self, matchup, info, slot)
@@ -28,9 +58,14 @@ class Player:
             self.started.append(plyr_game)
             if slot not in matchup.league.lineup_positions:
                 matchup.league.lineup_positions.append(slot)
+        elif plyr_game.slot == "Bench":
+            self.benched.append(plyr_game)
+            self.ir.append(plyr_game)
         elif plyr_game.slot == "IR":
             self.games_ir += 1
             self.ir.append(plyr_game)
+
+        self.attributes.update(n_games=self.games_owned)
 
 
 class NonePlayer(Player):
