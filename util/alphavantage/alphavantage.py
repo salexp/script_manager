@@ -45,7 +45,10 @@ class AlphaVantage:
         for tick in tickers:
             data = self.download_intraday(tick)
             if 'Error Message' not in data.keys():
-                data_set = data['Time Series (1min)']
+                data_set = data.get('Time Series (1min)')
+
+                if data_set is None:
+                    continue
 
                 all_data_set = []
                 for k, v in data_set.items():

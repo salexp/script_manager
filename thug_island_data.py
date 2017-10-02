@@ -3,6 +3,8 @@ Thug Island Fantasy League Stats and Computer Rankings - Stuart Petty (stu.petty
 Created for 2016 season
 """
 import argparse
+import logging
+import os
 import time
 from fantasy.league import League
 from util.groupme.bot.serverbot import ServerBot
@@ -88,17 +90,24 @@ def check_transactions(group_me=True, wait_time=300.0):
     thug_bot = ThugBot(bot_id=BOT_ID_TEST, group_id=GROUP_ID_TEST, fantasy=thug_island)
     server_bot = ServerBot(BOT_ID_SERVER, GROUP_ID_SERVER)
 
-    while True:
-        for transaction in thug_island.get_new_transactions():
-            if 'trade' in transaction.get('type', 'none').lower() and group_me:
-                bot_says = "TRADE ALERT:\n" + transaction.get('text')
-                thug_bot.say(bot_says)
-                server_bot.say(bot_says)
-            elif group_me:
-                bot_says = "TRANSACTION:\n" + transaction.get('text')
-                server_bot.say(bot_says)
+    try:
+        logger.info("Starting transaction monitoring...")
+        while True:
+            for transaction in thug_island.get_new_transactions():
+                if 'trade' in transaction.get('type', 'none').lower() and group_me:
+                    bot_says = "TRADE ALERT:\n" + transaction.get('text')
+                    logger.info("Trade: %s" % transaction.get('text').split()[0])
+                    thug_bot.say(bot_says)
+                    server_bot.say(bot_says)
+                elif group_me:
+                    bot_says = "TRANSACTION:\n" + transaction.get('text')
+                    logger.info("Transaction: %s" % transaction.get('text').split()[0])
+                    server_bot.say(bot_says)
 
-        time.sleep(float(wait_time))
+            time.sleep(float(wait_time))
+    except Exception as ex:
+        logger.exception(ex)
+        exit()
 
 
 if __name__ == "__main__":
@@ -108,6 +117,21 @@ if __name__ == "__main__":
                         help='Check and post recent trades..')
 
     args, leftovers = parser.parse_known_args()
+
+    # Setup log file
+    logging.basicConfig()
+    logger = logging.getLogger('gbench_convert')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    try:
+        hndlr = logging.FileHandler('logs/thug_island_data.log')
+    except IOError:
+        os.makedirs('logs')
+        hndlr = logging.FileHandler('logs/thug_island_data.log')
+    fmrtr = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M:%S')
+    hndlr.setFormatter(fmrtr)
+    logger.addHandler(hndlr)
 
     if args.trades is not None:
         check_transactions(wait_time=args.trades)

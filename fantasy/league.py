@@ -256,9 +256,13 @@ class League(object):
     def get_driver(self, headless=True):
         if self._driver is None:
             if headless:
-                from pyvirtualdisplay import Display
-                display = Display(visible=0, size=(800, 600))
-                display.start()
+                try:
+                    from pyvirtualdisplay import Display
+                    display = Display(visible=0, size=(800, 600))
+                    display.start()
+                except:
+                    headless = False
+
             drv = webdriver.Chrome()
             drv.get("http://www.espn.com/login")
             frms = drv.find_elements_by_xpath('(//iframe)')
