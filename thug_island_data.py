@@ -34,7 +34,7 @@ def main():
     )
 
     del thug_island.owners["Cody Blain"]
-    thug_island.get_new_transactions()
+
     thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS)
 
     thug_island.to_string(
