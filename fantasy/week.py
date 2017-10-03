@@ -15,8 +15,11 @@ class Week:
         self.records = WeekRecords(self)
         self.games = []
 
+        self._average_margin = None
+        self._average_score = None
         self._highest_score = None
         self._losing_owners = None
+        self._total_points = None
         self._winning_owners = None
 
         idx = 0
@@ -38,6 +41,18 @@ class Week:
         self.records.update()
 
     @property
+    def average_margin(self):
+        if self._average_margin is None:
+            self._average_margin = sum([float(g.margin) for g in self.games]) / len([g.margin for g in self.games])
+        return self._average_margin
+
+    @property
+    def average_score(self):
+        if self._average_score is None and self.total_points is not None:
+            self._average_score = self.total_points / len(self.owners)
+        return self._average_score
+
+    @property
     def highest_score(self):
         if self._highest_score is None:
             if self.complete and self.winning_owners:
@@ -52,6 +67,13 @@ class Week:
             if self.complete:
                 self._losing_owners = [o for o in self.owners if o.games[self.year][self.number].lost]
         return self._losing_owners
+
+    @property
+    def total_points(self):
+        if self._total_points is None:
+            if self.complete:
+                self._total_points = sum([g.total_points for g in self.games])
+        return self._total_points
 
     @property
     def winning_owners(self):

@@ -82,7 +82,9 @@ class ExcelGame:
 
         self._db_entry = None
         self._id = None
+        self._margin = None
         self._preview = None
+        self._total_points = None
         self._url = None
 
         self.away_matchup = None
@@ -149,10 +151,22 @@ class ExcelGame:
         return self._id
 
     @property
+    def margin(self):
+        if self._margin is None and self.total_points is not None:
+            self._margin = abs(self.away_score - self.home_score)
+        return self._margin
+
+    @property
     def preview(self):
         if self._preview is None:
             self._preview = GamePreview(self)
         return self._preview
+
+    @property
+    def total_points(self):
+        if self._total_points is None:
+            self._total_points = self.away_score + self.home_score
+        return self._total_points
 
     @property
     def url(self):
@@ -236,7 +250,7 @@ class ExcelGame:
             for r in boxscore:
                 plyr = None
                 slot = r[0]
-                if r[1] != "" and "PLAYER" not in r[1]:
+                if r[1] not in ("", " ") and "PLAYER" not in r[1]:
                     name = player.get_name(r[1])
                     if name not in self.league.players:
                         self.league.players[name] = player.Player(r)

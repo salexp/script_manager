@@ -41,7 +41,7 @@ class League(object):
         self.players = {}
         self.power_rankings = {}
         self.rankings = []
-        self.records = LeagueRecords(self)
+        self.records = LeagueRecords(self, number=50)
 
         if resources_folder is not None:
             history_file = self.file_string.format('history')
@@ -64,7 +64,7 @@ class League(object):
             if update_resources:
                 rb = xlrd.open_workbook(year_files[self.current_year])
                 work_book = copy(rb)
-                self.download_games(self.current_year, book=work_book)
+                self.download_games(self.current_year, book=work_book, full_history=full_update)
 
             for y, year_file in year_files.items():
                 work_book = xlrd.open_workbook(year_file)
@@ -176,55 +176,56 @@ class League(object):
 
             self.db.commit()
 
-    def download_games(self, year, book):
+    def download_games(self, year, book, full_history=True):
         schedule = self.years[year].schedule
         for w, week in sorted(schedule.weeks.items(), key=itemgetter(1)):
-            wi = int(w) - 1
-            sh = book.get_sheet(wi)
-            if week.complete:
-                write_col = -6
-                for game in week.games:
-                    write_row = 0
-                    write_col += 6
+            if full_history or w == self.current_week:
+                wi = int(w) - 1
+                sh = book.get_sheet(wi)
+                if week.complete:
+                    write_col = -6
+                    for game in week.games:
+                        write_row = 0
+                        write_col += 6
 
-                    self.get_driver().get(game.url)
+                        self.get_driver().get(game.url)
 
-                    try:
-                        has_bench = True
-                        self.get_driver().find_element_by_class_name('playerTableShowHideGroupLink').click()
-                    except:
-                        has_bench = False
+                        try:
+                            has_bench = True
+                            self.get_driver().find_element_by_class_name('playerTableShowHideGroupLink').click()
+                        except:
+                            has_bench = False
 
-                    team_infos = self.get_driver().find_element_by_xpath('//*[@id="teamInfos"]')
+                        team_infos = self.get_driver().find_element_by_xpath('//*[@id="teamInfos"]')
 
-                    team_infos_lines = team_infos.text.split('\n')
-                    for line in team_infos_lines:
-                        sh.write(write_row, write_col, line)
+                        team_infos_lines = team_infos.text.split('\n')
+                        for line in team_infos_lines:
+                            sh.write(write_row, write_col, line)
+                            write_row += 1
+
                         write_row += 1
 
-                    write_row += 1
+                        if has_bench:
+                            team_l_starters = self.get_driver().find_element_by_xpath('//*[@id="playertable_0"]')
+                            team_l_bench = self.get_driver().find_element_by_xpath('//*[@ id="playertable_1"]')
+                            team_r_starters = self.get_driver().find_element_by_xpath('//*[@ id="playertable_2"]')
+                            team_r_bench = self.get_driver().find_element_by_xpath('//*[@ id="playertable_3"]')
+                            team_l_details = [team_l_starters, team_l_bench]
+                            team_r_details = [team_r_starters, team_r_bench]
+                        else:
+                            team_l_starters = self.get_driver().find_element_by_xpath('//*[@id="playertable_0"]')
+                            team_r_starters = self.get_driver().find_element_by_xpath('//*[@ id="playertable_1"]')
+                            team_l_details = [team_l_starters]
+                            team_r_details = [team_r_starters]
 
-                    if has_bench:
-                        team_l_starters = self.get_driver().find_element_by_xpath('//*[@id="playertable_0"]')
-                        team_l_bench = self.get_driver().find_element_by_xpath('//*[@ id="playertable_1"]')
-                        team_r_starters = self.get_driver().find_element_by_xpath('//*[@ id="playertable_2"]')
-                        team_r_bench = self.get_driver().find_element_by_xpath('//*[@ id="playertable_3"]')
-                        team_l_details = [team_l_starters, team_l_bench]
-                        team_r_details = [team_r_starters, team_r_bench]
-                    else:
-                        team_l_starters = self.get_driver().find_element_by_xpath('//*[@id="playertable_0"]')
-                        team_r_starters = self.get_driver().find_element_by_xpath('//*[@ id="playertable_1"]')
-                        team_l_details = [team_l_starters]
-                        team_r_details = [team_r_starters]
-
-                    for detail in [team_l_details, team_r_details]:
-                        for table in detail:
-                            rows = table.find_elements_by_xpath('.//tr')
-                            for ri, row in enumerate(rows):
-                                cols = row.find_elements_by_xpath('.//td')
-                                write_row += 1
-                                for ci, col in enumerate(cols):
-                                    sh.write(write_row, write_col+ci, col.text)
+                        for detail in [team_l_details, team_r_details]:
+                            for table in detail:
+                                rows = table.find_elements_by_xpath('.//tr')
+                                for ri, row in enumerate(rows):
+                                    cols = row.find_elements_by_xpath('.//td')
+                                    write_row += 1
+                                    for ci, col in enumerate(cols):
+                                        sh.write(write_row, write_col+ci, col.text)
 
         book.save(self.file_string.format(year))
 
@@ -286,10 +287,18 @@ class League(object):
 
     def get_new_transactions(self):
         t1 = self.recent_transactions
+        old_players = [self.find_all_players(t['text']) for t in t1]
         del self.recent_transactions
         self.upload_transactions()
         t2 = self.recent_transactions
         new_transactions = [t for t in t2 if t not in t1]
+        new_players = [self.find_all_players(t['text']) for t in new_transactions]
+
+        for i, new_player in enumerate(new_players):
+            if new_player in old_players and new_transactions[i]['datetime'] in [t['datetime'] for t in t1]:
+                new_transactions[i] = None
+
+        new_transactions = [t for t in new_transactions if t is not None]
 
         return new_transactions
 
@@ -299,6 +308,14 @@ class League(object):
             week = self.years[year].schedule.weeks[wk]
             sheet = book.sheet_by_index(w - 1)
             week.add_details(sheet)
+
+    def find_all_players(self, text):
+        found = []
+        for plyr_name, player in self.players.items():
+            if plyr_name in text:
+                found.append(player)
+
+        return found
 
     def generate_rankings(self, year=None, week=None, plot=False):
         rkngs = Rankings(self)
@@ -528,12 +545,6 @@ class League(object):
                 owner.add_division_championship(self.current_year)
 
     def recursive_rankings(self, year=None, playoffs=True):
-        if year is None:
-            year = max(self.years.keys())
-
-        self.current_week = self.years[year].current_week
-        self.current_year = year
-
         weeks = [str(w) for w in range(1, int(self.current_week)+1)]
         for week in weeks:
             self.generate_rankings(week=week, plot=week is weeks[-1])
@@ -617,12 +628,12 @@ class League(object):
                 trans_time = datetime.strptime(str(self.current_year) + " " + col_timedate.text,
                                                "%Y %a, %b %d\n%I:%M %p")
                 trans_type = col_type.text.replace("Transaction", "").replace("\n", "").lstrip().rstrip()
-                trans_text = col_players.text
+                trans_text = col_players.text.replace('*', '')
 
                 query = """
                 INSERT INTO Transactions (TRANSACTION_DATETIME, TRANSACTION_TYPE, TRANSACTION_TEXT) VALUES 
                 (%s, %s, %s) ON DUPLICATE KEY UPDATE
-                TRANSACTION_ID=TRANSACTION_ID;
+                TRANSACTION_TYPE=TRANSACTION_TYPE;
                 """
                 params = (trans_time, trans_type, trans_text)
                 self.db.query_set(query, params)
@@ -856,6 +867,42 @@ class League(object):
                                                                             else game.home_owner_name,
                                                                             game.year, game.week.number)
 
+                body += "\n"
+                rcd = self.records.weeks["Highest Scoring"]
+                body += "[b]Highest Scoring Week[/b]\n"
+                for r in range(rcds):
+                    week = rcd[r]
+                    body += "{0} {1}, {2} week {3}\n".format(add_suffix(r+1),
+                                                             week.average_score,
+                                                             week.year, week.number)
+
+                body += "\n"
+                rcd = self.records.weeks["Lowest Scoring"]
+                body += "[b]Lowest Scoring Week[/b]\n"
+                for r in range(rcds):
+                    week = rcd[r]
+                    body += "{0} {1}, {2} week {3}\n".format(add_suffix(r+1),
+                                                             week.average_score,
+                                                             week.year, week.number)
+
+                body += "\n"
+                rcd = self.records.weeks["Highest Margin"]
+                body += "[b]Largest Average Margin of Victory[/b]\n"
+                for r in range(rcds):
+                    week = rcd[r]
+                    body += "{0} {1}, {2} week {3}\n".format(add_suffix(r+1),
+                                                             week.average_margin,
+                                                             week.year, week.number)
+
+                body += "\n"
+                rcd = self.records.weeks["Lowest Margin"]
+                body += "[b]Smallest Average Margin of Victory[/b]\n"
+                for r in range(rcds):
+                    week = rcd[r]
+                    body += "{0} {1}, {2} week {3}\n".format(add_suffix(r+1),
+                                                             week.average_margin,
+                                                             week.year, week.number)
+
             body += "\n"
 
             if seasons:
@@ -913,14 +960,71 @@ class League(object):
 
 
 class LeagueRecords:
-    def __init__(self, league):
+    def __init__(self, league, number):
         self.league = league
         self.games = {"Highest Scoring": [], "Lowest Scoring": [], "Highest Margin": [], "Lowest Margin": [],
                       "Biggest Upset": []}
         self.season = {"Most PF": [], "Fewest PF": [], "Most PA": [], "Fewest PA": []}
         self.teams = {"Most PF": [], "Fewest PF": []}
 
+        self.number_count = number
+
+        self._weeks = None
+
+    @property
+    def weeks(self):
+        if self._weeks is None:
+            weeks_dict = {"Highest Scoring": [], "Lowest Scoring": [], "Highest Margin": [], "Lowest Margin": []}
+            for y, year in self.league.years.items():
+                for w, week in year.schedule.weeks.items():
+                    if not week.complete or week.total_points is None:
+                        continue
+
+                    for key in weeks_dict.keys():
+                        rcd = weeks_dict[key]
+
+                        if key == "Highest Scoring":
+                            if len(rcd) < self.number_count and week not in rcd:
+                                rcd.append(week)
+                            elif week not in rcd:
+                                if rcd[-1].average_score < week.average_score:
+                                    rcd[-1] = week
+                            rcd = sorted(rcd, key=lambda k: k.average_score, reverse=True)
+                            weeks_dict[key] = rcd
+
+                        elif key == "Lowest Scoring":
+                            if len(rcd) < self.number_count and week not in rcd:
+                                rcd.append(week)
+                            elif week not in rcd:
+                                if rcd[-1].average_score > week.average_score:
+                                    rcd[-1] = week
+                            rcd = sorted(rcd, key=lambda k: k.average_score, reverse=False)
+                            weeks_dict[key] = rcd
+
+                        elif key == "Highest Margin":
+                            if len(rcd) < self.number_count and week not in rcd:
+                                rcd.append(week)
+                            elif week not in rcd:
+                                if rcd[-1].average_margin < week.average_margin:
+                                    rcd[-1] = week
+                            rcd = sorted(rcd, key=lambda k: k.average_margin, reverse=True)
+                            weeks_dict[key] = rcd
+
+                        elif key == "Lowest Margin":
+                            if len(rcd) < self.number_count and week not in rcd:
+                                rcd.append(week)
+                            elif week not in rcd:
+                                if rcd[-1].average_margin > week.average_margin:
+                                    rcd[-1] = week
+                            rcd = sorted(rcd, key=lambda k: k.average_margin, reverse=False)
+                            weeks_dict[key] = rcd
+
+            self._weeks = weeks_dict
+        return self._weeks
+
     def check_records(self, matchup, key=None, number=50):
+        self.number_count = number
+
         if key is not None:
             keys = [key]
         else:
@@ -931,7 +1035,7 @@ class LeagueRecords:
         for key in keys:
             if key == "Most PF":
                 rcd = self.league.records.teams[key]
-                if len(rcd) < number:
+                if len(rcd) < self.number_count:
                     rcd.append(matchup)
                 else:
                     if rcd[-1].pf < matchup.pf:
@@ -942,7 +1046,7 @@ class LeagueRecords:
             elif key == "Fewest PF":
                 if not matchup.game.is_consolation:
                     rcd = self.league.records.teams[key]
-                    if len(rcd) < number:
+                    if len(rcd) < self.number_count:
                         rcd.append(matchup)
                     else:
                         if rcd[-1].pf > matchup.pf:
@@ -953,7 +1057,7 @@ class LeagueRecords:
             elif key == "Highest Scoring":
                 game = matchup.game
                 rcd = self.league.records.games[key]
-                if len(rcd) < number and game not in rcd:
+                if len(rcd) < self.number_count and game not in rcd:
                     rcd.append(game)
                 elif game not in rcd:
                     if rcd[-1].away_score + rcd[-1].home_score < game.away_score + game.home_score:
@@ -965,7 +1069,7 @@ class LeagueRecords:
                 if not matchup.game.is_consolation:
                     game = matchup.game
                     rcd = self.league.records.games[key]
-                    if len(rcd) < number and game not in rcd:
+                    if len(rcd) < self.number_count and game not in rcd:
                         rcd.append(game)
                     elif game not in rcd:
                         if rcd[-1].away_score + rcd[-1].home_score > game.away_score + game.home_score:
@@ -977,7 +1081,7 @@ class LeagueRecords:
                 if not matchup.game.is_consolation:
                     game = matchup.game
                     rcd = self.league.records.games[key]
-                    if len(rcd) < number and game not in rcd:
+                    if len(rcd) < self.number_count and game not in rcd:
                         rcd.append(game)
                     elif game not in rcd:
                         if abs(rcd[-1].away_score - rcd[-1].home_score) < abs(game.away_score - game.home_score):
@@ -989,7 +1093,7 @@ class LeagueRecords:
                 if not matchup.game.is_consolation:
                     game = matchup.game
                     rcd = self.league.records.games[key]
-                    if len(rcd) < number and game not in rcd:
+                    if len(rcd) < self.number_count and game not in rcd:
                         rcd.append(game)
                     elif game not in rcd:
                         if abs(rcd[-1].away_score - rcd[-1].home_score) > abs(game.away_score - game.home_score):
