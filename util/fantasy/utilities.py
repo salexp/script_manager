@@ -59,8 +59,8 @@ def add_suffix(num):
 
 AdjOwners = {
     'Ben Mytelka': {
-        '3': 2.0,
-        '4': 1.3443,
+        '3': 1.0,
+        '4': 1.0,
         '5': 1.0,
         '6': 1.0,
         '7': 1.0,
@@ -81,6 +81,12 @@ def average(lst, rnd=1):
         avg = 0
 
     return avg
+
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 
 def consecutive_years(years):

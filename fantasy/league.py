@@ -1,7 +1,10 @@
 import os
+import re
+import urllib2
 import xlrd
+from bs4 import BeautifulSoup
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, timedelta
 from selenium import webdriver
 from xlutils.copy import copy
 from fantasy.owner import Owner
@@ -617,18 +620,26 @@ class League(object):
                         sorted(rcd, key=lambda param: param.pag, reverse=False)
 
     def upload_transactions(self):
-        self.get_driver().get("http://games.espn.com/ffl/recentactivity?leagueId={}&activityType=2".format(self.espn_id))
-        table = self.get_driver().find_element_by_xpath("//*[@id='content']/div/div[4]/div/div/div[2]/table")
-        rows = table.find_elements_by_xpath('.//tr')
+        response = urllib2.urlopen("http://games.espn.com/ffl/recentactivity?leagueId={}&activityType=2".format(self.espn_id))
+        content = response.read()
+        soup = BeautifulSoup(content, 'html.parser')
+        table = soup.find_all('table')[1]
+        rows = table.find_all('tr')
         for ri, row in enumerate(rows):
             if ri > 1:
-                cols = row.find_elements_by_xpath('.//td')
+                cols = row.find_all('td')
                 col_timedate, col_type, col_players, _ = cols
 
-                trans_time = datetime.strptime(str(self.current_year) + " " + col_timedate.text,
-                                               "%Y %a, %b %d\n%I:%M %p")
+                trans_time = datetime.strptime(str(self.current_year) + " " + col_timedate.get_text(separator=' '),
+                                               "%Y %a, %b %d\n%I:%M %p") - timedelta(hours=1)
                 trans_type = col_type.text.replace("Transaction", "").replace("\n", "").lstrip().rstrip()
-                trans_text = col_players.text.replace('*', '')
+
+                raw_text = repr(col_players)
+                regex = re.compile(".*?\>(.*?)\<|\<br\>")
+                result = re.findall(regex, raw_text)
+                trans = [''.join(l) for l in chunks(result, 3)]
+                trans_text = '\n'.join(trans)
+                trans_text = trans_text.rstrip('\n ').replace('*', '')
 
                 query = """
                 INSERT INTO Transactions (TRANSACTION_DATETIME, TRANSACTION_TYPE, TRANSACTION_TEXT) VALUES 
@@ -660,7 +671,7 @@ class League(object):
                     diff = self.rankings[i_last_week].ranks[owner.name] - self.rankings[i_week].ranks[owner.name]
                 else:
                     diff = False
-                diff = " -- " if not diff else "+{}".format(diff) if diff > 0 else " {}".format(diff)
+                diff = " --" if not diff else "+{}".format(diff) if diff > 0 else " {}".format(diff)
                 body += "{0} ({1}) [{2:.4f}] {3}{4}{5} ({6})\n".format(rnk[2],
                                                                        diff,
                                                                        rnk[1],
