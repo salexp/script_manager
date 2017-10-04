@@ -275,14 +275,20 @@ class OwnerSeason:
         matchup_results = [m.won for m in self.matchups]
         matchup_bin = ''.join(['1' if r else '0' for r in matchup_results])
         win_streaks = sorted(map(len, filter(None, matchup_bin.split("0"))))
-        return win_streaks[-1]
+        if len(win_streaks):
+            return win_streaks[-1]
+        else:
+            return 0
 
     @property
     def highest_loss_streak(self):
         matchup_results = [m.won for m in self.matchups]
         matchup_bin = ''.join(['1' if r else '0' for r in matchup_results])
         loss_streaks = sorted(map(len, filter(None, matchup_bin.split("1"))))
-        return loss_streaks[-1]
+        if len(loss_streaks):
+            return loss_streaks[-1]
+        else:
+            return 0
 
     def add_matchup(self, matchup):
         self.wl_records.append(matchup.record)

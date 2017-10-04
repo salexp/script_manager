@@ -438,8 +438,8 @@ class League(object):
                         playoffs[rcd]['Seasons']['All'].append(ows)
 
         for rcd, ows_results in playoffs.items():
-            playoffs[rcd]['Championships Pct'] = playoffs[rcd]['Championships'] / playoffs[rcd]['All']
-            playoffs[rcd]['Playoffs Pct'] = playoffs[rcd]['Playoffs'] / playoffs[rcd]['All']
+            playoffs[rcd]['Championships Pct'] = playoffs[rcd]['Championships'] / playoffs[rcd]['All'] if playoffs[rcd]['All'] else 0.0
+            playoffs[rcd]['Playoffs Pct'] = playoffs[rcd]['Playoffs'] / playoffs[rcd]['All'] if playoffs[rcd]['All'] else 0.0
 
         self.historic_playoffs = playoffs
 
@@ -555,11 +555,11 @@ class League(object):
 
     def search_players(self, name="   ", position="   "):
         found = []
-        for plyr in self.players:
-            if name in self.players[plyr].name:
-                found.append(self.players[plyr])
-            if position in self.players[plyr].position:
-                found.append(self.players[plyr])
+        for _, plyr in self.players.items():
+            if plyr.name is not None and name.lower() in plyr.name.lower():
+                found.append(plyr)
+            if plyr.position is not None and position.lower() in plyr.position.lower():
+                found.append(plyr)
 
         return found
 
