@@ -20,11 +20,10 @@ class _Logger(logging.Logger):
         self._logger.setLevel(self.level)
         self._logger.propagate = False
 
-        try:
-            hndlr = logging.handlers.RotatingFileHandler('logs/' + self.name, maxBytes=262144, backupCount=5)
-        except IOError:
+        if not os.path.isdir('logs'):
             os.makedirs('logs')
-            hndlr = logging.handlers.RotatingFileHandler('logs/' + self.name, maxBytes=262144, backupCount=5)
+
+        hndlr = logging.handlers.RotatingFileHandler('logs/' + self.name, maxBytes=262144, backupCount=5)
 
         fmrtr = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                                   datefmt='%m-%d %H:%M')
