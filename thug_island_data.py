@@ -24,6 +24,7 @@ FUTURE_PLAYOFFS = False
 
 
 def main():
+    from util import logger
     thug_island = League(
         espn_id=190153,
         database_settings={'name': 'Fantasy', 'user': 'local'},
@@ -121,11 +122,11 @@ if __name__ == "__main__":
     logger.setLevel(logging.INFO)
     logger.propagate = False
 
-    try:
-        hndlr = logging.FileHandler('logs/thug_island_data.log')
-    except IOError:
-        os.makedirs('logs')
-        hndlr = logging.FileHandler('logs/thug_island_data.log')
+    log_folder = os.path.join(os.getcwd(), 'logs')
+    if not os.path.isdir(log_folder):
+        os.makedirs(log_folder)
+
+    hndlr = logging.FileHandler(os.path.join(log_folder, 'thug_island_data.log'))
     fmrtr = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M:%S')
     hndlr.setFormatter(fmrtr)
     logger.addHandler(hndlr)
