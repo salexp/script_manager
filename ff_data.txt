@@ -1,55 +1,55 @@
-Week 5 Computer Rankings and Matchup Previews
+Week 6 Computer Rankings and Matchup Previews
 
-[b]Week 5 Computer Rankings[/b]
-1st. ( --) [0.8296] Keenan and Kel (4-0)
-2nd. ( --) [0.7792] Kareemed in my Pants (3-1)
-3rd. (+1) [0.7540] Winner Winner Chicken Leonard (3-1)
-4th. (+1) [0.7103] Return of the Prodigal Son (2-2)
-5th. ( -2) [0.7055] The Replacements (2-2)
-6th. (+2) [0.6655] Reign of the Superman (2-2)
-7th. ( -1) [0.6534] Make Fantasy Great Again (1-3)
-8th. (+1) [0.6440] Forever Billieve (2-2)
-9th. ( -2) [0.6356] The Mixon Administration (1-3)
-10th ( --) [0.5284] Jaykle and Hyde (0-4)
+[b]Week 6 Computer Rankings[/b]
+1st. (+1) [0.8338] Kareemed in my Pants (4-1)
+2nd. (+1) [0.8263] Winner Winner Chicken Leonard (4-1)
+3rd. ( -2) [0.8038] Keenan and Kel (4-1)
+4th. (+2) [0.7518] Reign of the Superman (3-2)
+5th. ( -1) [0.7364] Return of the Prodigal Son (2-3)
+6th. ( -1) [0.7060] The Replacements (2-3)
+7th. (+1) [0.7027] Forever Billieve (3-2)
+8th. (+1) [0.6869] The Mixon Administration (1-4)
+9th. ( -2) [0.6747] Waiver Wire Wiseman (1-4)
+10th ( --) [0.6010] Jaykle and Hyde (1-4)
 
 [b]Rankings Graph[/b]
 [image][/image]
 
-[b]Team Bonuses (Week 4)[/b]
-W: Andrew, Ben, Eric, Stuart, Trevor
-PF: 132.4 (Andrew)
-QB1. Russell Wilson (Connor Wiseman) - 27.6
-RB1. Le'Veon Bell (Ben Mytelka) - 31.1
-WR1. Jordy Nelson (Andrew Lee) - 19.5
-K. Greg Zuerlein (Andrew Lee) - 27.0
+[b]Team Bonuses (Week 5)[/b]
+W: Eric, James, Josh, Stuart, Trevor
+PF: 128.4 (Stuart)
+QB1. Carson Wentz (Eric Price) - 29.8
+RB1. Leonard Fournette (Trevor Watson) - 32.4
+WR1. A.J. Green (James Furlong) - 25.4
+K. Stephen Gostkowski (James Furlong) - 15.0
 
 [b]Matchup Previews[/b]
-[5] [u]The Replacements[/u] at
-[2] [u]Kareemed in my Pants[/u]
-TS| S:+18.8+145 ML:+175 O: -125 O/U:191.3
-JF| S: -18.8 -105 ML: -175 U:+125
-Thomas leads series 5-4
+[9] [u]Waiver Wire Wiseman[/u] at
+[4] [u]Reign of the Superman[/u]
+CW| S: -18.2 -110 ML: -130 O: -105 O/U:178.8
+SP| S:+18.2+140 ML:+130 U:+105
+Stuart leads series 8-7
 
-[1] [u]Keenan and Kel[/u] at
-[10] [u]Jaykle and Hyde[/u]
-AL| S: -16.0 -105 ML: -585 O: -188 O/U:217.0
-JW| S:+16.0+145 ML:+585 U:+188
-Andrew leads series 11-7
+[10] [u]Jaykle and Hyde[/u] at
+[1] [u]Kareemed in my Pants[/u]
+JW| S:+14.8+140 ML:+315 O: -150 O/U:190.9
+JF| S: -14.8 -110 ML: -315 U:+150
+James leads series 9-7
 
-[8] [u]Forever Billieve[/u] at
-[7] [u]Make Fantasy Great Again[/u]
-EP| S:+15.6+135 ML:+155 O: -108 O/U:182.3
-CW| S: -15.6 -115 ML: -155 U:+108
-Series tied 5-5
+[7] [u]Forever Billieve[/u] at
+[8] [u]The Mixon Administration[/u]
+EP| S:+15.0+125 ML:+140 O:PUSH O/U:173.7
+RR| S: -15.0 -125 ML: -140 U:PUSH
+Eric leads series 8-7
 
-[9] [u]The Mixon Administration[/u] at
-[6] [u]Reign of the Superman[/u]
-RR| S: -15.6 -130 ML: -180 O:+108 O/U:168.1
-SP| S:+15.6+120 ML:+180 U: -108
-Stuart leads series 8-3
+[5] [u]Return of the Prodigal Son[/u] at
+[3] [u]Keenan and Kel[/u]
+BM| S: -26.6 -130 ML: -145 O:PUSH O/U:210.3
+AL| S:+26.6+120 ML:+145 U:PUSH
+Ben leads series 8-4
 
-[4] [u]Return of the Prodigal Son[/u] at
-[3] [u]Winner Winner Chicken Leonard[/u]
-BM| S: -25.8 -145 ML: -175 O:+135 O/U:187.3
-TW| S:+25.8+105 ML:+175 U: -135
-Trevor leads series 10-8
+[2] [u]Winner Winner Chicken Leonard[/u] at
+[6] [u]The Replacements[/u]
+TW| S: -20.2 -120 ML: -180 O: -110 O/U:182.5
+TS| S:+20.2+130 ML:+180 U:+110
+Trevor leads series 8-6

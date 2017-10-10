@@ -5,7 +5,6 @@ Created for 2016 season
 import argparse
 import logging
 import os
-import time
 from fantasy.league import League
 from util.groupme.bot.serverbot import ServerBot
 from util.groupme.bot.thugbot import TestBot, ThugBot
@@ -14,7 +13,7 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 4
+CURRENT_WEEK = 5
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
@@ -24,7 +23,6 @@ FUTURE_PLAYOFFS = False
 
 
 def main():
-    from util import logger
     thug_island = League(
         espn_id=190153,
         database_settings={'name': 'Fantasy', 'user': 'local'},
