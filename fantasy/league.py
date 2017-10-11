@@ -32,13 +32,13 @@ class League(object):
         self._db_games = None
         self._db_entry = None
         self._driver = None
+        self._historic_playoffs = None
         self._league_name = None
         self._recent_transactions = None
         self._owners = None
         self._years = None
 
         self.current_week = current_week
-        self.historic_playoffs = None
         self.future_playoffs = None
         self.lineup_positions = []
         self.players = {}
@@ -105,6 +105,12 @@ class League(object):
     @property
     def file_string(self):
         return os.path.join(os.getcwd(), self.resources_folder, self.league_name.lower().replace(' ', '_') + '_{}.xls')
+
+    @property
+    def historic_playoffs(self):
+        if self._historic_playoffs is None:
+            self._historic_playoffs = self.make_historic_playoffs()
+        return self._historic_playoffs
 
     @property
     def league_name(self):
@@ -444,7 +450,7 @@ class League(object):
             playoffs[rcd]['Championships Pct'] = playoffs[rcd]['Championships'] / playoffs[rcd]['All'] if playoffs[rcd]['All'] else 0.0
             playoffs[rcd]['Playoffs Pct'] = playoffs[rcd]['Playoffs'] / playoffs[rcd]['All'] if playoffs[rcd]['All'] else 0.0
 
-        self.historic_playoffs = playoffs
+        return playoffs
 
     def make_future_playoffs(self, all_points=True):
         t_a = datetime.now()
@@ -453,10 +459,13 @@ class League(object):
         games_left = [i for s in [schedule.weeks[w].games for w in weeks_left] for i in s]
         games_left = [g for g in games_left if g.is_regular_season]
         if games_left and g.is_regular_season:
-            game_outcomes = range(0, 2 ** (len(weeks_left) * len(schedule.weeks[weeks_left[0]].games)))
-            game_outcomes = [bin(g).split('b')[1].zfill(len(weeks_left) * len(schedule.weeks[weeks_left[0]].games))
-                             for g in game_outcomes]
-        #     game_outcomes = [bin(g).split('b')[1].zfill(15) for g in range(2**5)]
+            # num_games_left = (len(weeks_left) * len(schedule.weeks[weeks_left[0]].games))
+            num_games_left = len(games_left)
+            num_outcomes = 2 ** num_games_left
+            # game_outcomes = range(0, num_outcomes)
+            # game_outcomes = [bin(g).split('b')[1].zfill(len(weeks_left) * len(schedule.weeks[weeks_left[0]].games))
+            #                  for g in game_outcomes]
+            game_outcomes = [bin(g).split('b')[1].zfill(15) for g in range(2**5)]
         else:
             game_outcomes = []
 
@@ -472,10 +481,12 @@ class League(object):
             season_finishes[owner] = [0, 0, 0]  # Division, playoffs, total
 
         if game_outcomes:
-            for io, outcome in enumerate(game_outcomes):
+            this_outcome = 0
+            record = deepcopy(init_records)
+            while this_outcome < num_outcomes:
+                outcome = bin(this_outcome).split('b')[1].zfill(num_games_left)
                 highest_list = [None] if not all_points else self.owners.keys()
                 for highest_owner in highest_list:
-                    record = deepcopy(init_records)
                     if highest_owner is not None:
                         record[highest_owner][4] = 999.9
                     for g, game in enumerate(outcome):
@@ -488,6 +499,14 @@ class League(object):
 
                     finished = [record[o] for o in record]
                     finished = sorted(finished, key=lambda p: (p[1], p[4]), reverse=True)
+
+                    for g, game in enumerate(outcome):
+                        away_owner = games_left[g].away_owner.name
+                        home_owner = games_left[g].home_owner.name
+                        record[away_owner][1] -= int(game)
+                        record[away_owner][2] -= not int(game)
+                        record[home_owner][1] -= not int(game)
+                        record[home_owner][2] -= int(game)
 
                     # Look for division winners
                     found = {"East": False, "West": False}
@@ -508,11 +527,15 @@ class League(object):
                     # Total remaining
                     for i, f in enumerate(finished[4:]):
                         season_finishes[f[0]][2] += 1
-                # if int(outcome, 2) % (int(game_outcomes[-1], 2) / 100) == 0:
-                #     t_b = datetime.now()
-                #     t_d = (t_b - t_a).seconds
-                #     print outcome,
-                #     print ": {0}m {1}s: {2:.0%}".format(t_d / 60, t_d % 60, io / float(int(game_outcomes[-1], 2)))
+
+                this_outcome += 1
+
+                if True:
+                    if this_outcome % (num_outcomes / 1000.0) == 0:
+                        t_b = datetime.now()
+                        t_d = (t_b - t_a).seconds
+                        print outcome,
+                        print ": {0}m {1}s: {2:.1%}".format(t_d / 60, t_d % 60, this_outcome / float(num_outcomes))
         else:
             finished = [init_records[o] for o in init_records]
             finished = sorted(finished, key=lambda p: (p[1], p[4]), reverse=True)
@@ -553,8 +576,7 @@ class League(object):
             self.generate_rankings(week=week, plot=week is weeks[-1])
 
         if playoffs:
-            self.make_historic_playoffs()
-            self.make_future_playoffs()
+            self.make_future_playoffs(False)
 
     def search_players(self, name="   ", position="   "):
         found = []
@@ -722,28 +744,29 @@ class League(object):
             for r in sorted(plys.keys(), key=lambda p: int(p.split('-')[0]), reverse=True):
                 rcd = plys[r]
                 body += "{0}: {1}{2}{3} team{4} gone {5}{6}\n".format(r,
-                    "{:.1%}".format(rcd[0] / rcd[1]) if rcd[1] else "No",
-                    ", " if rcd[1] else "",
-                    "{:.0f}".format(rcd[1]) if rcd[1] else "",
-                    "s have" if rcd[1] != 1 else " has",
+                    "{:.1%}".format(rcd['Playoffs Pct']) if rcd['Playoffs'] > 0 else "No",
+                    ", " if rcd['Playoffs'] > 0 else "",
+                    "{:.0f}".format(rcd['All']) if rcd['All'] > 0 else "",
+                    "s have" if rcd['All'] != 1 else " has",
                     r,
-                    ", {} made playoffs".format(rcd[0]) if rcd[1] else "")
+                    ", {} made playoffs".format(rcd['Playoffs']) if rcd['Playoffs'] > 0 else "")
 
             body += "\n"
-            plys = self.future_playoffs
-            sims = plys[plys.keys()[0]][2]
-            body += "[b]Playoff Simulations ({} scenarios)[/b]\n".format(sims)
-            owners = plys.keys()
-            owners = sorted(owners, key=lambda p: (p[0].upper(), p[1].upper()))
-            for owner in owners:
-                rcd = plys[owner]
-                body += "[u]{}[/u]\n".format(owner)
-                body += "{0}{1} end in division championship\n".format(
-                    "<" if float(rcd[0]) / float(rcd[2]) < 0.0001 and rcd[0] != 0 else "",
-                    "No scenarios" if rcd[0] == 0 else "{0:.2%}".format(float(rcd[0]) / float(rcd[2])))
-                body += "{0}{1} end in playoff berth\n\n".format(
-                    "<" if float(rcd[1]) / float(rcd[2]) < 0.0001 and rcd[1] != 0 else "",
-                    "No scenarios" if rcd[1] == 0 else "{0:.2%}".format(float(rcd[1]) / float(rcd[2])))
+            if self.future_playoffs is not None:
+                plys = self.future_playoffs
+                sims = plys[plys.keys()[0]][2]
+                body += "[b]Playoff Simulations ({} scenarios)[/b]\n".format(sims)
+                owners = plys.keys()
+                owners = sorted(owners, key=lambda p: (p[0].upper(), p[1].upper()))
+                for owner in owners:
+                    rcd = plys[owner]
+                    body += "[u]{}[/u]\n".format(owner)
+                    body += "{0}{1} end in division championship\n".format(
+                        "<" if float(rcd[0]) / float(rcd[2]) < 0.0001 and rcd[0] != 0 else "",
+                        "No scenarios" if rcd[0] == 0 else "{0:.2%}".format(float(rcd[0]) / float(rcd[2])))
+                    body += "{0}{1} end in playoff berth\n\n".format(
+                        "<" if float(rcd[1]) / float(rcd[2]) < 0.0001 and rcd[1] != 0 else "",
+                        "No scenarios" if rcd[1] == 0 else "{0:.2%}".format(float(rcd[1]) / float(rcd[2])))
 
         if mtchups:
             body += "\n"

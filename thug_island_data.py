@@ -96,11 +96,11 @@ def check_transactions(group_me=True):
                 bot_says = "TRADE ALERT:\n" + transaction.get('text')
                 logger.info("Trade: %s" % transaction.get('text').split()[0])
                 test_bot.say(bot_says)
-                server_bot.say(bot_says)
+                # thug_bot.say(bot_says)
             elif group_me:
                 bot_says = "TRANSACTION:\n" + transaction.get('text')
                 logger.info("Transaction: %s" % transaction.get('text').split()[0])
-                server_bot.say(bot_says)
+                test_bot.say(bot_says)
     except Exception as ex:
         logger.exception(ex)
         exit()
