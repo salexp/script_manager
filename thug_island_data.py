@@ -42,7 +42,7 @@ def main():
         games=True,
         mtchups=True,
         owners=False,
-        plyffs=True,
+        plyffs=False,
         power=True,
         seasons=False,
         rcds=False
@@ -107,32 +107,29 @@ def check_transactions(group_me=True):
 
 
 if __name__ == "__main__":
-    try:
-        parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
 
-        parser.add_argument('-t', '--check-trades', action='store_true', dest='trades', default=False,
-                            help='Check and post recent trades..')
+    parser.add_argument('-t', '--check-trades', action='store_true', dest='trades', default=False,
+                        help='Check and post recent trades..')
 
-        args, leftovers = parser.parse_known_args()
+    args, leftovers = parser.parse_known_args()
 
-        # Setup log file
-        logging.basicConfig()
-        logger = logging.getLogger('gbench_convert')
-        logger.setLevel(logging.INFO)
-        logger.propagate = False
+    # Setup log file
+    logging.basicConfig()
+    logger = logging.getLogger('gbench_convert')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
 
-        log_folder = os.path.join(os.getcwd(), 'logs')
-        if not os.path.isdir(log_folder):
-            os.makedirs(log_folder)
+    log_folder = os.path.join(os.getcwd(), 'logs')
+    if not os.path.isdir(log_folder):
+        os.makedirs(log_folder)
 
-        hndlr = logging.FileHandler(os.path.join(log_folder, 'thug_island_data.log'))
-        fmrtr = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M:%S')
-        hndlr.setFormatter(fmrtr)
-        logger.addHandler(hndlr)
+    hndlr = logging.FileHandler(os.path.join(log_folder, 'thug_island_data.log'))
+    fmrtr = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M:%S')
+    hndlr.setFormatter(fmrtr)
+    logger.addHandler(hndlr)
 
-        if args.trades:
-            check_transactions()
-        else:
-            main()
-    except Exception as e:
-        logging.exception(e)
+    if args.trades:
+        check_transactions()
+    else:
+        main()
