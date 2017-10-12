@@ -99,7 +99,7 @@ def check_transactions(group_me=True):
             elif group_me:
                 bot_says = "TRANSACTION:\n" + transaction.get('text')
                 logger.info("Transaction: %s" % transaction.get('text').split()[0])
-                # test_bot.say(bot_says)
+                server_bot.say(bot_says)
     except Exception as ex:
         logger.exception(ex)
         exit()
