@@ -462,12 +462,9 @@ class League(object):
             # num_games_left = (len(weeks_left) * len(schedule.weeks[weeks_left[0]].games))
             num_games_left = len(games_left)
             num_outcomes = 2 ** num_games_left
-            # game_outcomes = range(0, num_outcomes)
-            # game_outcomes = [bin(g).split('b')[1].zfill(len(weeks_left) * len(schedule.weeks[weeks_left[0]].games))
-            #                  for g in game_outcomes]
-            game_outcomes = [bin(g).split('b')[1].zfill(15) for g in range(2**5)]
         else:
-            game_outcomes = []
+            num_games_left = 0
+            num_outcomes = 0
 
         init_records = {}
         season_finishes = {}
@@ -480,7 +477,7 @@ class League(object):
             init_records[owner] = [owner, w, l, t, pf, d]
             season_finishes[owner] = [0, 0, 0]  # Division, playoffs, total
 
-        if game_outcomes:
+        if num_games_left > 0:
             this_outcome = 0
             record = deepcopy(init_records)
             while this_outcome < num_outcomes:
