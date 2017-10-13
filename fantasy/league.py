@@ -28,6 +28,7 @@ class League(object):
         self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % espn_id
         # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
 
+        self._all_games = None
         self._current_year = None
         self._db_games = None
         self._db_entry = None
@@ -74,6 +75,14 @@ class League(object):
                 self.add_games(y, work_book)
 
             self.make_historic_playoffs()
+
+    @property
+    def all_games(self):
+        if self._all_games is None:
+            self._all_games = []
+            for y, year in self.years.items():
+                self._all_games += year.all_games
+        return self._all_games
 
     @property
     def current_year(self):
