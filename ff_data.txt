@@ -1,55 +1,65 @@
-Week 6 Computer Rankings and Matchup Previews
+Week 7 Computer Rankings and Matchup Previews
 
-[b]Week 6 Computer Rankings[/b]
-1st. (+1) [0.8338] Kareemed in my Pants (4-1)
-2nd. (+1) [0.8263] Winner Winner Chicken Leonard (4-1)
-3rd. ( -2) [0.8038] Keenan and Kel (4-1)
-4th. (+2) [0.7518] Reign of the Superman (3-2)
-5th. ( -1) [0.7364] Return of the Prodigal Son (2-3)
-6th. ( -1) [0.7060] The Replacements (2-3)
-7th. (+1) [0.7027] Forever Billieve (3-2)
-8th. (+1) [0.6869] The Mixon Administration (1-4)
-9th. ( -2) [0.6747] Waiver Wire Wiseman (1-4)
-10th ( --) [0.6010] Jaykle and Hyde (1-4)
+[b]Week 7 Computer Rankings[/b]
+1st. (+1) [0.8372] Winner Winner Chicken Leonard (5-1)
+2nd. (+1) [0.8213] Keenan and Kel (5-1)
+3rd. ( -2) [0.7922] Kareemed in my Pants (4-2)
+4th. ( --) [0.7900] Reign of the Superman (4-2)
+5th. (+2) [0.7414] Forever Billieve (4-2)
+6th. ( -1) [0.7150] Return of the Prodigal Son (2-4)
+7th. ( -1) [0.7049] The Replacements (2-4)
+8th. ( --) [0.6976] The Mixon Administration (1-5)
+9th. ( --) [0.6735] Waiver Wire Wiseman (1-5)
+10th ( --) [0.6119] Jaykle and Hyde (2-4)
 
 [b]Rankings Graph[/b]
 [image][/image]
 
-[b]Team Bonuses (Week 5)[/b]
-W: Eric, James, Josh, Stuart, Trevor
-PF: 128.4 (Stuart)
-QB1. Carson Wentz (Eric Price) - 29.8
-RB1. Leonard Fournette (Trevor Watson) - 32.4
-WR1. A.J. Green (James Furlong) - 25.4
-K. Stephen Gostkowski (James Furlong) - 15.0
+[b]Team Bonuses (Week 6)[/b]
+W: Andrew, Eric, Josh, Stuart, Trevor
+PF: 128.1 (Stuart)
+QB1. Kirk Cousins (Connor Wiseman) - 28.3
+RB1. Melvin Gordon (Stuart Petty) - 27.0
+WR1. Antonio Brown (Ben Mytelka) - 24.0
+D/ST. Texans (Stuart Petty) - 23.0
+
+[b]Historic Playoff Chances[/b]
+6-0: 100.0%, 2 teams have gone 6-0, 2 made playoffs
+5-1: 100.0%, 6 teams have gone 5-1, 6 made playoffs
+4-2: 92.9%, 14 teams have gone 4-2, 13 made playoffs
+3-3: 54.5%, 22 teams have gone 3-3, 12 made playoffs
+2-4: 37.5%, 16 teams have gone 2-4, 6 made playoffs
+1-5: 12.5%, 8 teams have gone 1-5, 1 made playoffs
+0-6: No teams have gone 0-6
+
 
 [b]Matchup Previews[/b]
-[9] [u]Waiver Wire Wiseman[/u] at
-[4] [u]Reign of the Superman[/u]
-CW| S: -18.2 -110 ML: -130 O: -105 O/U:178.8
-SP| S:+18.2+140 ML:+130 U:+105
-Stuart leads series 8-7
+[5] [u]Forever Billieve[/u] at
+[6] [u]Return of the Prodigal Son[/u]
+EP| S:+21.8+110 ML:+180 O:+123 O/U:180.8
+BM| S: -21.8 -140 ML: -180 U: -123
+Ben leads series 11-5
+
+[3] [u]Kareemed in my Pants[/u] at
+[9] [u]Waiver Wire Wiseman[/u]
+JF| S: -14.7 -135 ML: -140 O:+108 O/U:182.7
+CW| S:+14.7+115 ML:+140 U: -108
+Connor leads series 9-6
+
+[1] [u]Winner Winner Chicken Leonard[/u] at
+[8] [u]The Mixon Administration[/u]
+TW| S: -15.7 -135 ML: -175 O:+108 O/U:184.9
+RR| S:+15.7+115 ML:+175 U: -108
+Trevor leads series 10-5
 
 [10] [u]Jaykle and Hyde[/u] at
-[1] [u]Kareemed in my Pants[/u]
-JW| S:+14.8+140 ML:+315 O: -150 O/U:190.9
-JF| S: -14.8 -110 ML: -315 U:+150
-James leads series 9-7
+[7] [u]The Replacements[/u]
+JW| S:+18.7+120 ML:+135 O:+103 O/U:161.1
+TS| S: -18.7 -130 ML: -135 U: -103
+Josh leads series 8-2
 
-[7] [u]Forever Billieve[/u] at
-[8] [u]The Mixon Administration[/u]
-EP| S:+15.0+125 ML:+140 O:PUSH O/U:173.7
-RR| S: -15.0 -125 ML: -140 U:PUSH
-Eric leads series 8-7
-
-[5] [u]Return of the Prodigal Son[/u] at
-[3] [u]Keenan and Kel[/u]
-BM| S: -26.6 -130 ML: -145 O:PUSH O/U:210.3
-AL| S:+26.6+120 ML:+145 U:PUSH
-Ben leads series 8-4
-
-[2] [u]Winner Winner Chicken Leonard[/u] at
-[6] [u]The Replacements[/u]
-TW| S: -20.2 -120 ML: -180 O: -110 O/U:182.5
-TS| S:+20.2+130 ML:+180 U:+110
-Trevor leads series 8-6
+[2] [u]Keenan and Kel[/u] at
+[4] [u]Reign of the Superman[/u]
+AL| S: -24.8 -120 ML: -150 O: -103 O/U:199.4
+SP| S:+24.8+130 ML:+150 U:+103
+Stuart leads series 8-7

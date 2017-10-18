@@ -13,7 +13,7 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 5
+CURRENT_WEEK = 6
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
@@ -42,7 +42,7 @@ def main():
         games=True,
         mtchups=True,
         owners=False,
-        plyffs=False,
+        plyffs=True,
         power=True,
         seasons=False,
         rcds=False
