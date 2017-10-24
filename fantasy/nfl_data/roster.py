@@ -33,15 +33,21 @@ class GameRoster:
             self.starter_points += plyr_game.points
             if self.rb1 is None:
                 self.rb1 = plyr_game
-            else:
+            elif self.rb2 is None:
                 self.rb2 = plyr_game
+            else:
+                self.rb3 = plyr_game
+                self.flx = plyr_game
         elif "WR" == plyr_game.slot and not force or force == "WR":
             self.starters.append(plyr_game)
             self.starter_points += plyr_game.points
             if self.wr1 is None:
                 self.wr1 = plyr_game
-            else:
+            elif self.wr2 is None:
                 self.wr2 = plyr_game
+            else:
+                self.wr3 = plyr_game
+                self.flx = plyr_game
         elif "RB/WR" == plyr_game.slot and not force or force == "RB/WR":
             self.starters.append(plyr_game)
             self.starter_points += plyr_game.points

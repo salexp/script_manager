@@ -13,7 +13,7 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 6
+CURRENT_WEEK = 7
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
@@ -105,6 +105,44 @@ def check_transactions(group_me=True):
         exit()
 
 
+def download_history():
+    import xlrd
+    from xlutils.copy import copy
+
+    YEAR = 2014
+
+    thug_island = League(
+        espn_id=190153,
+        database_settings={'name': 'Fantasy', 'user': 'local'},
+        resources_folder='fantasy/resources',
+        update_resources=DOWNLOAD_GAMES,
+        full_update=FULL_HISTORY,
+        current_week=CURRENT_WEEK
+    )
+    book = xlrd.open_workbook('fantasy/resources/thug_island_{}.xls'.format(YEAR))
+    work_book = copy(book)
+    thug_island.download_games(YEAR, work_book, full_history=True)
+
+    thug_island = None
+
+    thug_island = League(
+        espn_id=190153,
+        database_settings={'name': 'Fantasy', 'user': 'local'},
+        resources_folder='fantasy/resources',
+        update_resources=DOWNLOAD_GAMES,
+        full_update=FULL_HISTORY,
+        current_week=CURRENT_WEEK
+    )
+
+    for year in [YEAR]:
+        for week in range(1, 16):
+            w = str(week)
+            for game in thug_island.years[year].schedule.weeks[w].games:
+                for matchup in [game.home_matchup, game.away_matchup]:
+                    if not matchup.roster.complete:
+                        print matchup.roster
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
@@ -131,4 +169,5 @@ if __name__ == "__main__":
     if args.trades:
         check_transactions()
     else:
+        # download_history()
         main()

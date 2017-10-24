@@ -226,7 +226,7 @@ class ExcelGame:
         self.away_matchup = away.add_matchup(self, "Away")
         self.home_matchup = home.add_matchup(self, "Home")
 
-    def build_from_matchup(self, data):
+    def build_from_matchup(self, data, from_old=False):
         self.detailed = True
         self.raw_details = data
         team_a = data[1][0]
@@ -253,14 +253,25 @@ class ExcelGame:
             roster = []
             for r in boxscore:
                 plyr = None
-                slot = r[0]
-                if r[1] not in ("", " ") and "PLAYER" not in r[1]:
-                    name = player.get_name(r[1])
-                    if name not in self.league.players:
-                        self.league.players[name] = player.Player(r)
-                    plyr = self.league.players[name]
-                elif slot in self.league.lineup_positions and r[4] == "--":
-                    plyr = player.NonePlayer(r)
+                if not from_old:
+                    slot = r[0]
+                    if r[1] not in ("", " ") and "PLAYER" not in r[1]:
+                        name = player.get_name(r[1])
+                        if name not in self.league.players:
+                            self.league.players[name] = player.Player(r)
+                        plyr = self.league.players[name]
+                    elif slot in self.league.lineup_positions and r[4] == "--":
+                        plyr = player.NonePlayer(r)
+                else:
+                    slot = player.get_position(r[0])
+                    r = [slot] + r
+                    if slot is not None and r[1] not in ("", " ") and "PLAYER" not in r[1]:
+                        name = player.get_name(r[1])
+                        if name not in self.league.players:
+                            self.league.players[name] = player.Player(r)
+                        plyr = self.league.players[name]
+                    elif slot is not None and slot in self.league.lineup_positions and r[4] == "--":
+                        plyr = player.NonePlayer(r)
 
                 if plyr is not None:
                     mtup = self.home_matchup if home else self.away_matchup

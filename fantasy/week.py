@@ -81,16 +81,20 @@ class Week:
             self._winning_owners = [o for o in self.owners if o.games[self.year][self.number].won]
         return self._winning_owners
 
-    def add_details(self, sh):
+    def add_details(self, sh, from_old=False):
         for c in range(sh.ncols):
             if sh.cell_value(1, c) in self.league.owners:
                 game = self.find_game(sh.cell_value(1, c))
 
                 table = []
                 for ir in range(0, sh.nrows):
-                    table.append([sh.cell_value(ir, ic) for ic in range(c, c + 5)])
+                    temp_row = []
+                    for ic in range(c, c + 5):
+                        if ic < sh.ncols:
+                            temp_row.append(sh.cell_value(ir, ic))
+                    table.append(temp_row)
 
-                game.build_from_matchup(table)
+                game.build_from_matchup(table, from_old=from_old)
 
     def find_game(self, owner_name):
         for game in self.games:
