@@ -119,7 +119,7 @@ class Stock:
                 columns = [f for f in reader.fieldnames]
 
                 if single_quarter:
-                    reader = reader[0]
+                    reader = [[r for r in reader][0]]
 
                 for row in reader:
                     data = OrderedDict((DB_MAP[k], row[k]) for k in columns)
