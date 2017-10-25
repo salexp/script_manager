@@ -112,11 +112,14 @@ class Stock:
     def set_data(self, start=None, end=None, intraday=False):
         self._data_def = {'start': start, 'end': end, 'intraday': intraday}
 
-    def update_fundamentals_database(self):
+    def update_fundamentals_database(self, single_quarter=False):
         if self.has_fundamentals:
             with open(self.fundamentals_file, 'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
                 columns = [f for f in reader.fieldnames]
+
+                if single_quarter:
+                    reader = reader[0]
 
                 for row in reader:
                     data = OrderedDict((DB_MAP[k], row[k]) for k in columns)

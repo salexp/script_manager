@@ -32,7 +32,7 @@ def run():
         for t in qw.stock_ticker_list:
             stock = Stock(ticker=t, database_connection=db)
             stock.download_fundamentals()
-            stock.update_fundamentals_database()
+            stock.update_fundamentals_database(single_quarter=True)
 
     elif args.script_option is not None and '-' in args.script_option:
         start_date = datetime.datetime.strptime(args.script_option, "%Y-%m-%d").date()
