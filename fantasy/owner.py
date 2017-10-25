@@ -109,6 +109,7 @@ class Owner:
                     self.add_championship(game.year)
 
             for record in records:
+                record.add_matchup(matchup)
                 record.all += 1
                 record.wins += matchup.won
                 record.losses += matchup.lost
@@ -330,9 +331,14 @@ class OwnerAttributes:
         else:
             points = [m.pf for m in matchups]
 
-        self.mu = sum(points) / len(points)
-        self.ssq = sum(p**2 for p in points)
-        self.sigma = (1.0 / len(points)) * (len(points) * self.ssq - sum(points) ** 2) ** (0.5)
+        if len(points) > 0:
+            self.mu = sum(points) / len(points)
+            self.ssq = sum(p**2 for p in points)
+            self.sigma = (1.0 / len(points)) * (len(points) * self.ssq - sum(points) ** 2) ** (0.5)
+        else:
+            self.mu = 0.0
+            self.ssq = 0.0
+            self.sigma = 0.0
 
 
 class Records:
@@ -408,12 +414,21 @@ class Records:
 
 class Record:
     def __init__(self):
+        self._matchups = []
+
         self.all = 0
         self.wins = 0
         self.losses = 0
         self.ties = 0
         self.pf = 0.0
         self.pa = 0.0
+
+    @property
+    def matchups(self):
+        return self._matchups
+
+    def add_matchup(self, mtchp):
+        self._matchups.append(mtchp)
 
     def pag(self):
         return self.pa / self.all

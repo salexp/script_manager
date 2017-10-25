@@ -28,6 +28,7 @@ class League(object):
         self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % espn_id
         # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
 
+        self._all_games = None
         self._current_year = None
         self._db_games = None
         self._db_entry = None
@@ -49,10 +50,14 @@ class League(object):
         if resources_folder is not None:
             history_file = self.file_string.format('history')
             year_files = {}
+            year_files_old = {}
             for year in self.years_list:
                 year_file = self.file_string.format(year)
+                year_file_old = self.file_string.format(str(year) + '_old')
                 if os.path.isfile(year_file):
                     year_files[year] = year_file
+                if os.path.isfile(year_file_old):
+                    year_files_old[year] = year_file_old
 
             if update_resources:
                 rb = xlrd.open_workbook(history_file)
@@ -69,11 +74,23 @@ class League(object):
                 work_book = copy(rb)
                 self.download_games(self.current_year, book=work_book, full_history=full_update)
 
+            for y, year_file_old in year_files_old.items():
+                work_book = xlrd.open_workbook(year_file_old)
+                self.add_games(y, work_book, from_old=True)
+
             for y, year_file in year_files.items():
                 work_book = xlrd.open_workbook(year_file)
                 self.add_games(y, work_book)
 
             self.make_historic_playoffs()
+
+    @property
+    def all_games(self):
+        if self._all_games is None:
+            self._all_games = []
+            for y, year in self.years.items():
+                self._all_games += year.all_games
+        return self._all_games
 
     @property
     def current_year(self):
@@ -311,12 +328,12 @@ class League(object):
 
         return new_transactions
 
-    def add_games(self, year, book):
+    def add_games(self, year, book, from_old=False):
         for w in range(1, len(self.years[year].schedule.weeks) + 1):
             wk = str(w)
             week = self.years[year].schedule.weeks[wk]
             sheet = book.sheet_by_index(w - 1)
-            week.add_details(sheet)
+            week.add_details(sheet, from_old=from_old)
 
     def find_all_players(self, text):
         found = []
@@ -703,9 +720,9 @@ class League(object):
                 body += "** - Clinched division\n"
                 body += "* - Clinched playoffs\n"
 
-            body += "\n"
-            body += "[b]Rankings Graph[/b]\n"
-            body += "[image][/image]\n"
+            # body += "\n"
+            # body += "[b]Rankings Graph[/b]\n"
+            # body += "[image][/image]\n"
 
             body += "\n"
             rstr = self.years[year].schedule.weeks[week].records.alltime_roster
@@ -740,13 +757,11 @@ class League(object):
             body += "[b]Historic Playoff Chances[/b]\n"
             for r in sorted(plys.keys(), key=lambda p: int(p.split('-')[0]), reverse=True):
                 rcd = plys[r]
-                body += "{0}: {1}{2}{3} team{4} gone {5}{6}\n".format(r,
-                    "{:.1%}".format(rcd['Playoffs Pct']) if rcd['Playoffs'] > 0 else "No",
-                    ", " if rcd['Playoffs'] > 0 else "",
-                    "{:.0f}".format(rcd['All']) if rcd['All'] > 0 else "",
-                    "s have" if rcd['All'] != 1 else " has",
-                    r,
-                    ", {} made playoffs".format(rcd['Playoffs']) if rcd['Playoffs'] > 0 else "")
+                if rcd['All'] > 0:
+                    body += "{0}: {1:.1%}, {2:.0f} team{3} gone {4}, {5} made playoffs\n".format(
+                        r, rcd['Playoffs Pct'], rcd['All'], "s have" if rcd['All'] != 1 else " has", r, rcd['Playoffs'])
+                else:
+                    body += "{0}: No teams have gone {0}\n".format(r)
 
             body += "\n"
             if self.future_playoffs is not None:
@@ -1000,7 +1015,21 @@ class LeagueRecords:
 
         self.number_count = number
 
+        self._players = None
         self._weeks = None
+
+    @property
+    def players(self):
+        if self._players is None:
+            plyr_dict = {}
+
+            all_games = [player.owned for p, player in self.league.players.items()]
+            all_games = squash_list(all_games, unique=False)
+            high_games = sorted(all_games, key=lambda k: k.points, reverse=True)
+            plyr_dict["Highest Scoring"] = high_games
+
+            self._players = plyr_dict
+        return self._players
 
     @property
     def weeks(self):

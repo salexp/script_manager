@@ -175,6 +175,10 @@ class ExcelGame:
                 self.league.espn_id, self.home_owner.espn_id, self.week.number, self.year)
         return self._url
 
+    @property
+    def week_stamp(self):
+        return int('{}{:02}'.format(self.year, int(self.week.number)))
+
     def add_to_database(self):
         db = self.league.db
         query = """
@@ -222,7 +226,7 @@ class ExcelGame:
         self.away_matchup = away.add_matchup(self, "Away")
         self.home_matchup = home.add_matchup(self, "Home")
 
-    def build_from_matchup(self, data):
+    def build_from_matchup(self, data, from_old=False):
         self.detailed = True
         self.raw_details = data
         team_a = data[1][0]
@@ -249,14 +253,25 @@ class ExcelGame:
             roster = []
             for r in boxscore:
                 plyr = None
-                slot = r[0]
-                if r[1] not in ("", " ") and "PLAYER" not in r[1]:
-                    name = player.get_name(r[1])
-                    if name not in self.league.players:
-                        self.league.players[name] = player.Player(r)
-                    plyr = self.league.players[name]
-                elif slot in self.league.lineup_positions and r[4] == "--":
-                    plyr = player.NonePlayer(r)
+                if not from_old:
+                    slot = r[0]
+                    if r[1] not in ("", " ") and "PLAYER" not in r[1]:
+                        name = player.get_name(r[1])
+                        if name not in self.league.players:
+                            self.league.players[name] = player.Player(r)
+                        plyr = self.league.players[name]
+                    elif slot in self.league.lineup_positions and r[4] == "--":
+                        plyr = player.NonePlayer(r)
+                else:
+                    slot = player.get_position(r[0])
+                    r = [slot] + r
+                    if slot is not None and r[1] not in ("", " ") and "PLAYER" not in r[1]:
+                        name = player.get_name(r[1])
+                        if name not in self.league.players:
+                            self.league.players[name] = player.Player(r)
+                        plyr = self.league.players[name]
+                    elif slot is not None and slot in self.league.lineup_positions and r[4] == "--":
+                        plyr = player.NonePlayer(r)
 
                 if plyr is not None:
                     mtup = self.home_matchup if home else self.away_matchup
@@ -273,6 +288,8 @@ class ExcelGame:
 
 class GamePreview:
     def __init__(self, game):
+        self.game = game
+
         away_owner = game.away_owner
         away_owner.attrib.update(start_game=game)
         home_owner = game.home_owner
@@ -295,6 +312,9 @@ class GamePreview:
                 summ = sum_temp
                 mx = hpts
 
+        if mx is None:
+            mx = 0.0
+
         points = mx / 100.0
         self.ou = 2 * points
         sum_a = sumpdf(points, mu_a, sigma_a)
@@ -305,22 +325,36 @@ class GamePreview:
         self.under_favorite = over < under
         ou_lines = [None, None]
         for i, pct in enumerate([under, over]):
-            if pct > 0.5:
+            if pct > 0.5 and pct != 1:
                 ou_line = pct / (1.0 - pct) * (-100.0)
-            else:
+            elif pct != 0:
                 ou_line = (1.0 - pct) / pct * 100
-            ou_line = int(ou_line / abs(ou_line)) * ((abs(ou_line) - 100) / 1.0 + 100)
-            ou_line = round(round(ou_line * 4, -1) / 4, 0)
+            else:
+                ou_line = 0.0
+
+            if ou_line != 0:
+                ou_line = int(ou_line / abs(ou_line)) * ((abs(ou_line) - 100) / 1.0 + 100)
+                ou_line = round(round(ou_line * 4, -1) / 4, 0)
             ou_lines[i] = abs(ou_line)
         self.over_payout = ou_lines[0]
         self.under_payout = ou_lines[1]
 
         away_opp = away_owner.records.opponents[home_owner.name]["All"]
-        away_year = away_owner.records.overall[game.year]
+        away_opp_past = [m for m in away_opp.matchups if m.game.week_stamp < game.week_stamp]
+        if len(away_opp_past) > 0:
+            away_opp_pct = (sum([m.won for m in away_opp_past]) + 0.5 * sum([m.tie for m in away_opp_past])) / float(len(away_opp_past))
+        else:
+            away_opp_pct = 0.0
+
         home_opp = home_owner.records.opponents[away_owner.name]["All"]
-        home_year = home_owner.records.overall[game.year]
-        pct_a = 0.9 * sum_a / (sum_a + sum_h) + 0.1 * away_opp.percent()
-        pct_h = 0.9 * sum_h / (sum_a + sum_h) + 0.1 * home_opp.percent()
+        home_opp_past = [m for m in home_opp.matchups if m.game.week_stamp < game.week_stamp]
+        if len(home_opp_past) > 0:
+            home_opp_pct = (sum([m.won for m in home_opp_past]) + 0.5 * sum([m.tie for m in home_opp_past])) / float(len(home_opp_past))
+        else:
+            home_opp_pct = 0.0
+
+        pct_a = 0.9 * sum_a / (sum_a + sum_h) + 0.1 * away_opp_pct
+        pct_h = 0.9 * sum_h / (sum_a + sum_h) + 0.1 * home_opp_pct
 
         self.favorite = "Away" if pct_a > pct_h else "Home" if pct_a < pct_h else None
         self.percent = max([pct_a, pct_h])
@@ -334,10 +368,14 @@ class GamePreview:
 
         diff_a = abs(mx / 100.0 - mu_a)
         diff_h = abs(mx / 100.0 - mu_h)
-        self.away_payout = int(round(round(((diff_a / (diff_a + diff_h) / 2) * 100 + 100) * 2, -1) / 2 \
-                           * (-1 if self.away_favorite else 1), 0))
-        self.home_payout = int(round(round(((diff_h / (diff_a + diff_h) / 2) * 100 + 100) * 2, -1) / 2 \
-                           * (-1 if self.home_favorite else 1), 0))
+        if not (diff_a == 0 and diff_h == 0):
+            self.away_payout = int(round(round(((diff_a / (diff_a + diff_h) / 2) * 100 + 100) * 2, -1) / 2
+                                         * (-1 if self.away_favorite else 1), 0))
+            self.home_payout = int(round(round(((diff_h / (diff_a + diff_h) / 2) * 100 + 100) * 2, -1) / 2
+                                         * (-1 if self.home_favorite else 1), 0))
+        else:
+            self.away_payout = 0
+            self.home_payout = 0
 
         adjm = int(average([abs(n) for n in [self.away_payout, self.home_payout]]) - 100)
         money_lines = [None, None]
@@ -355,6 +393,31 @@ class GamePreview:
         self.moneyline = average([abs(n) for n in money_lines])
         self.away_moneyline = money_lines[0]
         self.home_moneyline = money_lines[1]
+
+    @property
+    def game_cover(self):
+        if self.game.played:
+            if self.away_favorite:
+                return self.game.away_score + self.away_spread > self.game.home_score
+            elif self.home_favorite:
+                return self.game.home_score + self.home_spread > self.game.away_score
+            else:
+                return False
+
+    @property
+    def game_error(self):
+        if self.game.played:
+            return abs(self.spread - self.game.margin)
+
+    @property
+    def game_upset(self):
+        if self.game.played:
+            return self.away_favorite == self.game.away_win or self.home_favorite == self.game.home_win
+
+    @property
+    def game_over(self):
+        if self.game.played:
+            return self.game.total_points > self.ou
 
 
 def game_from_sheet(week, data, index, detailed=False, db_entry=None):
