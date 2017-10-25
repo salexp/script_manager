@@ -10,6 +10,7 @@ from util.twitter.session import APISession
 from util.twitter.tweet import tweets_from_list
 
 from util import args
+from util import logger
 
 
 def run():
@@ -29,10 +30,13 @@ def run():
 
     elif args.script_option is not None and args.script_option.lower() == 'fundamentals':
         db = Database(**db_settings)
+        running_count = 0
         for t in qw.stock_ticker_list:
             stock = Stock(ticker=t, database_connection=db)
             stock.download_fundamentals()
-            stock.update_fundamentals_database(single_quarter=True)
+            running_count += stock.update_fundamentals_database(single_quarter=True)
+
+        logger.info("Cached %s quarters of fundamentals" % running_count)
 
     elif args.script_option is not None and '-' in args.script_option:
         start_date = datetime.datetime.strptime(args.script_option, "%Y-%m-%d").date()

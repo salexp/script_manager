@@ -113,6 +113,7 @@ class Stock:
         self._data_def = {'start': start, 'end': end, 'intraday': intraday}
 
     def update_fundamentals_database(self, single_quarter=False):
+        count = 0
         if self.has_fundamentals:
             with open(self.fundamentals_file, 'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
@@ -135,9 +136,12 @@ class Stock:
                         self.db.query_set(query=query, params=
                             tuple([self.ticker]+[_ if _ not in ('None', 'none', 'NONE', None) else None for _ in data.itervalues()]))
                         self.db.commit()
+                        count += 1
                     except mysql.connector.DataError as e:
                         logger.info('%s : %s' % (self.ticker, data['QUARTER_END']))
                         logger.info(e.msg)
+
+        return count
 
 
 DB_MAP = {
