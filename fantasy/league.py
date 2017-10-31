@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import urllib2
@@ -470,13 +471,15 @@ class League(object):
         return playoffs
 
     def make_future_playoffs(self, all_points=True):
+        cache_file = 'future_playoffs.json'
+
         t_a = datetime.now()
         schedule = self.years[self.current_year].schedule
         weeks_left = schedule.week_list[int(self.current_week):]
         games_left = [i for s in [schedule.weeks[w].games for w in weeks_left] for i in s]
         games_left = [g for g in games_left if g.is_regular_season]
         if games_left and g.is_regular_season:
-            # num_games_left = (len(weeks_left) * len(schedule.weeks[weeks_left[0]].games))
+            # num_games_left = 10
             num_games_left = len(games_left)
             num_outcomes = 2 ** num_games_left
         else:
@@ -494,7 +497,15 @@ class League(object):
             init_records[owner] = [owner, w, l, t, pf, d]
             season_finishes[owner] = [0, 0, 0]  # Division, playoffs, total
 
-        if num_games_left > 0:
+        from_cache = False
+        if os.path.isfile(cache_file):
+            with open(cache_file, 'r') as f:
+                cached_finishes = json.load(f)
+            if cached_finishes[owner][2] == num_outcomes:
+                season_finishes = cached_finishes
+                from_cache = True
+
+        if num_games_left > 0 and not from_cache:
             this_outcome = 0
             record = deepcopy(init_records)
             while this_outcome < num_outcomes:
@@ -550,7 +561,10 @@ class League(object):
                         t_d = (t_b - t_a).seconds
                         print outcome,
                         print ": {0}m {1}s: {2:.1%}".format(t_d / 60, t_d % 60, this_outcome / float(num_outcomes))
-        else:
+
+            with open(cache_file, 'w') as f:
+                json.dump(season_finishes, f)
+        elif not from_cache:
             finished = [init_records[o] for o in init_records]
             finished = sorted(finished, key=lambda p: (p[1], p[4]), reverse=True)
 

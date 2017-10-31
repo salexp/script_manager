@@ -1,6 +1,3 @@
-import datetime
-
-
 def calc_sma(nums, length):
     averages = []
     for i, n in enumerate(nums):
@@ -35,3 +32,27 @@ def first_per_year(datetimes):
             output.append(dt)
 
     return output
+
+
+def from_bytes(byte_list):
+    lsb_bytes = byte_list[::-1]
+    out_int = 0
+    for i, byte in enumerate(lsb_bytes):
+        out_int += byte << (8 * i)
+
+    return out_int
+
+
+def make_bytes(value, bytes=1):
+    outbytes = []
+    while value:
+        # rem = bin(value % 256)[2:].zfill(8)
+        rem = value % 256
+        outbytes.append(rem)
+        value = value >> 8
+
+    if len(outbytes) < bytes:
+        outbytes = outbytes + [0] * (bytes - len(outbytes))
+
+    outbytes = outbytes[::-1]
+    return outbytes
