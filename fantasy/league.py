@@ -545,7 +545,7 @@ class League(object):
                 this_outcome += 1
 
                 if True:
-                    if this_outcome % (num_outcomes / 1000.0) == 0:
+                    if float(num_outcomes) % this_outcome == 0:
                         t_b = datetime.now()
                         t_d = (t_b - t_a).seconds
                         print outcome,
