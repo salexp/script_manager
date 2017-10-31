@@ -19,7 +19,8 @@ FULL_HISTORY = False
 DOWNLOAD_GAMES = False
 GROUP_ME = False
 
-FUTURE_PLAYOFFS = False
+FUTURE_PLAYOFFS = True
+PLOT_RANKINGS = False
 
 
 def main():
@@ -34,7 +35,7 @@ def main():
 
     del thug_island.owners["Cody Blain"]
 
-    thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS)
+    thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS, plot=PLOT_RANKINGS)
 
     thug_island.to_string(
         outfile="ff_data.txt",

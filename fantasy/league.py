@@ -584,10 +584,10 @@ class League(object):
             if chc[0] == chc[2]:
                 owner.add_division_championship(self.current_year)
 
-    def recursive_rankings(self, year=None, playoffs=True):
+    def recursive_rankings(self, playoffs=True, plot=True):
         weeks = [str(w) for w in range(1, int(self.current_week)+1)]
         for week in weeks:
-            self.generate_rankings(week=week, plot=week is weeks[-1])
+            self.generate_rankings(week=week, plot=week is weeks[-1] and plot)
 
         if playoffs:
             self.make_future_playoffs(False)

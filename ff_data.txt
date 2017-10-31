@@ -31,6 +31,47 @@ D/ST. Ravens (Rande Revilla) - 27.0
 1-7: 0.0%, 3 teams have gone 1-7, 0 made playoffs
 0-8: No teams have gone 0-8
 
+[b]Playoff Simulations (33554432 scenarios)[/b]
+[u]Andrew Lee[/u]
+79.89% end in division championship
+100.00% end in playoff berth
+
+[u]Ben Mytelka[/u]
+22.28% end in division championship
+82.26% end in playoff berth
+
+[u]Connor Wiseman[/u]
+0.11% end in division championship
+10.91% end in playoff berth
+
+[u]Eric Price[/u]
+30.85% end in division championship
+86.92% end in playoff berth
+
+[u]James Furlong[/u]
+7.68% end in division championship
+80.65% end in playoff berth
+
+[u]josh watson[/u]
+0.07% end in division championship
+6.06% end in playoff berth
+
+[u]Rande Revilla[/u]
+0.20% end in division championship
+6.76% end in playoff berth
+
+[u]Stuart Petty[/u]
+12.25% end in division championship
+94.80% end in playoff berth
+
+[u]Thomas Singleton[/u]
+5.33% end in division championship
+32.33% end in playoff berth
+
+[u]Trevor Watson[/u]
+41.34% end in division championship
+99.33% end in playoff berth
+
 
 [b]Matchup Previews[/b]
 [5] [u]The Houston Inmates[/u] at
