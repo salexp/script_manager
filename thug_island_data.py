@@ -13,7 +13,7 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 8
+CURRENT_WEEK = 9
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False

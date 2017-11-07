@@ -1,105 +1,108 @@
-Week 9 Computer Rankings and Matchup Previews
+Week 10 Computer Rankings and Matchup Previews
 
-[b]Week 9 Computer Rankings[/b]
-1st. (+1) [0.7897] Winner Winner Chicken Leonard (6-2)
-2nd. ( -1) [0.7867] Keenan and Kel (7-1)
-3rd. ( --) [0.7487] Kareemed in my Pants (4-4)
-4th. ( --) [0.7475] Reign of the Superman (5-3)
-5th. (+2) [0.7449] The Houston Inmates (5-3)
-6th. ( -1) [0.7382] Return of the Prodigal Son (4-4)
-7th. (+1) [0.7142] The Replacements (3-5)
-8th. ( -2) [0.7095] Waiver Wire Wiseman (2-6)
-9th. ( --) [0.6732] The Mixon Administration (2-6)
-10th ( --) [0.5969] Jaykle and Hyde (2-6)
+[b]Week 10 Computer Rankings[/b]
+1st. (+1) [0.7946] Keenan and Kel* (8-1)
+2nd. (+3) [0.7825] The Houston Inmates (6-3)
+3rd. ( -2) [0.7758] Winner Winner Chicken Leonard (7-2)
+4th. ( --) [0.7436] Reign of the Superman (5-4)
+5th. ( -2) [0.7370] Kareemed in my Pants (4-5)
+6th. (+2) [0.7278] Boat Dawg (3-6)
+7th. ( -1) [0.7111] Return of the Prodigal Son (4-5)
+8th. ( -1) [0.7081] The Replacements (3-6)
+9th. ( --) [0.7023] The Mixon Administration (3-6)
+10th ( --) [0.5939] The Watson Family (2-7)
+** - Clinched division
+* - Clinched playoffs
 
-[b]Team Bonuses (Week 8)[/b]
-W: Andrew, Ben, Eric, Stuart, Trevor
-PF: 106.6 (Ben)
-QB1. Russell Wilson (Connor Wiseman) - 36.1
-RB1. Ezekiel Elliott (Thomas Singleton) - 25.9
-WR1. DeAndre Hopkins (Stuart Petty) - 31.9
-D/ST. Ravens (Rande Revilla) - 27.0
+[b]Team Bonuses (Week 9)[/b]
+W: Andrew, Connor, Eric, Rande, Trevor
+PF: 144.8 (Eric)
+QB1. Tyrod Taylor (Ben Mytelka) - 26.9
+RB1. Alvin Kamara (Eric Price) - 25.2
+WR1. Marvin Jones Jr. (Eric Price) - 23.7
+D/ST. Saints (Eric Price) - 19.0
 
 [b]Historic Playoff Chances[/b]
-8-0: 100.0%, 1 team has gone 8-0, 1 made playoffs
-7-1: 100.0%, 2 teams have gone 7-1, 2 made playoffs
-6-2: 100.0%, 10 teams have gone 6-2, 10 made playoffs
-5-3: 84.6%, 13 teams have gone 5-3, 11 made playoffs
-4-4: 57.1%, 14 teams have gone 4-4, 8 made playoffs
-3-5: 37.5%, 16 teams have gone 3-5, 6 made playoffs
-2-6: 22.2%, 9 teams have gone 2-6, 2 made playoffs
-1-7: 0.0%, 3 teams have gone 1-7, 0 made playoffs
-0-8: No teams have gone 0-8
+9-0: No teams have gone 9-0
+8-1: 100.0%, 3 teams have gone 8-1, 3 made playoffs
+7-2: 100.0%, 3 teams have gone 7-2, 3 made playoffs
+6-3: 92.9%, 14 teams have gone 6-3, 13 made playoffs
+5-4: 81.2%, 16 teams have gone 5-4, 13 made playoffs
+4-5: 45.5%, 11 teams have gone 4-5, 5 made playoffs
+3-6: 23.1%, 13 teams have gone 3-6, 3 made playoffs
+2-7: 0.0%, 6 teams have gone 2-7, 0 made playoffs
+1-8: 0.0%, 2 teams have gone 1-8, 0 made playoffs
+0-9: No teams have gone 0-9
 
-[b]Playoff Simulations (33554432 scenarios)[/b]
+[b]Playoff Simulations (1048576 scenarios)[/b]
 [u]Andrew Lee[/u]
-79.89% end in division championship
+82.39% end in division championship
 100.00% end in playoff berth
 
 [u]Ben Mytelka[/u]
-22.28% end in division championship
-82.26% end in playoff berth
+12.57% end in division championship
+75.06% end in playoff berth
 
 [u]Connor Wiseman[/u]
-0.11% end in division championship
-10.91% end in playoff berth
+0.80% end in division championship
+32.41% end in playoff berth
 
 [u]Eric Price[/u]
-30.85% end in division championship
-86.92% end in playoff berth
+47.55% end in division championship
+98.10% end in playoff berth
 
 [u]James Furlong[/u]
-7.68% end in division championship
-80.65% end in playoff berth
+2.17% end in division championship
+62.49% end in playoff berth
 
 [u]josh watson[/u]
-0.07% end in division championship
-6.06% end in playoff berth
+<0.00% end in division championship
+2.79% end in playoff berth
 
 [u]Rande Revilla[/u]
-0.20% end in division championship
-6.76% end in playoff berth
+0.18% end in division championship
+15.46% end in playoff berth
 
 [u]Stuart Petty[/u]
-12.25% end in division championship
-94.80% end in playoff berth
+14.61% end in division championship
+95.70% end in playoff berth
 
 [u]Thomas Singleton[/u]
-5.33% end in division championship
-32.33% end in playoff berth
+0.41% end in division championship
+17.94% end in playoff berth
 
 [u]Trevor Watson[/u]
-41.34% end in division championship
-99.33% end in playoff berth
+39.26% end in division championship
+99.99% end in playoff berth
 
 
 [b]Matchup Previews[/b]
-[5] [u]The Houston Inmates[/u] at
-[4] [u]Reign of the Superman[/u]
-EP| S:+19.6+110 ML:+150 O:+110 O/U:182.0
-SP| S: -19.6 -140 ML: -150 U: -110
-Stuart leads series 6-4-1
+[9] [u]The Mixon Administration[/u] at
+[1] [u]Keenan and Kel[/u]
+RR| S:+17.0+110 ML:+150 O:+115 O/U:177.1
+AL| S: -17.0 -140 ML: -150 U: -115
+Rande leads series 5-3
 
-[3] [u]Kareemed in my Pants[/u] at
-[2] [u]Keenan and Kel[/u]
-JF| S:+18.0+110 ML:+135 O:+103 O/U:189.6
-AL| S: -18.0 -140 ML: -135 U: -103
-Andrew leads series 7-6
+[5] [u]Kareemed in my Pants[/u] at
+[6] [u]Boat Dawg[/u]
+JF| S:+12.8+135 ML:+180 O: -113 O/U:189.9
+CW| S: -12.8 -115 ML: -180 U:+113
+Connor leads series 10-6
 
-[7] [u]The Replacements[/u] at
-[9] [u]The Mixon Administration[/u]
-TS| S: -15.2 -135 ML: -165 O:+110 O/U:174.0
-RR| S:+15.2+115 ML:+165 U: -110
-Series tied 6-6
+[7] [u]Return of the Prodigal Son[/u] at
+[2] [u]The Houston Inmates[/u]
+BM| S:+24.0+120 ML:+125 O:PUSH O/U:196.7
+EP| S: -24.0 -130 ML: -125 U:PUSH
+Ben leads series 12-5
 
-[10] [u]Jaykle and Hyde[/u] at
-[8] [u]Waiver Wire Wiseman[/u]
-JW| S:+13.4+140 ML:+305 O: -153 O/U:181.4
-CW| S: -13.4 -110 ML: -305 U:+153
-Josh leads series 11-6
+[4] [u]Reign of the Superman[/u] at
+[10] [u]The Watson Family[/u]
+SP| S: -19.4 -140 ML: -235 O:+148 O/U:155.5
+JW| S:+19.4+110 ML:+235 U: -148
+Series tied 8-8
 
-[6] [u]Return of the Prodigal Son[/u] at
-[1] [u]Winner Winner Chicken Leonard[/u]
-BM| S: -20.1 -130 ML: -175 O:+103 O/U:195.2
-TW| S:+20.1+120 ML:+175 U: -103
-Trevor leads series 11-8
+[3] [u]Winner Winner Chicken Leonard[/u] at
+[8] [u]The Replacements[/u]
+TW| S:+16.4+135 ML:+130 O: -103 O/U:182.1
+TS| S: -16.4 -115 ML: -130 U:+103
+Trevor leads series 9-6

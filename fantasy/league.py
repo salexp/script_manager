@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import re
 import urllib2
@@ -787,12 +788,14 @@ class League(object):
                 for owner in owners:
                     rcd = plys[owner]
                     body += "[u]{}[/u]\n".format(owner)
+                    division_pct = math.floor(float(rcd[0]) / float(rcd[2]) * 10000.0) / 10000.0
+                    playoff_pct = math.floor(float(rcd[1]) / float(rcd[2]) * 10000.0) / 10000.0
                     body += "{0}{1} end in division championship\n".format(
-                        "<" if float(rcd[0]) / float(rcd[2]) < 0.0001 and rcd[0] != 0 else "",
-                        "No scenarios" if rcd[0] == 0 else "{0:.2%}".format(float(rcd[0]) / float(rcd[2])))
+                        "<" if division_pct < 0.0001 and rcd[0] != 0 else "",
+                        "No scenarios" if rcd[0] == 0 else "{0:.2%}".format(division_pct))
                     body += "{0}{1} end in playoff berth\n\n".format(
-                        "<" if float(rcd[1]) / float(rcd[2]) < 0.0001 and rcd[1] != 0 else "",
-                        "No scenarios" if rcd[1] == 0 else "{0:.2%}".format(float(rcd[1]) / float(rcd[2])))
+                        "<" if playoff_pct < 0.0001 and rcd[1] != 0 else "",
+                        "No scenarios" if rcd[1] == 0 else "{0:.2%}".format(playoff_pct))
 
         if mtchups:
             body += "\n"
