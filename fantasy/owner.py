@@ -242,13 +242,23 @@ class Matchup:
 
             self.win_diff = diff
 
-
             if game.played:
                 self.won = game.winner == side
                 self.lost = game.winner == opposite
                 self.tie = game.winner == "Tie"
                 self.pf = game.away_score if _away else game.home_score
                 self.pa = game.home_score if _away else game.away_score
+
+    @property
+    def result_str(self):
+        if self.won:
+            return "won"
+        elif self.lost:
+            return "lost"
+        elif self.tie:
+            return "tied"
+        else:
+            return "none"
 
 
 class OwnerSeason:
@@ -381,30 +391,49 @@ class Records:
             ownrs = sorted([o for o in self.owner.league.owners], key=lambda p: (p[0].upper(), p[1]))
             ownrs.remove(self.owner.name)
             for i, on in enumerate(ownrs):
-                str += "[u]{}[/u]: {}\n".format(on.split(" ")[0], self.opponents[on][opp].to_string())
-            str += "\n"
+                opp_record = self.opponents[on][opp]
+                str += "[u]{}[/u]: {}\n".format(on.split(" ")[0], opp_record.to_string())
+                mtch = opp_record.record_most_pf
+                str += "    Most PF: {} pts, {} {} {} week {}\n".format(mtch.pf,
+                                                                        mtch.result_str,
+                                                                        make_score(mtch.pf, mtch.pa),
+                                                                        mtch.year, mtch.week.number)
+                mtch = opp_record.record_fewest_pf
+                str += "    Fewest PF: {} pts, {} {} {} week {}\n".format(mtch.pf,
+                                                                          mtch.result_str,
+                                                                          make_score(mtch.pf, mtch.pa),
+                                                                          mtch.year, mtch.week.number)
+                mtch = opp_record.record_highest_scoring
+                str += "    Highest Scoring: {}, {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
+                                                                         mtch.result_str,
+                                                                         mtch.year, mtch.week.number)
+                mtch = opp_record.record_lowest_scoring
+                str += "    Lowest Scoring: {}, {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
+                                                                        mtch.result_str,
+                                                                        mtch.year, mtch.week.number)
+            # str += "\n"
         if rcds:
             mtch = self.personal["Most PF"][0]
             str += "[u]Most PF[/u]: {} pts, {} {} {} {} week {}\n".format(mtch.pf,
-                                                                          "won" if mtch.won else "lost",
+                                                                          mtch.result_str,
                                                                           "vs" if mtch.home else "at",
                                                                           mtch.opponent.name,
                                                                           mtch.year, mtch.week.number)
             mtch = self.personal["Fewest PF"][0]
             str += "[u]Fewest PF[/u]: {} pts, {} {} {} {} week {}\n".format(mtch.pf,
-                                                                            "won" if mtch.won else "lost",
+                                                                            mtch.result_str,
                                                                             "vs" if mtch.home else "at",
                                                                             mtch.opponent.name,
                                                                             mtch.year, mtch.week.number)
             mtch = self.personal["Highest Scoring"][0]
             str += "[u]Highest Scoring[/u]: {}, {} {} {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
-                                                                              "won" if mtch.won else "lost",
+                                                                              mtch.result_str,
                                                                               "vs" if mtch.home else "at",
                                                                               mtch.opponent.name,
                                                                               mtch.year, mtch.week.number)
             mtch = self.personal["Lowest Scoring"][0]
             str += "[u]Lowest Scoring[/u]: {}, {} {} {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
-                                                                             "won" if mtch.won else "lost",
+                                                                             mtch.result_str,
                                                                              "vs" if mtch.home else "at",
                                                                              mtch.opponent.name,
                                                                              mtch.year, mtch.week.number)
@@ -426,6 +455,22 @@ class Record:
     @property
     def matchups(self):
         return self._matchups
+
+    @property
+    def record_fewest_pf(self):
+        return sorted(self.matchups, key=lambda m: m.pf, reverse=False)[0]
+
+    @property
+    def record_highest_scoring(self):
+        return sorted(self.matchups, key=lambda m: m.game.total_points, reverse=True)[0]
+
+    @property
+    def record_lowest_scoring(self):
+        return sorted(self.matchups, key=lambda m: m.game.total_points, reverse=False)[0]
+
+    @property
+    def record_most_pf(self):
+        return sorted(self.matchups, key=lambda m: m.pf, reverse=True)[0]
 
     def add_matchup(self, mtchp):
         self._matchups.append(mtchp)

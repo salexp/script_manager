@@ -150,7 +150,12 @@ class League(object):
         if self.power_rankings.get(self.current_week):
             pwr_ranks = self.power_rankings.get(self.current_week)
             owner_names = [r[0].split()[0] for r in pwr_ranks]
-            out_str = '\n'.join(["{}. {}".format(i+1, o) for i, o in enumerate(owner_names)])
+            divisions = [self.current_year in self.owners[r[0]].division_championships for r in pwr_ranks]
+            playoffs = [self.current_year in self.owners[r[0]].playoffs for r in pwr_ranks]
+            out_str = '\n'.join(["{}. {}{}{}".format(i+1, o,
+                                                     '*' if divisions[i] else '',
+                                                     '*' if playoffs[i] else ''
+                                                     ) for i, o in enumerate(owner_names)])
             return out_str.rstrip('\n')
         else:
             return

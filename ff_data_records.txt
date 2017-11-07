@@ -11,15 +11,50 @@
 [u]East[/u]: 35-30 (95.4-95.2)
 [u]West[/u]: 23-31 (89.5-94.2)
 [u]Ben[/u]: 5-8 (91.4-96.7)
+    Most PF: 144.0 pts, won 144.0-99.0 2012 week 16
+    Fewest PF: 57.0 pts, lost 69.2-57.0 2013 week 10
+    Highest Scoring: 147.0-104.0, lost 2010 week 13
+    Lowest Scoring: 69.2-57.0, lost 2013 week 10
 [u]Connor[/u]: 7-8 (98.3-102.4)
+    Most PF: 124.0 pts, won 124.0-117.0 2011 week 13
+    Fewest PF: 74.0 pts, lost 130.0-74.0 2012 week 4
+    Highest Scoring: 134.6-111.2, lost 2013 week 4
+    Lowest Scoring: 87.8-80.0, won 2015 week 12
 [u]Eric[/u]: 5-9 (84.4-89.7)
+    Most PF: 132.3 pts, lost 144.2-132.3 2016 week 3
+    Fewest PF: 0.0 pts, lost 76.9-0.0 2013 week 14
+    Highest Scoring: 144.2-132.3, lost 2016 week 3
+    Lowest Scoring: 7.0-0.0, lost 2013 week 16
 [u]James[/u]: 8-6 (97.0-93.3)
+    Most PF: 132.4 pts, won 132.4-94.8 2017 week 4
+    Fewest PF: 67.9 pts, lost 80.1-67.9 2014 week 9
+    Highest Scoring: 123.7-107.9, won 2015 week 9
+    Lowest Scoring: 80.1-67.9, lost 2014 week 9
 [u]josh[/u]: 12-8 (96.0-90.6)
+    Most PF: 144.0 pts, won 144.0-117.0 2010 week 9
+    Fewest PF: 38.4 pts, lost 100.7-38.4 2014 week 5
+    Highest Scoring: 144.0-117.0, won 2010 week 9
+    Lowest Scoring: 76.7-54.7, won 2017 week 8
 [u]Rande[/u]: 3-5 (81.1-94.1)
+    Most PF: 114.0 pts, won 114.0-92.0 2012 week 6
+    Fewest PF: 0.0 pts, lost 73.1-0.0 2013 week 15
+    Highest Scoring: 113.5-111.9, won 2016 week 14
+    Lowest Scoring: 73.1-0.0, lost 2013 week 15
 [u]Stuart[/u]: 8-8 (90.5-96.1)
+    Most PF: 131.7 pts, won 131.7-85.5 2016 week 13
+    Fewest PF: 47.4 pts, lost 95.8-47.4 2014 week 7
+    Highest Scoring: 171.2-86.9, lost 2014 week 13
+    Lowest Scoring: 67.0-64.0, won 2011 week 9
 [u]Thomas[/u]: 5-4 (96.5-94.2)
+    Most PF: 137.0 pts, won 137.0-115.0 2010 week 11
+    Fewest PF: 58.1 pts, lost 62.1-58.1 2014 week 15
+    Highest Scoring: 146.0-126.0, lost 2010 week 4
+    Lowest Scoring: 62.1-58.1, lost 2014 week 15
 [u]Trevor[/u]: 5-4 (96.4-96.8)
-
+    Most PF: 143.0 pts, won 143.0-72.0 2010 week 5
+    Fewest PF: 59.0 pts, lost 81.0-59.0 2010 week 12
+    Highest Scoring: 124.0-92.0, lost 2012 week 7
+    Lowest Scoring: 81.0-59.0, lost 2010 week 12
 [u]Most PF[/u]: 144.0 pts, won at josh watson 2010 week 9
 [u]Fewest PF[/u]: 38.4 pts, lost at josh watson 2014 week 5
 [u]Highest Scoring[/u]: 144.2-132.3, lost at Eric Price 2016 week 3
@@ -37,15 +72,50 @@
 [u]East[/u]: 34-18 (104.0-95.0)
 [u]West[/u]: 40-25 (106.5-95.2)
 [u]Andrew[/u]: 8-5 (96.7-91.4)
+    Most PF: 147.0 pts, won 147.0-104.0 2010 week 13
+    Fewest PF: 69.2 pts, won 69.2-57.0 2013 week 10
+    Highest Scoring: 147.0-104.0, won 2010 week 13
+    Lowest Scoring: 69.2-57.0, won 2013 week 10
 [u]Connor[/u]: 7-3 (97.4-94.9)
+    Most PF: 130.1 pts, won 130.1-95.1 2014 week 15
+    Fewest PF: 54.0 pts, lost 108.0-54.0 2010 week 15
+    Highest Scoring: 130.1-95.1, won 2014 week 15
+    Lowest Scoring: 78.9-71.7, won 2014 week 4
 [u]Eric[/u]: 12-5 (116.5-102.3)
+    Most PF: 167.2 pts, won 167.2-105.2 2016 week 16
+    Fewest PF: 61.0 pts, lost 124.0-61.0 2010 week 10
+    Highest Scoring: 167.2-105.2, won 2016 week 16
+    Lowest Scoring: 88.4-76.8, lost 2013 week 4
 [u]James[/u]: 7-2 (113.1-88.7)
+    Most PF: 160.4 pts, won 160.4-100.1 2015 week 2
+    Fewest PF: 78.9 pts, lost 103.9-78.9 2017 week 2
+    Highest Scoring: 148.1-118.5, won 2013 week 14
+    Lowest Scoring: 82.0-68.0, won 2011 week 7
 [u]josh[/u]: 6-3 (106.0-107.0)
+    Most PF: 182.1 pts, won 182.1-90.5 2016 week 12
+    Fewest PF: 62.0 pts, lost 151.0-62.0 2010 week 11
+    Highest Scoring: 182.1-90.5, won 2016 week 12
+    Lowest Scoring: 90.9-82.4, won 2015 week 12
 [u]Rande[/u]: 9-4 (104.6-94.0)
+    Most PF: 145.8 pts, won 145.8-107.2 2014 week 11
+    Fewest PF: 53.7 pts, lost 80.7-53.7 2013 week 3
+    Highest Scoring: 188.5-95.6, lost 2014 week 8
+    Lowest Scoring: 80.7-53.7, lost 2013 week 3
 [u]Stuart[/u]: 6-5 (109.6-94.8)
+    Most PF: 147.6 pts, won 147.6-70.7 2016 week 3
+    Fewest PF: 86.3 pts, lost 128.3-86.3 2013 week 15
+    Highest Scoring: 127.1-126.5, lost 2015 week 3
+    Lowest Scoring: 100.0-58.0, won 2011 week 6
 [u]Thomas[/u]: 9-4 (108.4-89.5)
+    Most PF: 146.9 pts, won 146.9-81.0 2015 week 13
+    Fewest PF: 75.0 pts, lost 99.0-75.0 2012 week 10
+    Highest Scoring: 134.1-110.2, won 2015 week 1
+    Lowest Scoring: 84.3-37.4, won 2016 week 13
 [u]Trevor[/u]: 8-12 (98.4-94.9)
-
+    Most PF: 180.5 pts, won 180.5-92.2 2015 week 9
+    Fewest PF: 65.0 pts, lost 69.0-65.0 2010 week 8
+    Highest Scoring: 180.5-92.2, won 2015 week 9
+    Lowest Scoring: 69.0-65.0, lost 2010 week 8
 [u]Most PF[/u]: 182.1 pts, won vs josh watson 2016 week 12
 [u]Fewest PF[/u]: 53.7 pts, lost vs Rande Revilla 2013 week 3
 [u]Highest Scoring[/u]: 188.5-95.6, lost at Rande Revilla 2014 week 8
@@ -63,15 +133,50 @@
 [u]East[/u]: 32-33 (98.8-97.0)
 [u]West[/u]: 26-27 (100.0-94.2)
 [u]Andrew[/u]: 8-7 (102.4-98.3)
+    Most PF: 134.6 pts, won 134.6-111.2 2013 week 4
+    Fewest PF: 55.0 pts, lost 120.0-55.0 2010 week 1
+    Highest Scoring: 134.6-111.2, won 2013 week 4
+    Lowest Scoring: 87.8-80.0, lost 2015 week 12
 [u]Ben[/u]: 3-7 (94.9-97.4)
+    Most PF: 117.0 pts, won 117.0-77.0 2012 week 11
+    Fewest PF: 71.7 pts, lost 78.9-71.7 2014 week 4
+    Highest Scoring: 130.1-95.1, lost 2014 week 15
+    Lowest Scoring: 78.9-71.7, lost 2014 week 4
 [u]Eric[/u]: 5-6 (99.6-99.8)
+    Most PF: 139.0 pts, won 139.0-119.0 2012 week 2
+    Fewest PF: 63.0 pts, lost 85.0-63.0 2010 week 4
+    Highest Scoring: 139.0-119.0, won 2012 week 2
+    Lowest Scoring: 85.0-63.0, lost 2010 week 4
 [u]James[/u]: 10-6 (101.0-94.2)
+    Most PF: 149.0 pts, won 149.0-95.6 2014 week 10
+    Fewest PF: 50.4 pts, lost 52.9-50.4 2015 week 10
+    Highest Scoring: 139.2-130.8, lost 2013 week 10
+    Lowest Scoring: 52.9-50.4, lost 2015 week 10
 [u]josh[/u]: 7-11 (101.9-103.8)
+    Most PF: 146.5 pts, won 146.5-99.9 2013 week 9
+    Fewest PF: 63.4 pts, lost 103.1-63.4 2016 week 13
+    Highest Scoring: 135.1-131.8, lost 2014 week 13
+    Lowest Scoring: 98.8-57.9, won 2015 week 9
 [u]Rande[/u]: 6-1 (105.5-79.2)
+    Most PF: 122.9 pts, won 122.9-76.8 2013 week 8
+    Fewest PF: 91.6 pts, won 91.6-83.4 2015 week 2
+    Highest Scoring: 119.2-83.8, won 2014 week 2
+    Lowest Scoring: 114.0-54.0, won 2012 week 7
 [u]Stuart[/u]: 7-9 (90.0-90.8)
+    Most PF: 139.0 pts, won 139.0-90.0 2011 week 12
+    Fewest PF: 48.0 pts, lost 74.1-48.0 2016 week 6
+    Highest Scoring: 139.0-90.0, won 2011 week 12
+    Lowest Scoring: 74.1-48.0, lost 2016 week 6
 [u]Thomas[/u]: 5-5 (97.3-80.4)
+    Most PF: 125.8 pts, won 125.8-10.2 2015 week 15
+    Fewest PF: 74.4 pts, lost 107.4-74.4 2016 week 15
+    Highest Scoring: 114.1-106.3, lost 2017 week 3
+    Lowest Scoring: 125.8-10.2, won 2015 week 15
 [u]Trevor[/u]: 7-7 (103.1-102.4)
-
+    Most PF: 140.0 pts, won 140.0-90.0 2012 week 8
+    Fewest PF: 69.6 pts, lost 82.0-69.6 2016 week 14
+    Highest Scoring: 130.0-118.0, won 2012 week 16
+    Lowest Scoring: 82.0-69.6, lost 2016 week 14
 [u]Most PF[/u]: 149.0 pts, won vs James Furlong 2014 week 10
 [u]Fewest PF[/u]: 48.0 pts, lost at Stuart Petty 2016 week 6
 [u]Highest Scoring[/u]: 139.2-130.8, lost vs James Furlong 2013 week 10
@@ -89,15 +194,50 @@
 [u]East[/u]: 30-23-1 (96.3-92.9)
 [u]West[/u]: 33-32 (100.5-102.3)
 [u]Andrew[/u]: 9-5 (89.7-84.4)
+    Most PF: 150.0 pts, won 150.0-116.0 2011 week 14
+    Fewest PF: 7.0 pts, won 7.0-0.0 2013 week 16
+    Highest Scoring: 144.2-132.3, won 2016 week 3
+    Lowest Scoring: 7.0-0.0, won 2013 week 16
 [u]Ben[/u]: 5-12 (102.3-116.5)
+    Most PF: 127.0 pts, lost 128.0-127.0 2012 week 5
+    Fewest PF: 71.2 pts, lost 111.7-71.2 2016 week 7
+    Highest Scoring: 167.2-105.2, lost 2016 week 16
+    Lowest Scoring: 88.4-76.8, won 2013 week 4
 [u]Connor[/u]: 6-5 (99.8-99.6)
+    Most PF: 143.0 pts, won 143.0-86.0 2010 week 11
+    Fewest PF: 66.0 pts, lost 95.0-66.0 2010 week 14
+    Highest Scoring: 139.0-119.0, lost 2012 week 2
+    Lowest Scoring: 85.0-63.0, won 2010 week 4
 [u]James[/u]: 4-2 (105.3-85.8)
+    Most PF: 161.5 pts, won 161.5-79.6 2013 week 9
+    Fewest PF: 71.9 pts, lost 79.4-71.9 2015 week 13
+    Highest Scoring: 161.5-79.6, won 2013 week 9
+    Lowest Scoring: 79.4-71.9, lost 2015 week 13
 [u]josh[/u]: 6-5 (92.2-97.0)
+    Most PF: 125.0 pts, won 125.0-104.0 2012 week 16
+    Fewest PF: 58.9 pts, lost 94.4-58.9 2013 week 7
+    Highest Scoring: 137.0-107.0, lost 2010 week 12
+    Lowest Scoring: 80.0-69.0, won 2012 week 6
 [u]Rande[/u]: 9-7 (98.7-94.9)
+    Most PF: 139.7 pts, won 139.7-80.7 2015 week 15
+    Fewest PF: 37.4 pts, lost 50.4-37.4 2013 week 13
+    Highest Scoring: 139.7-80.7, won 2015 week 15
+    Lowest Scoring: 50.4-37.4, lost 2013 week 13
 [u]Stuart[/u]: 5-6-1 (100.2-96.5)
+    Most PF: 144.8 pts, won 144.8-102.3 2017 week 9
+    Fewest PF: 69.0 pts, lost 128.0-69.0 2010 week 6
+    Highest Scoring: 125.0-125.0, tied 2010 week 13
+    Lowest Scoring: 92.5-52.5, won 2016 week 14
 [u]Thomas[/u]: 11-2 (105.0-94.3)
+    Most PF: 135.0 pts, won 135.0-117.0 2012 week 12
+    Fewest PF: 64.0 pts, lost 89.1-64.0 2014 week 11
+    Highest Scoring: 135.0-117.0, won 2012 week 12
+    Lowest Scoring: 66.8-50.1, won 2015 week 11
 [u]Trevor[/u]: 8-8 (101.2-99.5)
-
+    Most PF: 150.8 pts, won 150.8-124.8 2013 week 2
+    Fewest PF: 69.1 pts, lost 110.0-69.1 2017 week 1
+    Highest Scoring: 150.8-124.8, won 2013 week 2
+    Lowest Scoring: 83.3-72.3, won 2014 week 1
 [u]Most PF[/u]: 161.5 pts, won at James Furlong 2013 week 9
 [u]Fewest PF[/u]: 37.4 pts, lost vs Rande Revilla 2013 week 13
 [u]Highest Scoring[/u]: 144.2-132.3, won vs Andrew Lee 2016 week 3
@@ -115,15 +255,50 @@
 [u]East[/u]: 28-34 (95.0-95.9)
 [u]West[/u]: 21-22 (96.9-100.4)
 [u]Andrew[/u]: 6-8 (93.3-97.0)
+    Most PF: 120.0 pts, won 120.0-73.0 2011 week 12
+    Fewest PF: 71.1 pts, lost 90.8-71.1 2017 week 9
+    Highest Scoring: 123.7-107.9, lost 2015 week 9
+    Lowest Scoring: 80.1-67.9, won 2014 week 9
 [u]Ben[/u]: 2-7 (88.7-113.1)
+    Most PF: 118.5 pts, lost 148.1-118.5 2013 week 14
+    Fewest PF: 62.7 pts, lost 98.3-62.7 2013 week 8
+    Highest Scoring: 148.1-118.5, lost 2013 week 14
+    Lowest Scoring: 82.0-68.0, lost 2011 week 7
 [u]Connor[/u]: 6-10 (94.2-101.0)
+    Most PF: 139.2 pts, won 139.2-130.8 2013 week 10
+    Fewest PF: 52.9 pts, won 52.9-50.4 2015 week 10
+    Highest Scoring: 139.2-130.8, won 2013 week 10
+    Lowest Scoring: 52.9-50.4, won 2015 week 10
 [u]Eric[/u]: 2-4 (85.8-105.3)
+    Most PF: 100.1 pts, won 100.1-87.2 2014 week 13
+    Fewest PF: 78.7 pts, lost 94.4-78.7 2016 week 13
+    Highest Scoring: 161.5-79.6, lost 2013 week 9
+    Lowest Scoring: 79.4-71.9, won 2015 week 13
 [u]josh[/u]: 9-8 (99.4-93.4)
+    Most PF: 141.3 pts, won 141.3-83.4 2013 week 16
+    Fewest PF: 66.9 pts, lost 95.3-66.9 2016 week 11
+    Highest Scoring: 135.0-124.0, won 2011 week 4
+    Lowest Scoring: 76.3-54.0, won 2015 week 11
 [u]Rande[/u]: 7-2 (104.9-91.8)
+    Most PF: 149.1 pts, won 149.1-122.3 2016 week 1
+    Fewest PF: 57.8 pts, lost 117.7-57.8 2015 week 1
+    Highest Scoring: 149.1-122.3, won 2016 week 1
+    Lowest Scoring: 71.9-60.9, lost 2013 week 6
 [u]Stuart[/u]: 7-8 (92.4-92.1)
+    Most PF: 134.0 pts, won 134.0-87.0 2011 week 2
+    Fewest PF: 56.0 pts, lost 93.0-56.0 2011 week 11
+    Highest Scoring: 118.9-104.5, lost 2014 week 8
+    Lowest Scoring: 83.3-63.6, lost 2013 week 2
 [u]Thomas[/u]: 5-5 (93.9-95.8)
+    Most PF: 108.9 pts, won 108.9-90.8 2014 week 5
+    Fewest PF: 63.7 pts, won 63.7-25.0 2016 week 14
+    Highest Scoring: 151.0-108.0, lost 2011 week 14
+    Lowest Scoring: 63.7-25.0, won 2016 week 14
 [u]Trevor[/u]: 4-4 (105.9-101.1)
-
+    Most PF: 125.2 pts, won 125.2-95.9 2015 week 3
+    Fewest PF: 74.2 pts, lost 87.2-74.2 2016 week 15
+    Highest Scoring: 141.9-121.9, lost 2016 week 3
+    Lowest Scoring: 87.2-74.2, lost 2016 week 15
 [u]Most PF[/u]: 149.1 pts, won vs Rande Revilla 2016 week 1
 [u]Fewest PF[/u]: 52.9 pts, won at Connor Wiseman 2015 week 10
 [u]Highest Scoring[/u]: 149.1-122.3, won vs Rande Revilla 2016 week 1
@@ -141,15 +316,50 @@
 [u]East[/u]: 35-36 (96.6-98.3)
 [u]West[/u]: 21-26 (94.9-92.1)
 [u]Andrew[/u]: 8-12 (90.6-96.0)
+    Most PF: 129.1 pts, won 129.1-110.6 2016 week 5
+    Fewest PF: 50.7 pts, lost 84.9-50.7 2016 week 8
+    Highest Scoring: 144.0-117.0, lost 2010 week 9
+    Lowest Scoring: 76.7-54.7, lost 2017 week 8
 [u]Ben[/u]: 3-6 (107.0-106.0)
+    Most PF: 151.0 pts, won 151.0-62.0 2010 week 11
+    Fewest PF: 82.4 pts, lost 90.9-82.4 2015 week 12
+    Highest Scoring: 182.1-90.5, lost 2016 week 12
+    Lowest Scoring: 90.9-82.4, lost 2015 week 12
 [u]Connor[/u]: 11-7 (103.8-101.9)
+    Most PF: 145.0 pts, won 145.0-99.0 2011 week 9
+    Fewest PF: 57.9 pts, lost 98.8-57.9 2015 week 9
+    Highest Scoring: 135.1-131.8, won 2014 week 13
+    Lowest Scoring: 98.8-57.9, lost 2015 week 9
 [u]Eric[/u]: 5-6 (97.0-92.2)
+    Most PF: 137.0 pts, won 137.0-107.0 2010 week 12
+    Fewest PF: 67.1 pts, lost 92.0-67.1 2015 week 2
+    Highest Scoring: 137.0-107.0, won 2010 week 12
+    Lowest Scoring: 80.0-69.0, lost 2012 week 6
 [u]James[/u]: 8-9 (93.4-99.4)
+    Most PF: 127.4 pts, won 127.4-117.6 2013 week 15
+    Fewest PF: 54.0 pts, lost 76.3-54.0 2015 week 11
+    Highest Scoring: 135.0-124.0, lost 2011 week 4
+    Lowest Scoring: 76.3-54.0, lost 2015 week 11
 [u]Rande[/u]: 2-5 (74.3-89.4)
+    Most PF: 114.1 pts, won 114.1-72.5 2013 week 12
+    Fewest PF: 42.8 pts, lost 104.1-42.8 2017 week 3
+    Highest Scoring: 130.4-62.0, lost 2015 week 3
+    Lowest Scoring: 64.0-57.0, lost 2012 week 8
 [u]Stuart[/u]: 8-8 (99.5-95.8)
+    Most PF: 157.0 pts, won 157.0-86.0 2010 week 1
+    Fewest PF: 55.3 pts, lost 93.5-55.3 2017 week 1
+    Highest Scoring: 157.0-86.0, won 2010 week 1
+    Lowest Scoring: 93.5-55.3, lost 2017 week 1
 [u]Thomas[/u]: 8-3 (99.7-78.7)
+    Most PF: 128.0 pts, won 128.0-79.0 2011 week 7
+    Fewest PF: 70.8 pts, lost 102.0-70.8 2016 week 7
+    Highest Scoring: 123.0-104.0, won 2010 week 13
+    Lowest Scoring: 84.9-2.3, won 2015 week 16
 [u]Trevor[/u]: 2-6 (88.3-99.2)
-
+    Most PF: 121.0 pts, lost 125.0-121.0 2011 week 12
+    Fewest PF: 48.3 pts, lost 96.9-48.3 2015 week 4
+    Highest Scoring: 125.0-121.0, lost 2011 week 12
+    Lowest Scoring: 96.9-48.3, lost 2015 week 4
 [u]Most PF[/u]: 157.0 pts, won at Stuart Petty 2010 week 1
 [u]Fewest PF[/u]: 42.8 pts, lost vs Rande Revilla 2017 week 3
 [u]Highest Scoring[/u]: 182.1-90.5, lost at Ben Mytelka 2016 week 12
@@ -167,15 +377,50 @@
 [u]East[/u]: 16-27 (89.6-95.2)
 [u]West[/u]: 24-38 (92.6-100.0)
 [u]Andrew[/u]: 5-3 (94.1-81.1)
+    Most PF: 113.0 pts, won 113.0-90.0 2011 week 6
+    Fewest PF: 73.1 pts, won 73.1-0.0 2013 week 15
+    Highest Scoring: 113.5-111.9, lost 2016 week 14
+    Lowest Scoring: 73.1-0.0, won 2013 week 15
 [u]Ben[/u]: 4-9 (94.0-104.6)
+    Most PF: 188.5 pts, won 188.5-95.6 2014 week 8
+    Fewest PF: 48.0 pts, lost 107.0-48.0 2011 week 12
+    Highest Scoring: 188.5-95.6, won 2014 week 8
+    Lowest Scoring: 80.7-53.7, won 2013 week 3
 [u]Connor[/u]: 1-6 (79.2-105.5)
+    Most PF: 101.9 pts, won 101.9-92.9 2016 week 2
+    Fewest PF: 54.0 pts, lost 114.0-54.0 2012 week 7
+    Highest Scoring: 119.2-83.8, lost 2014 week 2
+    Lowest Scoring: 114.0-54.0, lost 2012 week 7
 [u]Eric[/u]: 7-9 (94.9-98.7)
+    Most PF: 140.1 pts, won 140.1-75.8 2014 week 4
+    Fewest PF: 50.4 pts, won 50.4-37.4 2013 week 13
+    Highest Scoring: 139.7-80.7, lost 2015 week 15
+    Lowest Scoring: 50.4-37.4, won 2013 week 13
 [u]James[/u]: 2-7 (91.8-104.9)
+    Most PF: 122.3 pts, lost 149.1-122.3 2016 week 1
+    Fewest PF: 71.9 pts, won 71.9-60.9 2013 week 6
+    Highest Scoring: 149.1-122.3, lost 2016 week 1
+    Lowest Scoring: 71.9-60.9, won 2013 week 6
 [u]josh[/u]: 5-2 (89.4-74.3)
+    Most PF: 130.4 pts, won 130.4-62.0 2015 week 3
+    Fewest PF: 64.0 pts, won 64.0-57.0 2012 week 8
+    Highest Scoring: 130.4-62.0, won 2015 week 3
+    Lowest Scoring: 64.0-57.0, won 2012 week 8
 [u]Stuart[/u]: 3-9 (91.3-103.6)
+    Most PF: 126.2 pts, won 126.2-71.3 2014 week 5
+    Fewest PF: 61.1 pts, lost 84.1-61.1 2016 week 15
+    Highest Scoring: 149.2-110.0, lost 2013 week 4
+    Lowest Scoring: 84.1-61.1, lost 2016 week 15
 [u]Thomas[/u]: 7-6 (91.5-95.4)
+    Most PF: 131.7 pts, won 131.7-108.9 2016 week 9
+    Fewest PF: 54.0 pts, lost 117.0-54.0 2012 week 16
+    Highest Scoring: 131.7-108.9, won 2016 week 9
+    Lowest Scoring: 73.4-63.2, lost 2016 week 12
 [u]Trevor[/u]: 6-10 (94.4-98.0)
-
+    Most PF: 133.0 pts, won 133.0-124.0 2011 week 2
+    Fewest PF: 67.4 pts, won 67.4-60.0 2017 week 7
+    Highest Scoring: 133.0-124.0, won 2011 week 2
+    Lowest Scoring: 67.4-60.0, won 2017 week 7
 [u]Most PF[/u]: 188.5 pts, won vs Ben Mytelka 2014 week 8
 [u]Fewest PF[/u]: 48.0 pts, lost at Ben Mytelka 2011 week 12
 [u]Highest Scoring[/u]: 188.5-95.6, won vs Ben Mytelka 2014 week 8
@@ -193,15 +438,50 @@
 [u]East[/u]: 33-30 (93.7-93.1)
 [u]West[/u]: 29-26-1 (95.9-98.5)
 [u]Andrew[/u]: 8-8 (96.1-90.5)
+    Most PF: 171.2 pts, won 171.2-86.9 2014 week 13
+    Fewest PF: 64.0 pts, lost 67.0-64.0 2011 week 9
+    Highest Scoring: 171.2-86.9, won 2014 week 13
+    Lowest Scoring: 67.0-64.0, lost 2011 week 9
 [u]Ben[/u]: 5-6 (94.8-109.6)
+    Most PF: 136.3 pts, won 136.3-109.3 2015 week 15
+    Fewest PF: 58.0 pts, lost 126.0-58.0 2010 week 5
+    Highest Scoring: 127.1-126.5, won 2015 week 3
+    Lowest Scoring: 100.0-58.0, lost 2011 week 6
 [u]Connor[/u]: 9-7 (90.8-90.0)
+    Most PF: 128.1 pts, won 128.1-93.8 2017 week 6
+    Fewest PF: 61.0 pts, lost 132.0-61.0 2011 week 3
+    Highest Scoring: 139.0-90.0, lost 2011 week 12
+    Lowest Scoring: 74.1-48.0, won 2016 week 6
 [u]Eric[/u]: 6-5-1 (96.5-100.2)
+    Most PF: 128.0 pts, won 128.0-69.0 2010 week 6
+    Fewest PF: 52.5 pts, lost 92.5-52.5 2016 week 14
+    Highest Scoring: 125.0-125.0, tied 2010 week 13
+    Lowest Scoring: 92.5-52.5, lost 2016 week 14
 [u]James[/u]: 8-7 (92.1-92.4)
+    Most PF: 118.9 pts, won 118.9-104.5 2014 week 8
+    Fewest PF: 63.0 pts, lost 86.0-63.0 2011 week 15
+    Highest Scoring: 118.9-104.5, won 2014 week 8
+    Lowest Scoring: 83.3-63.6, won 2013 week 2
 [u]josh[/u]: 8-8 (95.8-99.5)
+    Most PF: 153.0 pts, won 153.0-90.0 2010 week 14
+    Fewest PF: 71.0 pts, lost 94.0-71.0 2011 week 10
+    Highest Scoring: 157.0-86.0, lost 2010 week 1
+    Lowest Scoring: 93.5-55.3, won 2017 week 1
 [u]Rande[/u]: 9-3 (103.6-91.3)
+    Most PF: 149.2 pts, won 149.2-110.0 2013 week 4
+    Fewest PF: 66.0 pts, lost 112.4-66.0 2016 week 5
+    Highest Scoring: 149.2-110.0, won 2013 week 4
+    Lowest Scoring: 84.1-61.1, won 2016 week 15
 [u]Thomas[/u]: 4-6 (86.7-88.8)
+    Most PF: 146.0 pts, lost 148.0-146.0 2012 week 14
+    Fewest PF: 2.0 pts, lost 11.0-2.0 2014 week 14
+    Highest Scoring: 148.0-146.0, lost 2012 week 14
+    Lowest Scoring: 11.0-2.0, lost 2014 week 14
 [u]Trevor[/u]: 4-6 (94.7-105.0)
-
+    Most PF: 124.0 pts, won 124.0-111.0 2010 week 11
+    Fewest PF: 69.9 pts, won 69.9-49.2 2015 week 2
+    Highest Scoring: 124.0-111.0, won 2010 week 11
+    Lowest Scoring: 69.9-49.2, won 2015 week 2
 [u]Most PF[/u]: 171.2 pts, won vs Andrew Lee 2014 week 13
 [u]Fewest PF[/u]: 52.5 pts, lost at Eric Price 2016 week 14
 [u]Highest Scoring[/u]: 148.0-146.0, lost at Thomas Singleton 2012 week 14
@@ -219,15 +499,50 @@
 [u]East[/u]: 23-27 (87.3-94.9)
 [u]West[/u]: 18-36 (95.5-101.9)
 [u]Andrew[/u]: 4-5 (94.2-96.5)
+    Most PF: 146.0 pts, won 146.0-126.0 2010 week 4
+    Fewest PF: 62.1 pts, won 62.1-58.1 2014 week 15
+    Highest Scoring: 146.0-126.0, won 2010 week 4
+    Lowest Scoring: 62.1-58.1, won 2014 week 15
 [u]Ben[/u]: 4-9 (89.5-108.4)
+    Most PF: 139.0 pts, won 139.0-105.0 2011 week 10
+    Fewest PF: 37.4 pts, lost 84.3-37.4 2016 week 13
+    Highest Scoring: 134.1-110.2, lost 2015 week 1
+    Lowest Scoring: 84.3-37.4, lost 2016 week 13
 [u]Connor[/u]: 5-5 (80.4-97.3)
+    Most PF: 114.1 pts, won 114.1-106.3 2017 week 3
+    Fewest PF: 10.2 pts, lost 125.8-10.2 2015 week 15
+    Highest Scoring: 114.1-106.3, won 2017 week 3
+    Lowest Scoring: 125.8-10.2, lost 2015 week 15
 [u]Eric[/u]: 2-11 (94.3-105.0)
+    Most PF: 118.0 pts, won 118.0-94.0 2010 week 8
+    Fewest PF: 50.1 pts, lost 66.8-50.1 2015 week 11
+    Highest Scoring: 135.0-117.0, lost 2012 week 12
+    Lowest Scoring: 66.8-50.1, lost 2015 week 11
 [u]James[/u]: 5-5 (95.8-93.9)
+    Most PF: 154.0 pts, won 154.0-85.0 2012 week 9
+    Fewest PF: 25.0 pts, lost 63.7-25.0 2016 week 14
+    Highest Scoring: 151.0-108.0, won 2011 week 14
+    Lowest Scoring: 63.7-25.0, lost 2016 week 14
 [u]josh[/u]: 3-8 (78.7-99.7)
+    Most PF: 109.8 pts, won 109.8-89.0 2017 week 7
+    Fewest PF: 1.5 pts, lost 105.5-1.5 2015 week 14
+    Highest Scoring: 123.0-104.0, lost 2010 week 13
+    Lowest Scoring: 84.9-2.3, lost 2015 week 16
 [u]Rande[/u]: 6-7 (95.4-91.5)
+    Most PF: 121.0 pts, won 121.0-75.0 2011 week 15
+    Fewest PF: 73.4 pts, won 73.4-63.2 2016 week 12
+    Highest Scoring: 131.7-108.9, lost 2016 week 9
+    Lowest Scoring: 73.4-63.2, won 2016 week 12
 [u]Stuart[/u]: 6-4 (88.8-86.7)
+    Most PF: 148.0 pts, won 148.0-146.0 2012 week 14
+    Fewest PF: 11.0 pts, won 11.0-2.0 2014 week 14
+    Highest Scoring: 148.0-146.0, won 2012 week 14
+    Lowest Scoring: 11.0-2.0, won 2014 week 14
 [u]Trevor[/u]: 6-9 (101.9-102.4)
-
+    Most PF: 144.7 pts, won 144.7-118.1 2016 week 6
+    Fewest PF: 68.0 pts, lost 114.0-68.0 2011 week 5
+    Highest Scoring: 144.7-118.1, won 2016 week 6
+    Lowest Scoring: 69.6-61.7, won 2016 week 16
 [u]Most PF[/u]: 154.0 pts, won at James Furlong 2012 week 9
 [u]Fewest PF[/u]: 37.4 pts, lost at Ben Mytelka 2016 week 13
 [u]Highest Scoring[/u]: 148.0-146.0, won vs Stuart Petty 2012 week 14
@@ -245,15 +560,50 @@
 [u]East[/u]: 27-22 (101.2-98.2)
 [u]West[/u]: 41-28 (99.6-98.3)
 [u]Andrew[/u]: 4-5 (96.8-96.4)
+    Most PF: 138.5 pts, won 138.5-70.3 2013 week 8
+    Fewest PF: 68.4 pts, lost 99.7-68.4 2015 week 11
+    Highest Scoring: 124.0-92.0, won 2012 week 7
+    Lowest Scoring: 81.0-59.0, won 2010 week 12
 [u]Ben[/u]: 12-8 (94.9-98.4)
+    Most PF: 150.0 pts, won 150.0-95.0 2011 week 1
+    Fewest PF: 63.6 pts, lost 109.6-63.6 2015 week 16
+    Highest Scoring: 180.5-92.2, lost 2015 week 9
+    Lowest Scoring: 69.0-65.0, won 2010 week 8
 [u]Connor[/u]: 7-7 (102.4-103.1)
+    Most PF: 134.2 pts, won 134.2-89.8 2014 week 8
+    Fewest PF: 82.0 pts, won 82.0-69.6 2016 week 14
+    Highest Scoring: 130.0-118.0, lost 2012 week 16
+    Lowest Scoring: 82.0-69.6, won 2016 week 14
 [u]Eric[/u]: 8-8 (99.5-101.2)
+    Most PF: 146.5 pts, won 146.5-102.8 2014 week 12
+    Fewest PF: 72.3 pts, lost 83.3-72.3 2014 week 1
+    Highest Scoring: 150.8-124.8, lost 2013 week 2
+    Lowest Scoring: 83.3-72.3, lost 2014 week 1
 [u]James[/u]: 4-4 (101.1-105.9)
+    Most PF: 141.9 pts, won 141.9-121.9 2016 week 3
+    Fewest PF: 73.1 pts, lost 106.7-73.1 2017 week 3
+    Highest Scoring: 141.9-121.9, won 2016 week 3
+    Lowest Scoring: 87.2-74.2, won 2016 week 15
 [u]josh[/u]: 6-2 (99.2-88.3)
+    Most PF: 127.7 pts, won 127.7-63.9 2014 week 4
+    Fewest PF: 65.0 pts, lost 106.0-65.0 2012 week 12
+    Highest Scoring: 125.0-121.0, won 2011 week 12
+    Lowest Scoring: 96.9-48.3, won 2015 week 4
 [u]Rande[/u]: 10-6 (98.0-94.4)
+    Most PF: 132.5 pts, won 132.5-94.8 2015 week 7
+    Fewest PF: 59.4 pts, lost 103.1-59.4 2014 week 15
+    Highest Scoring: 133.0-124.0, lost 2011 week 2
+    Lowest Scoring: 67.4-60.0, lost 2017 week 7
 [u]Stuart[/u]: 6-4 (105.0-94.7)
+    Most PF: 136.0 pts, won 136.0-84.0 2011 week 4
+    Fewest PF: 49.2 pts, lost 69.9-49.2 2015 week 2
+    Highest Scoring: 124.0-111.0, lost 2010 week 11
+    Lowest Scoring: 69.9-49.2, lost 2015 week 2
 [u]Thomas[/u]: 9-6 (102.4-101.9)
-
+    Most PF: 136.0 pts, won 136.0-123.0 2010 week 3
+    Fewest PF: 61.7 pts, lost 69.6-61.7 2016 week 16
+    Highest Scoring: 144.7-118.1, lost 2016 week 6
+    Lowest Scoring: 69.6-61.7, lost 2016 week 16
 [u]Most PF[/u]: 154.0 pts, won at Cody Blain 2013 week 4
 [u]Fewest PF[/u]: 49.2 pts, lost at Stuart Petty 2015 week 2
 [u]Highest Scoring[/u]: 150.8-124.8, lost vs Eric Price 2013 week 2
