@@ -77,6 +77,49 @@ def main():
     True
 
 
+def nail_salon():
+    nail_salon = League(
+        espn_id=347017,
+        database_settings={'name': 'Fantasy', 'user': 'local'},
+        resources_folder='fantasy/resources',
+        update_resources=DOWNLOAD_GAMES,
+        full_update=FULL_HISTORY,
+        current_week=CURRENT_WEEK
+    )
+
+    del nail_salon.owners["Chris Moritz"]
+    del nail_salon.owners["Michael Pelfrey"]
+    del nail_salon.owners["Tim Vujn"]
+
+    nail_salon.recursive_rankings(playoffs=FUTURE_PLAYOFFS, plot=PLOT_RANKINGS)
+
+    nail_salon.to_string(
+        outfile="nail_salon_data.txt",
+        title=True,
+        games=True,
+        mtchups=True,
+        owners=False,
+        plyffs=True,
+        power=True,
+        seasons=False,
+        rcds=False
+    )
+
+    nail_salon.to_string(
+        outfile="nail_salon_data_records.txt",
+        title=False,
+        games=True,
+        mtchups=False,
+        owners=True,
+        plyffs=False,
+        power=False,
+        seasons=True,
+        rcds=50
+    )
+
+    True
+
+
 def check_transactions(group_me=True):
     thug_island = League(
         espn_id=190153,
@@ -170,5 +213,6 @@ if __name__ == "__main__":
     if args.trades:
         check_transactions()
     else:
-        # download_history()
         main()
+        # download_history()
+        # nail_salon()

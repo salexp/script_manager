@@ -391,27 +391,31 @@ class Records:
             ownrs = sorted([o for o in self.owner.league.owners], key=lambda p: (p[0].upper(), p[1]))
             ownrs.remove(self.owner.name)
             for i, on in enumerate(ownrs):
-                opp_record = self.opponents[on][opp]
-                str += "[u]{}[/u]: {}\n".format(on.split(" ")[0], opp_record.to_string())
-                mtch = opp_record.record_most_pf
-                str += "    Most PF: {} pts, {} {} {} week {}\n".format(mtch.pf,
-                                                                        mtch.result_str,
-                                                                        make_score(mtch.pf, mtch.pa),
-                                                                        mtch.year, mtch.week.number)
-                mtch = opp_record.record_fewest_pf
-                str += "    Fewest PF: {} pts, {} {} {} week {}\n".format(mtch.pf,
-                                                                          mtch.result_str,
-                                                                          make_score(mtch.pf, mtch.pa),
-                                                                          mtch.year, mtch.week.number)
-                mtch = opp_record.record_highest_scoring
-                str += "    Highest Scoring: {}, {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
-                                                                         mtch.result_str,
-                                                                         mtch.year, mtch.week.number)
-                mtch = opp_record.record_lowest_scoring
-                str += "    Lowest Scoring: {}, {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
-                                                                        mtch.result_str,
-                                                                        mtch.year, mtch.week.number)
-            # str += "\n"
+                if on in self.opponents.keys():
+                    opp_record = self.opponents[on][opp]
+                    str += "[u]{}[/u]: {}\n".format(on.split(" ")[0], opp_record.to_string())
+                    mtch = opp_record.record_most_pf
+                    str += "    Most PF: {} pts, {} {} {} week {}\n".format(mtch.pf,
+                                                                            mtch.result_str,
+                                                                            make_score(mtch.pf, mtch.pa),
+                                                                            mtch.year, mtch.week.number)
+                    mtch = opp_record.record_fewest_pf
+                    str += "    Fewest PF: {} pts, {} {} {} week {}\n".format(mtch.pf,
+                                                                              mtch.result_str,
+                                                                              make_score(mtch.pf, mtch.pa),
+                                                                              mtch.year, mtch.week.number)
+                    mtch = opp_record.record_highest_scoring
+                    str += "    Highest Scoring: {}, {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
+                                                                             mtch.result_str,
+                                                                             mtch.year, mtch.week.number)
+                    mtch = opp_record.record_lowest_scoring
+                    str += "    Lowest Scoring: {}, {} {} week {}\n".format(make_score(mtch.pf, mtch.pa),
+                                                                            mtch.result_str,
+                                                                            mtch.year, mtch.week.number)
+
+                else:
+                    str += "[u]{}[/u]: 0-0\n".format(on.split(" ")[0])
+
         if rcds:
             mtch = self.personal["Most PF"][0]
             str += "[u]Most PF[/u]: {} pts, {} {} {} {} week {}\n".format(mtch.pf,
@@ -437,7 +441,7 @@ class Records:
                                                                              "vs" if mtch.home else "at",
                                                                              mtch.opponent.name,
                                                                              mtch.year, mtch.week.number)
-
+            str += "\n"
         return str
 
 
@@ -499,6 +503,9 @@ class Record:
                 str += "-{0:.0f}".format(self.ties)
 
         if pfpa:
-            str += " ({0:.1f}-{1:.1f})".format(self.pf/self.all, self.pa/self.all)
+            if self.all != 0:
+                str += " ({0:.1f}-{1:.1f})".format(self.pf/self.all, self.pa/self.all)
+            else:
+                str += " (0.0-0.0)"
 
         return str

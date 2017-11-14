@@ -60,6 +60,7 @@
 [u]Highest Scoring[/u]: 144.2-132.3, lost at Eric Price 2016 week 3
 [u]Lowest Scoring[/u]: 69.2-57.0, lost vs Ben Mytelka 2013 week 10
 
+
 [b]Ben Mytelka[/b]
 [u]Division[/u]: West
 [u]Seasons Active[/u]: 2010-2017
@@ -120,6 +121,7 @@
 [u]Fewest PF[/u]: 53.7 pts, lost vs Rande Revilla 2013 week 3
 [u]Highest Scoring[/u]: 188.5-95.6, lost at Rande Revilla 2014 week 8
 [u]Lowest Scoring[/u]: 84.3-37.4, won vs Thomas Singleton 2016 week 13
+
 
 [b]Connor Wiseman[/b]
 [u]Division[/u]: East
@@ -182,6 +184,7 @@
 [u]Highest Scoring[/u]: 139.2-130.8, lost vs James Furlong 2013 week 10
 [u]Lowest Scoring[/u]: 52.9-50.4, lost vs James Furlong 2015 week 10
 
+
 [b]Eric Price[/b]
 [u]Division[/u]: West
 [u]Seasons Active[/u]: 2010-2017
@@ -242,6 +245,7 @@
 [u]Fewest PF[/u]: 37.4 pts, lost vs Rande Revilla 2013 week 13
 [u]Highest Scoring[/u]: 144.2-132.3, won vs Andrew Lee 2016 week 3
 [u]Lowest Scoring[/u]: 50.4-37.4, lost vs Rande Revilla 2013 week 13
+
 
 [b]James Furlong[/b]
 [u]Division[/u]: East
@@ -304,6 +308,7 @@
 [u]Highest Scoring[/u]: 149.1-122.3, won vs Rande Revilla 2016 week 1
 [u]Lowest Scoring[/u]: 52.9-50.4, won at Connor Wiseman 2015 week 10
 
+
 [b]josh watson[/b]
 [u]Division[/u]: East
 [u]Seasons Active[/u]: 2010-2017
@@ -364,6 +369,7 @@
 [u]Fewest PF[/u]: 42.8 pts, lost vs Rande Revilla 2017 week 3
 [u]Highest Scoring[/u]: 182.1-90.5, lost at Ben Mytelka 2016 week 12
 [u]Lowest Scoring[/u]: 64.0-57.0, lost at Rande Revilla 2012 week 8
+
 
 [b]Rande Revilla[/b]
 [u]Division[/u]: West
@@ -426,6 +432,7 @@
 [u]Highest Scoring[/u]: 188.5-95.6, won vs Ben Mytelka 2014 week 8
 [u]Lowest Scoring[/u]: 50.4-37.4, won at Eric Price 2013 week 13
 
+
 [b]Stuart Petty[/b]
 [u]Division[/u]: East
 [u]Seasons Active[/u]: 2010-2017
@@ -486,6 +493,7 @@
 [u]Fewest PF[/u]: 52.5 pts, lost at Eric Price 2016 week 14
 [u]Highest Scoring[/u]: 148.0-146.0, lost at Thomas Singleton 2012 week 14
 [u]Lowest Scoring[/u]: 69.9-49.2, won vs Trevor Watson 2015 week 2
+
 
 [b]Thomas Singleton[/b]
 [u]Division[/u]: West
@@ -548,6 +556,7 @@
 [u]Highest Scoring[/u]: 148.0-146.0, won vs Stuart Petty 2012 week 14
 [u]Lowest Scoring[/u]: 66.8-50.1, lost vs Eric Price 2015 week 11
 
+
 [b]Trevor Watson[/b]
 [u]Division[/u]: West
 [u]Seasons Active[/u]: 2010-2017
@@ -608,6 +617,7 @@
 [u]Fewest PF[/u]: 49.2 pts, lost at Stuart Petty 2015 week 2
 [u]Highest Scoring[/u]: 150.8-124.8, lost vs Eric Price 2013 week 2
 [u]Lowest Scoring[/u]: 69.9-49.2, lost at Stuart Petty 2015 week 2
+
 
 
 [b]Most PF in a Single Game[/b]

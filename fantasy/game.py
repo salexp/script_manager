@@ -339,17 +339,23 @@ class GamePreview:
         self.over_payout = ou_lines[0]
         self.under_payout = ou_lines[1]
 
-        away_opp = away_owner.records.opponents[home_owner.name]["All"]
-        away_opp_past = [m for m in away_opp.matchups if m.game.week_stamp < game.week_stamp]
-        if len(away_opp_past) > 0:
-            away_opp_pct = (sum([m.won for m in away_opp_past]) + 0.5 * sum([m.tie for m in away_opp_past])) / float(len(away_opp_past))
+        if home_owner.name in away_owner.records.opponents.keys():
+            away_opp = away_owner.records.opponents[home_owner.name]["All"]
+            away_opp_past = [m for m in away_opp.matchups if m.game.week_stamp < game.week_stamp]
+            if len(away_opp_past) > 0:
+                away_opp_pct = (sum([m.won for m in away_opp_past]) + 0.5 * sum([m.tie for m in away_opp_past])) / float(len(away_opp_past))
+            else:
+                away_opp_pct = 0.0
         else:
             away_opp_pct = 0.0
 
-        home_opp = home_owner.records.opponents[away_owner.name]["All"]
-        home_opp_past = [m for m in home_opp.matchups if m.game.week_stamp < game.week_stamp]
-        if len(home_opp_past) > 0:
-            home_opp_pct = (sum([m.won for m in home_opp_past]) + 0.5 * sum([m.tie for m in home_opp_past])) / float(len(home_opp_past))
+        if away_owner.name in home_owner.records.opponents.keys():
+            home_opp = home_owner.records.opponents[away_owner.name]["All"]
+            home_opp_past = [m for m in home_opp.matchups if m.game.week_stamp < game.week_stamp]
+            if len(home_opp_past) > 0:
+                home_opp_pct = (sum([m.won for m in home_opp_past]) + 0.5 * sum([m.tie for m in home_opp_past])) / float(len(home_opp_past))
+            else:
+                home_opp_pct = 0.0
         else:
             home_opp_pct = 0.0
 

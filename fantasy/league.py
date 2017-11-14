@@ -21,7 +21,7 @@ from util.sql.database import Database
 
 class League(object):
     def __init__(self, espn_id, database_settings=None, database_connection=None, resources_folder=None, update_resources=False,
-                 full_update=False, current_week=None):
+                 full_update=False, current_week=None, current_year=None):
         self.database_settings = database_settings
         self._db = database_connection
 
@@ -31,11 +31,12 @@ class League(object):
         # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
 
         self._all_games = None
-        self._current_year = None
+        self._current_year = current_year
         self._db_games = None
         self._db_entry = None
         self._driver = None
         self._historic_playoffs = None
+        self._league_founded = None
         self._league_name = None
         self._recent_transactions = None
         self._owners = None
@@ -132,6 +133,12 @@ class League(object):
         return self._historic_playoffs
 
     @property
+    def league_founded(self):
+        if self._league_founded is None:
+            self._league_founded = self.db_entry['LEAGUE_FOUNDED']
+        return self._league_founded
+
+    @property
     def league_name(self):
         if self._league_name is None:
             self._league_name = self.db_entry['LEAGUE_NAME']
@@ -178,6 +185,8 @@ class League(object):
     def years(self):
         if self._years is None:
             years = sorted(list(set([_['YEAR'] for k, _ in self.db_games.items()])))
+            if not len(years):
+                years = range(self.league_founded, self.current_year + 1)
             self._years = {y: Year() for y in years}
         return self._years
 
@@ -187,7 +196,7 @@ class League(object):
 
     def add_history(self, years, book, push_database=None):
         for yi, year in enumerate(years):
-            sheet = book.sheet_by_index(yi)
+            sheet = book.sheet_by_name(str(year))
 
             if not self.years.get(year):
                 self.years[year] = Year()
@@ -835,15 +844,18 @@ class League(object):
                         "+" if p.over_favorite and p.under_payout != 100 else " -"if p.under_payout != 100 else "",
                         "{:.0f}".format(p.under_payout) if p.under_payout != 100 else "PUSH",)
 
-                    away_opp_rcd = gm.away_owner.records.opponents[gm.home_owner.name]["All"]
-                    home_opp_rcd = gm.home_owner.records.opponents[gm.away_owner.name]["All"]
-                    away_all = away_opp_rcd.percent() > home_opp_rcd.percent()
-                    home_all = away_opp_rcd.percent() < home_opp_rcd.percent()
-                    tied_all = away_opp_rcd.percent() == home_opp_rcd.percent()
-                    body += "{0} {1} {2}\n".format(
-                        gm.away_owner.first_name if away_all else gm.home_owner.first_name if home_all else "Series",
-                        "leads series" if not tied_all else "tied",
-                        away_opp_rcd.to_string(pfpa=False) if away_all else home_opp_rcd.to_string(pfpa=False))
+                    if gm.home_owner.name in gm.away_owner.records.opponents.keys():
+                        away_opp_rcd = gm.away_owner.records.opponents[gm.home_owner.name]["All"]
+                        home_opp_rcd = gm.home_owner.records.opponents[gm.away_owner.name]["All"]
+                        away_all = away_opp_rcd.percent() > home_opp_rcd.percent()
+                        home_all = away_opp_rcd.percent() < home_opp_rcd.percent()
+                        tied_all = away_opp_rcd.percent() == home_opp_rcd.percent()
+                        body += "{0} {1} {2}\n".format(
+                            gm.away_owner.first_name if away_all else gm.home_owner.first_name if home_all else "Series",
+                            "leads series" if not tied_all else "tied",
+                            away_opp_rcd.to_string(pfpa=False) if away_all else home_opp_rcd.to_string(pfpa=False))
+                    else:
+                        body += "First matchup between owners\n"
 
                     body += "\n"
 
@@ -976,7 +988,7 @@ class League(object):
             if seasons:
                 rcd = self.records.season["Most PF"]
                 body += "[b]Most PPG in a Single Season[/b]\n"
-                for r in range(rcds):
+                for r in range(min(rcds, len(rcd))):
                     ows = rcd[r]
                     body += "{0} {1:.1f} ppg, {2}{3}{4} ({5})\n".format(add_suffix(r+1),
                                                                        ows.ppg,
@@ -988,7 +1000,7 @@ class League(object):
                 body += "\n"
                 rcd = self.records.season["Fewest PF"]
                 body += "[b]Fewest PPG in a Single Season[/b]\n"
-                for r in range(rcds):
+                for r in range(min(rcds, len(rcd))):
                     ows = rcd[r]
                     body += "{0} {1:.1f} ppg, {2}{3}{4} ({5})\n".format(add_suffix(r+1),
                                                                        ows.ppg,
@@ -1000,7 +1012,7 @@ class League(object):
                 body += "\n"
                 rcd = self.records.season["Most PA"]
                 body += "[b]Most PA/G in a Single Season[/b]\n"
-                for r in range(rcds):
+                for r in range(min(rcds, len(rcd))):
                     ows = rcd[r]
                     body += "{0} {1:.1f} {2}{3}{4} ({5})\n".format(add_suffix(r+1),
                                                                   ows.pag,
@@ -1012,7 +1024,7 @@ class League(object):
                 body += "\n"
                 rcd = self.records.season["Fewest PA"]
                 body += "[b]Fewest PA/G in a Single Season[/b]\n"
-                for r in range(rcds):
+                for r in range(min(rcds, len(rcd))):
                     ows = rcd[r]
                     body += "{0} {1:.1f} {2}{3}{4} ({5})\n".format(add_suffix(r+1),
                                                                   ows.pag,
@@ -1194,3 +1206,7 @@ class LeagueRecords:
                             rcd[-1] = matchup
                     self.league.records.games[key] = \
                         sorted(rcd, key=lambda param: param.win_diff, reverse=False)
+
+
+def create_db_league(name, year_founded, espn_id):
+    pass

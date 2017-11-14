@@ -56,7 +56,8 @@ class Metrics:
         years = [y for y in range(int(self.year)-1, int(self.year)+1)]
         matchups = []
         for y in years:
-            matchups += owner.seasons[y].matchups
+            if y in owner.active:
+                matchups += owner.seasons[y].matchups
 
         cw = int(self.league.current_week)
         matchups = matchups[len(matchups)-cw:len(matchups)-cw+length]
