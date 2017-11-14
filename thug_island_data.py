@@ -38,7 +38,7 @@ def main():
     thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS, plot=PLOT_RANKINGS)
 
     thug_island.to_string(
-        outfile="ff_data.txt",
+        outfile="fantasy/ff_data.txt",
         title=True,
         games=True,
         mtchups=True,
@@ -50,7 +50,7 @@ def main():
     )
 
     thug_island.to_string(
-        outfile="ff_data_records.txt",
+        outfile="fantasy/ff_data_records.txt",
         title=False,
         games=True,
         mtchups=False,
@@ -94,7 +94,7 @@ def nail_salon():
     nail_salon.recursive_rankings(playoffs=FUTURE_PLAYOFFS, plot=PLOT_RANKINGS)
 
     nail_salon.to_string(
-        outfile="nail_salon_data.txt",
+        outfile="fantasy/nail_salon_data.txt",
         title=True,
         games=True,
         mtchups=True,
@@ -106,7 +106,7 @@ def nail_salon():
     )
 
     nail_salon.to_string(
-        outfile="nail_salon_data_records.txt",
+        outfile="fantasy/nail_salon_data_records.txt",
         title=False,
         games=True,
         mtchups=False,
