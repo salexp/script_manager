@@ -37,43 +37,43 @@ K. Greg Zuerlein (Andrew Lee) - 17.0
 
 [b]Playoff Simulations (327680 scenarios)[/b]
 [u]Andrew Lee[/u]
-68.35% end in division championship
+79.04% end in division championship
 100.00% end in playoff berth
 
 [u]Ben Mytelka[/u]
-0.73% end in division championship
-26.22% end in playoff berth
+0.19% end in division championship
+32.65% end in playoff berth
 
 [u]Connor Wiseman[/u]
-0.29% end in division championship
-7.32% end in playoff berth
+0.01% end in division championship
+8.62% end in playoff berth
 
 [u]Eric Price[/u]
-34.03% end in division championship
+42.92% end in division championship
 100.00% end in playoff berth
 
 [u]James Furlong[/u]
-10.44% end in division championship
-76.36% end in playoff berth
+5.54% end in division championship
+90.97% end in playoff berth
 
 [u]josh watson[/u]
 No scenarios end in division championship
-1.26% end in playoff berth
+0.27% end in playoff berth
 
 [u]Rande Revilla[/u]
-0.87% end in division championship
-52.97% end in playoff berth
+0.30% end in division championship
+26.52% end in playoff berth
 
 [u]Stuart Petty[/u]
-20.89% end in division championship
-92.28% end in playoff berth
+15.39% end in division championship
+99.64% end in playoff berth
 
 [u]Thomas Singleton[/u]
-1.46% end in division championship
-43.55% end in playoff berth
+2.38% end in division championship
+41.29% end in playoff berth
 
 [u]Trevor Watson[/u]
-62.89% end in division championship
+54.19% end in division championship
 100.00% end in playoff berth
 
 

@@ -527,7 +527,9 @@ class League(object):
                 outcome = bin(this_outcome).split('b')[1].zfill(num_games_left)
                 highest_list = [None] if not all_points else self.owners.keys()
                 for highest_owner in highest_list:
+                    holding_pf = None
                     if highest_owner is not None:
+                        holding_pf = record[highest_owner][4]
                         record[highest_owner][4] = 999.9
                     for g, game in enumerate(outcome):
                         away_owner = games_left[g].away_owner.name
@@ -567,6 +569,9 @@ class League(object):
                     # Total remaining
                     for i, f in enumerate(finished[4:]):
                         season_finishes[f[0]][2] += 1
+
+                    if holding_pf is not None:
+                        record[highest_owner][4] = holding_pf
 
                 this_outcome += 1
 
