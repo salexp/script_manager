@@ -486,7 +486,7 @@ class League(object):
         return playoffs
 
     def make_future_playoffs(self, all_points=True):
-        cache_file = 'future_playoffs.json'
+        cache_file = 'fantasy/future_playoffs.json'
 
         t_a = datetime.now()
         schedule = self.years[self.current_year].schedule
@@ -613,13 +613,13 @@ class League(object):
             if chc[0] == chc[2]:
                 owner.add_division_championship(self.current_year)
 
-    def recursive_rankings(self, playoffs=True, plot=True):
+    def recursive_rankings(self, playoffs=True, playoff_ties=False, plot=True):
         weeks = [str(w) for w in range(1, int(self.current_week)+1)]
         for week in weeks:
             self.generate_rankings(week=week, plot=week is weeks[-1] and plot)
 
         if playoffs:
-            self.make_future_playoffs(False)
+            self.make_future_playoffs(playoff_ties)
 
     def search_players(self, name="   ", position="   "):
         found = []

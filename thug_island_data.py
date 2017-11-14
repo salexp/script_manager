@@ -13,7 +13,7 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 9
+CURRENT_WEEK = 10
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
@@ -35,7 +35,7 @@ def main():
 
     del thug_island.owners["Cody Blain"]
 
-    thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS, plot=PLOT_RANKINGS)
+    thug_island.recursive_rankings(playoffs=FUTURE_PLAYOFFS, playoff_ties=True, plot=PLOT_RANKINGS)
 
     thug_island.to_string(
         outfile="fantasy/ff_data.txt",
