@@ -1,4 +1,5 @@
 from util.statistics.std_normal import StdNormal
+from util.utilities import *
 
 
 class Player:
@@ -100,8 +101,8 @@ class PlayerAttributes:
         points = [m.points for m in matchups]
 
         self.mu = sum(points) / len(points)
-        self.ssq = sum(p**2 for p in points)
-        self.sigma = (1.0 / len(points)) * (len(points) * self.ssq - sum(points) ** 2) ** (0.5)
+        self.ssq = sum_sqs(points)
+        self.sigma = std_dev(points, self.ssq)
 
 
 class PlayerGame:

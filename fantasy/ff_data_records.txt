@@ -5,11 +5,11 @@
 [u]Playoff Appearances[/u]: 2011-2012, 2015-2017
 [u]Championships[/u]: None
 
-[u]Overall[/u]: 58-62 (92.6-94.9)
-[u]Regular Season[/u]: 50-51 (94.1-95.8)
+[u]Overall[/u]: 59-62 (92.8-94.9)
+[u]Regular Season[/u]: 51-51 (94.3-95.8)
 [u]Playoffs[/u]: 2-4 (101.4-107.4)
 [u]East[/u]: 35-30 (95.4-95.2)
-[u]West[/u]: 23-32 (89.2-94.5)
+[u]West[/u]: 24-32 (89.7-94.5)
 [u]Ben[/u]: 5-8 (91.4-96.7)
     Most PF: 144.0 pts, won 144.0-99.0 2012 week 16
     Fewest PF: 57.0 pts, lost 69.2-57.0 2013 week 10
@@ -50,7 +50,7 @@
     Fewest PF: 58.1 pts, lost 62.1-58.1 2014 week 15
     Highest Scoring: 146.0-126.0, lost 2010 week 4
     Lowest Scoring: 62.1-58.1, lost 2014 week 15
-[u]Trevor[/u]: 5-4 (96.4-96.8)
+[u]Trevor[/u]: 6-4 (98.2-96.7)
     Most PF: 143.0 pts, won 143.0-72.0 2010 week 5
     Fewest PF: 59.0 pts, lost 81.0-59.0 2010 week 12
     Highest Scoring: 124.0-92.0, lost 2012 week 7
@@ -67,11 +67,11 @@
 [u]Playoff Appearances[/u]: 2011-2016
 [u]Championships[/u]: 2014, 2016
 
-[u]Overall[/u]: 74-44 (104.9-95.1)
-[u]Regular Season[/u]: 64-37 (104.7-93.8)
+[u]Overall[/u]: 74-45 (104.9-95.1)
+[u]Regular Season[/u]: 64-38 (104.6-93.8)
 [u]Playoffs[/u]: 6-4 (113.2-106.5)
 [u]East[/u]: 34-18 (104.0-95.0)
-[u]West[/u]: 40-26 (105.7-95.1)
+[u]West[/u]: 40-27 (105.6-95.2)
 [u]Andrew[/u]: 8-5 (96.7-91.4)
     Most PF: 147.0 pts, won 147.0-104.0 2010 week 13
     Fewest PF: 69.2 pts, won 69.2-57.0 2013 week 10
@@ -97,7 +97,7 @@
     Fewest PF: 62.0 pts, lost 151.0-62.0 2010 week 11
     Highest Scoring: 182.1-90.5, won 2016 week 12
     Lowest Scoring: 90.9-82.4, won 2015 week 12
-[u]Rande[/u]: 9-4 (104.6-94.0)
+[u]Rande[/u]: 9-5 (104.1-94.3)
     Most PF: 145.8 pts, won 145.8-107.2 2014 week 11
     Fewest PF: 53.7 pts, lost 80.7-53.7 2013 week 3
     Highest Scoring: 188.5-95.6, lost 2014 week 8
@@ -129,10 +129,10 @@
 [u]Playoff Appearances[/u]: 2011-2014
 [u]Championship[/u]: 2011
 
-[u]Overall[/u]: 58-61 (99.3-95.9)
-[u]Regular Season[/u]: 48-53 (99.3-96.9)
+[u]Overall[/u]: 59-61 (99.4-95.7)
+[u]Regular Season[/u]: 49-53 (99.5-96.7)
 [u]Playoffs[/u]: 5-3 (107.6-100.9)
-[u]East[/u]: 32-34 (98.7-97.3)
+[u]East[/u]: 33-34 (99.0-97.0)
 [u]West[/u]: 26-27 (100.0-94.2)
 [u]Andrew[/u]: 8-7 (102.4-98.3)
     Most PF: 134.6 pts, won 134.6-111.2 2013 week 4
@@ -164,7 +164,7 @@
     Fewest PF: 91.6 pts, won 91.6-83.4 2015 week 2
     Highest Scoring: 119.2-83.8, won 2014 week 2
     Lowest Scoring: 114.0-54.0, won 2012 week 7
-[u]Stuart[/u]: 7-9 (90.0-90.8)
+[u]Stuart[/u]: 8-9 (91.6-89.9)
     Most PF: 139.0 pts, won 139.0-90.0 2011 week 12
     Fewest PF: 48.0 pts, lost 74.1-48.0 2016 week 6
     Highest Scoring: 139.0-90.0, won 2011 week 12
@@ -191,11 +191,11 @@
 [u]Playoff Appearances[/u]: 2011-2012, 2015-2017
 [u]Championship[/u]: 2012
 
-[u]Overall[/u]: 64-55-1 (98.5-97.7)
-[u]Regular Season[/u]: 53-47-1 (99.0-98.8)
+[u]Overall[/u]: 64-56-1 (98.4-98.0)
+[u]Regular Season[/u]: 53-48-1 (98.9-99.1)
 [u]Playoffs[/u]: 5-3 (105.5-103.2)
 [u]East[/u]: 30-23-1 (96.3-92.9)
-[u]West[/u]: 34-32 (100.3-101.6)
+[u]West[/u]: 34-33 (100.1-102.0)
 [u]Andrew[/u]: 9-5 (89.7-84.4)
     Most PF: 150.0 pts, won 150.0-116.0 2011 week 14
     Fewest PF: 7.0 pts, won 7.0-0.0 2013 week 16
@@ -231,7 +231,7 @@
     Fewest PF: 69.0 pts, lost 128.0-69.0 2010 week 6
     Highest Scoring: 125.0-125.0, tied 2010 week 13
     Lowest Scoring: 92.5-52.5, won 2016 week 14
-[u]Thomas[/u]: 11-2 (105.0-94.3)
+[u]Thomas[/u]: 11-3 (103.5-96.8)
     Most PF: 135.0 pts, won 135.0-117.0 2012 week 12
     Fewest PF: 64.0 pts, lost 89.1-64.0 2014 week 11
     Highest Scoring: 135.0-117.0, won 2012 week 12
@@ -253,10 +253,10 @@
 [u]Playoff Appearances[/u]: 2013-2014
 [u]Championships[/u]: None
 
-[u]Overall[/u]: 50-56 (96.0-97.6)
-[u]Regular Season[/u]: 38-50 (95.2-99.0)
+[u]Overall[/u]: 51-56 (95.9-97.3)
+[u]Regular Season[/u]: 39-50 (95.1-98.7)
 [u]Playoffs[/u]: 2-2 (103.4-111.5)
-[u]East[/u]: 29-34 (95.4-95.7)
+[u]East[/u]: 30-34 (95.3-95.3)
 [u]West[/u]: 21-22 (96.9-100.4)
 [u]Andrew[/u]: 6-8 (93.3-97.0)
     Most PF: 120.0 pts, won 120.0-73.0 2011 week 12
@@ -278,7 +278,7 @@
     Fewest PF: 78.7 pts, lost 94.4-78.7 2016 week 13
     Highest Scoring: 161.5-79.6, lost 2013 week 9
     Lowest Scoring: 79.4-71.9, won 2015 week 13
-[u]josh[/u]: 9-8 (99.4-93.4)
+[u]josh[/u]: 10-8 (98.8-91.9)
     Most PF: 141.3 pts, won 141.3-83.4 2013 week 16
     Fewest PF: 66.9 pts, lost 95.3-66.9 2016 week 11
     Highest Scoring: 135.0-124.0, won 2011 week 4
@@ -315,10 +315,10 @@
 [u]Playoff Appearances[/u]: 2010-2014, 2016
 [u]Championships[/u]: None
 
-[u]Overall[/u]: 56-63 (95.7-95.7)
-[u]Regular Season[/u]: 50-51 (96.2-95.7)
+[u]Overall[/u]: 56-64 (95.5-95.7)
+[u]Regular Season[/u]: 50-52 (95.9-95.6)
 [u]Playoffs[/u]: 2-6 (90.0-103.7)
-[u]East[/u]: 35-37 (96.3-98.1)
+[u]East[/u]: 35-38 (95.9-98.0)
 [u]West[/u]: 21-26 (94.9-92.1)
 [u]Andrew[/u]: 8-12 (90.6-96.0)
     Most PF: 129.1 pts, won 129.1-110.6 2016 week 5
@@ -340,7 +340,7 @@
     Fewest PF: 67.1 pts, lost 92.0-67.1 2015 week 2
     Highest Scoring: 137.0-107.0, won 2010 week 12
     Lowest Scoring: 80.0-69.0, lost 2012 week 6
-[u]James[/u]: 8-9 (93.4-99.4)
+[u]James[/u]: 8-10 (91.9-98.8)
     Most PF: 127.4 pts, won 127.4-117.6 2013 week 15
     Fewest PF: 54.0 pts, lost 76.3-54.0 2015 week 11
     Highest Scoring: 135.0-124.0, lost 2011 week 4
@@ -377,17 +377,17 @@
 [u]Playoff Appearances[/u]: 2014-2016
 [u]Championships[/u]: None
 
-[u]Overall[/u]: 41-65 (91.5-97.8)
-[u]Regular Season[/u]: 37-51 (93.2-97.8)
+[u]Overall[/u]: 42-65 (91.6-97.8)
+[u]Regular Season[/u]: 38-51 (93.3-97.8)
 [u]Playoffs[/u]: 0-3 (102.0-108.7)
 [u]East[/u]: 17-27 (90.1-94.7)
-[u]West[/u]: 24-38 (92.6-100.0)
+[u]West[/u]: 25-38 (92.7-99.9)
 [u]Andrew[/u]: 6-3 (95.9-80.0)
     Most PF: 113.0 pts, won 113.0-90.0 2011 week 6
     Fewest PF: 73.1 pts, won 73.1-0.0 2013 week 15
     Highest Scoring: 113.5-111.9, lost 2016 week 14
     Lowest Scoring: 73.1-0.0, won 2013 week 15
-[u]Ben[/u]: 4-9 (94.0-104.6)
+[u]Ben[/u]: 5-9 (94.3-104.1)
     Most PF: 188.5 pts, won 188.5-95.6 2014 week 8
     Fewest PF: 48.0 pts, lost 107.0-48.0 2011 week 12
     Highest Scoring: 188.5-95.6, won 2014 week 8
@@ -439,10 +439,10 @@
 [u]Playoff Appearances[/u]: 2010, 2013, 2015-2016
 [u]Championships[/u]: 2013, 2015
 
-[u]Overall[/u]: 63-56-1 (94.7-95.5)
-[u]Regular Season[/u]: 51-49-1 (94.7-97.0)
+[u]Overall[/u]: 63-57-1 (94.5-95.7)
+[u]Regular Season[/u]: 51-50-1 (94.5-97.2)
 [u]Playoffs[/u]: 6-2 (105.8-95.4)
-[u]East[/u]: 34-30 (93.6-92.8)
+[u]East[/u]: 34-31 (93.4-93.2)
 [u]West[/u]: 29-26-1 (95.9-98.5)
 [u]Andrew[/u]: 8-8 (96.1-90.5)
     Most PF: 171.2 pts, won 171.2-86.9 2014 week 13
@@ -454,7 +454,7 @@
     Fewest PF: 58.0 pts, lost 126.0-58.0 2010 week 5
     Highest Scoring: 127.1-126.5, won 2015 week 3
     Lowest Scoring: 100.0-58.0, lost 2011 week 6
-[u]Connor[/u]: 9-7 (90.8-90.0)
+[u]Connor[/u]: 9-8 (89.9-91.6)
     Most PF: 128.1 pts, won 128.1-93.8 2017 week 6
     Fewest PF: 61.0 pts, lost 132.0-61.0 2011 week 3
     Highest Scoring: 139.0-90.0, lost 2011 week 12
@@ -501,11 +501,11 @@
 [u]Playoff Appearance[/u]: 2010
 [u]Championships[/u]: None
 
-[u]Overall[/u]: 42-63 (91.7-98.3)
-[u]Regular Season[/u]: 33-55 (94.6-100.5)
+[u]Overall[/u]: 43-63 (92.1-98.2)
+[u]Regular Season[/u]: 34-55 (95.0-100.3)
 [u]Playoffs[/u]: 0-1 (122.0-135.0)
 [u]East[/u]: 23-27 (87.3-94.9)
-[u]West[/u]: 19-36 (95.7-101.5)
+[u]West[/u]: 20-36 (96.3-101.1)
 [u]Andrew[/u]: 4-5 (94.2-96.5)
     Most PF: 146.0 pts, won 146.0-126.0 2010 week 4
     Fewest PF: 62.1 pts, won 62.1-58.1 2014 week 15
@@ -521,8 +521,8 @@
     Fewest PF: 10.2 pts, lost 125.8-10.2 2015 week 15
     Highest Scoring: 114.1-106.3, won 2017 week 3
     Lowest Scoring: 125.8-10.2, lost 2015 week 15
-[u]Eric[/u]: 2-11 (94.3-105.0)
-    Most PF: 118.0 pts, won 118.0-94.0 2010 week 8
+[u]Eric[/u]: 3-11 (96.8-103.5)
+    Most PF: 129.6 pts, won 129.6-83.2 2017 week 11
     Fewest PF: 50.1 pts, lost 66.8-50.1 2015 week 11
     Highest Scoring: 135.0-117.0, lost 2012 week 12
     Lowest Scoring: 66.8-50.1, lost 2015 week 11
@@ -563,12 +563,12 @@
 [u]Playoff Appearances[/u]: 2010-2015, 2017
 [u]Championship[/u]: 2010
 
-[u]Overall[/u]: 68-51 (100.1-98.3)
-[u]Regular Season[/u]: 61-40 (101.2-97.6)
+[u]Overall[/u]: 68-52 (100.1-98.4)
+[u]Regular Season[/u]: 61-41 (101.1-97.8)
 [u]Playoffs[/u]: 5-5 (105.8-106.8)
-[u]East[/u]: 27-22 (101.2-98.2)
+[u]East[/u]: 27-23 (101.1-98.5)
 [u]West[/u]: 41-29 (99.4-98.4)
-[u]Andrew[/u]: 4-5 (96.8-96.4)
+[u]Andrew[/u]: 4-6 (96.7-98.2)
     Most PF: 138.5 pts, won 138.5-70.3 2013 week 8
     Fewest PF: 68.4 pts, lost 99.7-68.4 2015 week 11
     Highest Scoring: 124.0-92.0, won 2012 week 7
@@ -894,43 +894,43 @@
 11th 104.4-103.6, Trevor Watson won vs Ben Mytelka 2015 week 5
 12th 83.0-82.0, Eric Price won vs josh watson 2011 week 6
 13th 128.0-127.0, Ben Mytelka won vs Eric Price 2012 week 5
-14th 91.3-90.0, Andrew Lee won vs Connor Wiseman 2016 week 1
-15th 102.4-101.1, Rande Revilla won at Thomas Singleton 2014 week 12
-16th 111.4-110.0, James Furlong won at Andrew Lee 2013 week 3
-17th 91.3-89.8, Stuart Petty won vs Connor Wiseman 2013 week 16
-18th 81.0-79.5, Stuart Petty won at josh watson 2016 week 10
-19th 107.8-106.2, Andrew Lee won vs Trevor Watson 2016 week 11
-20th 113.5-111.9, Andrew Lee won at Rande Revilla 2016 week 14
-21st 102.5-100.6, Eric Price won vs josh watson 2017 week 2
-22nd 83.0-81.0, Thomas Singleton won vs Connor Wiseman 2010 week 5
-23rd 77.0-75.0, Connor Wiseman won vs James Furlong 2011 week 10
-24th 124.0-122.0, Connor Wiseman won vs Trevor Watson 2011 week 16
-25th 88.0-86.0, Connor Wiseman won at James Furlong 2012 week 1
-26th 98.0-96.0, Trevor Watson won vs Rande Revilla 2012 week 2
-27th 75.7-73.6, Stuart Petty won vs Thomas Singleton 2017 week 4
-28th 82.1-79.8, josh watson won at James Furlong 2016 week 6
-29th 94.2-91.7, Trevor Watson won vs Ben Mytelka 2013 week 5
-30th 92.0-89.5, Connor Wiseman won vs Andrew Lee 2013 week 13
-31st 92.1-89.6, James Furlong won vs Trevor Watson 2014 week 3
-32nd 52.9-50.4, James Furlong won at Connor Wiseman 2015 week 10
-33rd 103.9-101.4, Eric Price won at Thomas Singleton 2017 week 8
-34th 100.8-98.2, Ben Mytelka won vs Andrew Lee 2016 week 15
-35th 84.7-81.9, Ben Mytelka won at Connor Wiseman 2015 week 4
-36th 86.4-83.6, Stuart Petty won vs Eric Price 2015 week 14
-37th 101.7-98.8, Rande Revilla won vs Eric Price 2013 week 5
-38th 101.0-98.0, Trevor Watson won at Stuart Petty 2010 week 4
-39th 77.0-74.0, Thomas Singleton won vs Stuart Petty 2011 week 8
-40th 67.0-64.0, Andrew Lee won vs Stuart Petty 2011 week 9
-41st 93.0-90.0, Eric Price won vs Rande Revilla 2011 week 9
-42nd 101.0-98.0, josh watson won at Stuart Petty 2012 week 1
-43rd 104.0-101.0, Trevor Watson won at Ben Mytelka 2012 week 9
-44th 99.0-96.0, Rande Revilla won vs Thomas Singleton 2012 week 11
-45th 103.0-100.0, Eric Price won vs Ben Mytelka 2012 week 13
-46th 135.1-131.8, josh watson won vs Connor Wiseman 2014 week 13
-47th 96.9-93.6, Trevor Watson won at Rande Revilla 2015 week 13
-48th 84.5-81.1, josh watson won at James Furlong 2014 week 11
-49th 82.9-79.1, Eric Price won at Rande Revilla 2017 week 4
-50th 115.0-111.1, Trevor Watson won at Thomas Singleton 2014 week 6
+14th 98.5-97.3, Rande Revilla won vs Ben Mytelka 2017 week 11
+15th 91.3-90.0, Andrew Lee won vs Connor Wiseman 2016 week 1
+16th 102.4-101.1, Rande Revilla won at Thomas Singleton 2014 week 12
+17th 111.4-110.0, James Furlong won at Andrew Lee 2013 week 3
+18th 91.3-89.8, Stuart Petty won vs Connor Wiseman 2013 week 16
+19th 81.0-79.5, Stuart Petty won at josh watson 2016 week 10
+20th 107.8-106.2, Andrew Lee won vs Trevor Watson 2016 week 11
+21st 113.5-111.9, Andrew Lee won at Rande Revilla 2016 week 14
+22nd 102.5-100.6, Eric Price won vs josh watson 2017 week 2
+23rd 83.0-81.0, Thomas Singleton won vs Connor Wiseman 2010 week 5
+24th 77.0-75.0, Connor Wiseman won vs James Furlong 2011 week 10
+25th 124.0-122.0, Connor Wiseman won vs Trevor Watson 2011 week 16
+26th 88.0-86.0, Connor Wiseman won at James Furlong 2012 week 1
+27th 98.0-96.0, Trevor Watson won vs Rande Revilla 2012 week 2
+28th 75.7-73.6, Stuart Petty won vs Thomas Singleton 2017 week 4
+29th 82.1-79.8, josh watson won at James Furlong 2016 week 6
+30th 94.2-91.7, Trevor Watson won vs Ben Mytelka 2013 week 5
+31st 92.0-89.5, Connor Wiseman won vs Andrew Lee 2013 week 13
+32nd 92.1-89.6, James Furlong won vs Trevor Watson 2014 week 3
+33rd 52.9-50.4, James Furlong won at Connor Wiseman 2015 week 10
+34th 103.9-101.4, Eric Price won at Thomas Singleton 2017 week 8
+35th 100.8-98.2, Ben Mytelka won vs Andrew Lee 2016 week 15
+36th 84.7-81.9, Ben Mytelka won at Connor Wiseman 2015 week 4
+37th 86.4-83.6, Stuart Petty won vs Eric Price 2015 week 14
+38th 101.7-98.8, Rande Revilla won vs Eric Price 2013 week 5
+39th 101.0-98.0, Trevor Watson won at Stuart Petty 2010 week 4
+40th 77.0-74.0, Thomas Singleton won vs Stuart Petty 2011 week 8
+41st 67.0-64.0, Andrew Lee won vs Stuart Petty 2011 week 9
+42nd 93.0-90.0, Eric Price won vs Rande Revilla 2011 week 9
+43rd 101.0-98.0, josh watson won at Stuart Petty 2012 week 1
+44th 104.0-101.0, Trevor Watson won at Ben Mytelka 2012 week 9
+45th 99.0-96.0, Rande Revilla won vs Thomas Singleton 2012 week 11
+46th 103.0-100.0, Eric Price won vs Ben Mytelka 2012 week 13
+47th 135.1-131.8, josh watson won vs Connor Wiseman 2014 week 13
+48th 96.9-93.6, Trevor Watson won at Rande Revilla 2015 week 13
+49th 84.5-81.1, josh watson won at James Furlong 2014 week 11
+50th 82.9-79.1, Eric Price won at Rande Revilla 2017 week 4
 
 [b]Highest Scoring Week[/b]
 1st. 116.125, 2010 week 11
@@ -1175,25 +1175,25 @@
 32nd 98.0 ppg, James Furlong (2016)
 33rd 97.9 ppg, josh watson* (2014)
 34th 97.9 ppg, Stuart Petty** (2013)
-35th 97.7 ppg, James Furlong (2017)
+35th 97.1 ppg, Thomas Singleton (2017)
 36th 96.9 ppg, James Furlong (2011)
-37th 96.9 ppg, josh watson* (2012)
-38th 96.2 ppg, Stuart Petty (2014)
-39th 95.8 ppg, Ben Mytelka* (2013)
-40th 95.7 ppg, Andrew Lee* (2011)
-41st 95.7 ppg, Trevor Watson* (2012)
-42nd 95.1 ppg, Andrew Lee (2017)
-43rd 95.1 ppg, Trevor Watson (2016)
-44th 95.0 ppg, Trevor Watson* (2015)
-45th 94.9 ppg, Stuart Petty (2017)
-46th 94.8 ppg, Connor Wiseman (2017)
+37th 96.9 ppg, Andrew Lee (2017)
+38th 96.9 ppg, James Furlong (2017)
+39th 96.9 ppg, josh watson* (2012)
+40th 96.9 ppg, Connor Wiseman (2017)
+41st 96.2 ppg, Stuart Petty (2014)
+42nd 95.8 ppg, Ben Mytelka* (2013)
+43rd 95.7 ppg, Andrew Lee* (2011)
+44th 95.7 ppg, Trevor Watson* (2012)
+45th 95.1 ppg, Trevor Watson (2016)
+46th 95.0 ppg, Trevor Watson* (2015)
 47th 93.9 ppg, Connor Wiseman (2015)
-48th 93.8 ppg, Thomas Singleton (2017)
-49th 93.8 ppg, Thomas Singleton (2016)
-50th 93.6 ppg, Eric Price (2014)
+48th 93.8 ppg, Thomas Singleton (2016)
+49th 93.6 ppg, Eric Price (2014)
+50th 93.4 ppg, Rande Revilla* (2015)
 
 [b]Fewest PPG in a Single Season[/b]
-1st. 72.5 ppg, josh watson (2017)
+1st. 72.0 ppg, josh watson (2017)
 2nd. 79.3 ppg, Andrew Lee (2014)
 3rd. 81.5 ppg, Connor Wiseman (2010)
 4th. 83.3 ppg, Stuart Petty (2011)
@@ -1206,37 +1206,37 @@
 11th 87.4 ppg, Connor Wiseman (2016)
 12th 87.4 ppg, James Furlong (2015)
 13th 87.5 ppg, Thomas Singleton (2011)
-14th 88.2 ppg, Rande Revilla (2017)
-15th 88.8 ppg, Andrew Lee (2013)
+14th 88.8 ppg, Andrew Lee (2013)
+15th 89.1 ppg, Rande Revilla (2017)
 16th 89.5 ppg, Rande Revilla (2012)
 17th 89.5 ppg, James Furlong (2012)
 18th 91.1 ppg, josh watson* (2016)
 19th 91.1 ppg, Ben Mytelka* (2012)
 20th 91.3 ppg, Eric Price (2013)
-21st 91.7 ppg, Ben Mytelka (2017)
+21st 91.7 ppg, Eric Price (2017)
 22nd 91.8 ppg, Stuart Petty (2012)
 23rd 92.0 ppg, Cody Blain (2013)
-24th 92.4 ppg, Trevor Watson (2017)
+24th 92.2 ppg, Ben Mytelka (2017)
 25th 92.5 ppg, Eric Price* (2015)
-26th 92.6 ppg, Eric Price (2017)
+26th 92.6 ppg, Trevor Watson (2017)
 27th 93.0 ppg, Thomas Singleton (2014)
-28th 93.4 ppg, Rande Revilla* (2015)
-29th 93.6 ppg, Eric Price (2014)
-30th 93.8 ppg, Thomas Singleton (2016)
-31st 93.8 ppg, Thomas Singleton (2017)
+28th 93.2 ppg, Stuart Petty (2017)
+29th 93.4 ppg, Rande Revilla* (2015)
+30th 93.6 ppg, Eric Price (2014)
+31st 93.8 ppg, Thomas Singleton (2016)
 32nd 93.9 ppg, Connor Wiseman (2015)
-33rd 94.8 ppg, Connor Wiseman (2017)
-34th 94.9 ppg, Stuart Petty (2017)
-35th 95.0 ppg, Trevor Watson* (2015)
-36th 95.1 ppg, Trevor Watson (2016)
-37th 95.1 ppg, Andrew Lee (2017)
-38th 95.7 ppg, Trevor Watson* (2012)
-39th 95.7 ppg, Andrew Lee* (2011)
-40th 95.8 ppg, Ben Mytelka* (2013)
-41st 96.2 ppg, Stuart Petty (2014)
-42nd 96.9 ppg, josh watson* (2012)
+33rd 95.0 ppg, Trevor Watson* (2015)
+34th 95.1 ppg, Trevor Watson (2016)
+35th 95.7 ppg, Trevor Watson* (2012)
+36th 95.7 ppg, Andrew Lee* (2011)
+37th 95.8 ppg, Ben Mytelka* (2013)
+38th 96.2 ppg, Stuart Petty (2014)
+39th 96.9 ppg, Connor Wiseman (2017)
+40th 96.9 ppg, josh watson* (2012)
+41st 96.9 ppg, James Furlong (2017)
+42nd 96.9 ppg, Andrew Lee (2017)
 43rd 96.9 ppg, James Furlong (2011)
-44th 97.7 ppg, James Furlong (2017)
+44th 97.1 ppg, Thomas Singleton (2017)
 45th 97.9 ppg, Stuart Petty** (2013)
 46th 97.9 ppg, josh watson* (2014)
 47th 98.0 ppg, James Furlong (2016)
@@ -1270,80 +1270,80 @@
 23rd 100.7 josh watson* (2013)
 24th 100.6 Rande Revilla (2013)
 25th 100.4 Andrew Lee* (2016)
-26th 100.4 James Furlong (2015)
-27th 100.3 Ben Mytelka* (2011)
-28th 100.2 Cody Blain (2013)
-29th 100.2 Eric Price (2010)
-30th 100.0 Andrew Lee (2013)
-31st 99.7 Ben Mytelka* (2015)
-32nd 99.4 Trevor Watson* (2014)
-33rd 99.3 Andrew Lee (2010)
-34th 99.1 James Furlong (2012)
-35th 99.1 Thomas Singleton (2016)
-36th 98.6 josh watson (2015)
-37th 98.4 James Furlong (2016)
-38th 98.4 James Furlong (2011)
-39th 98.3 Eric Price** (2012)
-40th 98.2 Ben Mytelka* (2012)
-41st 98.2 Stuart Petty* (2016)
-42nd 98.1 Andrew Lee (2014)
-43rd 98.1 Trevor Watson* (2012)
-44th 98.0 James Furlong* (2014)
-45th 97.9 Connor Wiseman (2017)
+26th 100.4 Eric Price (2017)
+27th 100.4 James Furlong (2015)
+28th 100.3 Ben Mytelka* (2011)
+29th 100.2 Cody Blain (2013)
+30th 100.2 Eric Price (2010)
+31st 100.0 Andrew Lee (2013)
+32nd 99.7 Ben Mytelka* (2015)
+33rd 99.4 Trevor Watson* (2014)
+34th 99.3 Andrew Lee (2010)
+35th 99.1 James Furlong (2012)
+36th 99.1 Thomas Singleton (2016)
+37th 98.6 josh watson (2015)
+38th 98.4 James Furlong (2016)
+39th 98.4 James Furlong (2011)
+40th 98.3 Eric Price** (2012)
+41st 98.2 Ben Mytelka* (2012)
+42nd 98.2 Stuart Petty* (2016)
+43rd 98.1 Andrew Lee (2014)
+44th 98.1 Trevor Watson* (2012)
+45th 98.0 James Furlong* (2014)
 46th 97.8 Rande Revilla* (2016)
 47th 97.5 Stuart Petty (2014)
-48th 97.4 Eric Price (2017)
+48th 97.5 Stuart Petty (2017)
 49th 97.2 Andrew Lee* (2012)
 50th 96.5 Trevor Watson* (2015)
 
 [b]Fewest PA/G in a Single Season[/b]
-1st. 79.0 Andrew Lee (2017)
+1st. 80.5 Andrew Lee (2017)
 2nd. 83.1 Stuart Petty** (2013)
 3rd. 84.6 josh watson* (2012)
-4th. 86.6 Trevor Watson (2017)
-5th. 88.0 Ben Mytelka** (2016)
+4th. 88.0 Ben Mytelka** (2016)
+5th. 88.9 James Furlong (2017)
 6th. 88.9 Andrew Lee* (2015)
-7th. 89.3 Connor Wiseman (2015)
-8th. 89.7 josh watson (2017)
-9th. 90.1 Ben Mytelka* (2013)
-10th 90.1 Rande Revilla (2017)
+7th. 89.2 Trevor Watson (2017)
+8th. 89.3 Connor Wiseman (2015)
+9th. 89.7 josh watson (2017)
+10th 90.1 Ben Mytelka* (2013)
 11th 90.3 Rande Revilla* (2015)
-12th 91.0 Ben Mytelka (2017)
-13th 91.0 James Furlong (2017)
-14th 91.1 Ben Mytelka** (2014)
-15th 91.2 Eric Price* (2015)
+12th 90.8 Rande Revilla (2017)
+13th 91.1 Ben Mytelka** (2014)
+14th 91.2 Eric Price* (2015)
+15th 91.7 Ben Mytelka (2017)
 16th 91.9 Connor Wiseman* (2012)
 17th 92.6 Stuart Petty** (2015)
 18th 93.7 josh watson* (2016)
 19th 94.1 Trevor Watson* (2011)
-20th 94.8 Thomas Singleton (2012)
-21st 94.9 Connor Wiseman** (2011)
-22nd 95.2 Thomas Singleton (2017)
+20th 94.1 Thomas Singleton (2017)
+21st 94.8 Thomas Singleton (2012)
+22nd 94.9 Connor Wiseman** (2011)
 23rd 95.2 Eric Price (2013)
-24th 95.5 Stuart Petty (2017)
-25th 95.5 Thomas Singleton (2011)
-26th 95.7 Trevor Watson* (2013)
-27th 95.7 Connor Wiseman (2016)
+24th 95.5 Thomas Singleton (2011)
+25th 95.7 Trevor Watson* (2013)
+26th 95.7 Connor Wiseman (2016)
+27th 95.9 Connor Wiseman (2017)
 28th 96.2 josh watson* (2014)
 29th 96.5 Trevor Watson* (2015)
 30th 97.2 Andrew Lee* (2012)
-31st 97.4 Eric Price (2017)
+31st 97.5 Stuart Petty (2017)
 32nd 97.5 Stuart Petty (2014)
 33rd 97.8 Rande Revilla* (2016)
-34th 97.9 Connor Wiseman (2017)
-35th 98.0 James Furlong* (2014)
-36th 98.1 Trevor Watson* (2012)
-37th 98.1 Andrew Lee (2014)
-38th 98.2 Stuart Petty* (2016)
-39th 98.2 Ben Mytelka* (2012)
-40th 98.3 Eric Price** (2012)
-41st 98.4 James Furlong (2011)
-42nd 98.4 James Furlong (2016)
-43rd 98.6 josh watson (2015)
-44th 99.1 Thomas Singleton (2016)
-45th 99.1 James Furlong (2012)
-46th 99.3 Andrew Lee (2010)
-47th 99.4 Trevor Watson* (2014)
-48th 99.7 Ben Mytelka* (2015)
-49th 100.0 Andrew Lee (2013)
-50th 100.2 Eric Price (2010)
+34th 98.0 James Furlong* (2014)
+35th 98.1 Trevor Watson* (2012)
+36th 98.1 Andrew Lee (2014)
+37th 98.2 Stuart Petty* (2016)
+38th 98.2 Ben Mytelka* (2012)
+39th 98.3 Eric Price** (2012)
+40th 98.4 James Furlong (2011)
+41st 98.4 James Furlong (2016)
+42nd 98.6 josh watson (2015)
+43rd 99.1 Thomas Singleton (2016)
+44th 99.1 James Furlong (2012)
+45th 99.3 Andrew Lee (2010)
+46th 99.4 Trevor Watson* (2014)
+47th 99.7 Ben Mytelka* (2015)
+48th 100.0 Andrew Lee (2013)
+49th 100.2 Eric Price (2010)
+50th 100.2 Cody Blain (2013)

@@ -6,6 +6,7 @@ import argparse
 import logging
 import os
 from fantasy.league import League
+from fantasy.playoffs import FuturePlayoffs
 from util.groupme.bot.serverbot import ServerBot
 from util.groupme.bot.thugbot import TestBot, ThugBot
 from util.groupme.do_not_upload import *
@@ -13,7 +14,7 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 10
+CURRENT_WEEK = 11
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
@@ -60,6 +61,9 @@ def main():
         seasons=True,
         rcds=50
     )
+
+    playoffs = FuturePlayoffs(datfile='fantasy/future_playoffs.dat', league=thug_island)
+    playoffs.export_csv('fantasy/playoffs.csv')
 
     if DEBUG:
         with open("ff_data.txt", "r") as f:

@@ -1,3 +1,7 @@
+def avg(values):
+    return sum([float(_) for _ in values]) / len(values)
+
+
 def calc_sma(nums, length):
     averages = []
     for i, n in enumerate(nums):
@@ -56,3 +60,13 @@ def make_bytes(value, bytes=1):
 
     outbytes = outbytes[::-1]
     return outbytes
+
+
+def std_dev(values, ssq=None):
+    if ssq is None:
+        ssq = sum_sqs(values)
+    return (1.0 / len(values)) * (len(values) * ssq - sum(values) ** 2) ** (0.5)
+
+
+def sum_sqs(values):
+    return sum(v ** 2 for v in values)
