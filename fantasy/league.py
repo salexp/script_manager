@@ -17,6 +17,7 @@ from util.fantasy import plotter
 from util.fantasy.do_not_upload import ESPN_KEY
 from util.fantasy.utilities import *
 from util.sql.database import Database
+from util.utilities import from_bytes, make_bytes
 
 
 class League(object):
@@ -30,6 +31,7 @@ class League(object):
         self.url = "http://games.espn.go.com/ffl/leagueoffice?leagueId=%s" % espn_id
         # http://games.espn.go.com/ffl/leagueoffice?leagueId=190153
 
+        self.__owner_cache = {}
         self._all_games = None
         self._current_year = current_year
         self._db_games = None
@@ -218,6 +220,34 @@ class League(object):
 
             self.db.commit()
 
+    def compare_players(self, player_list_a, player_list_b, n_games=99999):
+        players_a = [self.players[p] for p in player_list_a]
+        players_b = [self.players[p] for p in player_list_b]
+
+        for p in players_a + players_b:
+            p.attributes.update(n_games)
+
+        sum_a = sum([p.attributes.mu for p in players_a])
+        sigma_a = sum([p.attributes.sigma ** 2 for p in players_a]) ** 0.5
+        sum_b = sum([p.attributes.mu for p in players_b])
+        sigma_b = sum([p.attributes.sigma ** 2 for p in players_b]) ** 0.5
+
+        column_length = max([len(_) for _ in player_list_a + player_list_b])
+
+        for r in range(max([len(player_list_a), len(player_list_b)])):
+            print "     |%*s|%*s" % (
+                column_length, player_list_a[r] if len(player_list_a) > r else "",
+                column_length, player_list_b[r] if len(player_list_b) > r else ""
+            )
+
+        print " ppg |%*.2f|%*.2f" % (
+            column_length, sum_a, column_length, sum_b
+        )
+
+        print " std |%*.2f|%*.2f" % (
+            column_length, sigma_a, column_length, sigma_b
+        )
+
     def download_games(self, year, book, full_history=True):
         schedule = self.years[year].schedule
         for w, week in sorted(schedule.weeks.items(), key=itemgetter(1)):
@@ -292,8 +322,15 @@ class League(object):
                         start_write = True
 
     def find_owner(self, value, key):
+        if self.__owner_cache.get(key, {}).get(value, False):
+            return self.__owner_cache.get(key, {}).get(value, False)
+
+        if key not in self.__owner_cache.keys():
+            self.__owner_cache[key] = {}
+
         for o, owner in self.owners.items():
             if value == owner.db_entry[key]:
+                self.__owner_cache[key][value] = owner
                 return owner
 
     def get_driver(self, headless=True):
@@ -486,6 +523,7 @@ class League(object):
         return playoffs
 
     def make_future_playoffs(self, all_points=True):
+        cache_dat = 'fantasy/future_playoffs.dat'
         cache_file = 'fantasy/future_playoffs.json'
 
         t_a = datetime.now()
@@ -512,21 +550,26 @@ class League(object):
             init_records[owner] = [owner, w, l, t, pf, d]
             season_finishes[owner] = [0, 0, 0]  # Division, playoffs, total
 
+        byte_string = []
         from_cache = False
-        if os.path.isfile(cache_file):
-            with open(cache_file, 'r') as f:
-                cached_finishes = json.load(f)
-            if cached_finishes[owner][2] == num_outcomes:
-                season_finishes = cached_finishes
-                from_cache = True
+        # if os.path.isfile(cache_file):
+        #     with open(cache_file, 'r') as f:
+        #         cached_finishes = json.load(f)
+        #     if cached_finishes[owner][2] == num_outcomes:
+        #         season_finishes = cached_finishes
+        #         from_cache = True
 
         if num_games_left > 0 and not from_cache:
             this_outcome = 0
             record = deepcopy(init_records)
             while this_outcome < num_outcomes:
                 outcome = bin(this_outcome).split('b')[1].zfill(num_games_left)
+                byte_string += make_bytes(this_outcome, 2)
+
                 highest_list = [None] if not all_points else self.owners.keys()
                 for highest_owner in highest_list:
+                    byte_string += make_bytes(self.owners[highest_owner].espn_id, bytes=1)
+
                     holding_pf = None
                     if highest_owner is not None:
                         holding_pf = record[highest_owner][4]
@@ -561,10 +604,21 @@ class League(object):
                         season_finishes[found[d]][1] += 1
                         season_finishes[found[d]][2] += 1
 
+                    div_int = sum([self.owners[o].espn_id << (4 if not i else 0) for i, o in enumerate(found.values())])
+                    byte_string += make_bytes(div_int, bytes=1)
+
                     # Look for wildcards
-                    for i, f in enumerate(finished[:4]):
+                    wildcards = finished[:4]
+                    for i, f in enumerate(wildcards):
                         season_finishes[f[0]][1] += 1
                         season_finishes[f[0]][2] += 1
+
+                    wild_int_a = [self.owners[o[0]].espn_id for o in wildcards[0:2]]
+                    wild_int_a = sum([n << (4 if not i else 0) for i, n in enumerate(wild_int_a)])
+                    byte_string += make_bytes(wild_int_a, bytes=1)
+                    wild_int_b = [self.owners[o[0]].espn_id for o in wildcards[2:4]]
+                    wild_int_b = sum([n << (4 if not i else 0) for i, n in enumerate(wild_int_b)])
+                    byte_string += make_bytes(wild_int_b, bytes=1)
 
                     # Total remaining
                     for i, f in enumerate(finished[4:]):
@@ -584,6 +638,9 @@ class League(object):
 
             with open(cache_file, 'w') as f:
                 json.dump(season_finishes, f)
+            with open(cache_dat, 'wb') as fb:
+                fb.write(bytearray(byte_string))
+
         elif not from_cache:
             finished = [init_records[o] for o in init_records]
             finished = sorted(finished, key=lambda p: (p[1], p[4]), reverse=True)

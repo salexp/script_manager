@@ -1,4 +1,5 @@
 from fantasy.week import Week
+from util.fantasy.utilities import squash_list
 
 
 class Schedule:
@@ -15,6 +16,14 @@ class Schedule:
     def add_week(self, w):
         self.week_list.append(w.number)
         self.weeks[w.number] = w
+
+    @property
+    def games_left(self):
+        return squash_list([w.games for w in self.weeks_left])
+
+    @property
+    def weeks_left(self):
+        return sorted([week for w, week in self.weeks.items() if int(w) > int(self.current_week)], key=lambda k: int(k.number))
 
 
 def schedule_from_db(league, year):

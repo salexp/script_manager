@@ -9,11 +9,9 @@ class Player:
         self.benched = []
         self.ir = []
         self.name = get_name(info[1])
-        self.owned = []
         self.points = 0.0
         self.ppg = 0.0
         self.position = get_position(info[1])
-        self.started = []
 
         self.attributes = PlayerAttributes(self)
 
@@ -21,6 +19,8 @@ class Player:
         self._games_won = None
         self._games_started_lost = None
         self._games_started_won = None
+        self._owned = []
+        self._started = []
 
     @property
     def games_lost(self):
@@ -46,16 +46,24 @@ class Player:
             self._games_started_won = sum([g.matchup.won for g in self.started])
         return self._games_started_won
 
+    @property
+    def owned(self):
+        return sorted(self._owned, key=lambda k: k.matchup.game.week_stamp)
+
+    @property
+    def started(self):
+        return sorted(self._started, key=lambda k: k.matchup.game.week_stamp)
+
     def update(self, matchup, info, slot):
         plyr_game = PlayerGame(self, matchup, info, slot)
         self.games_owned += 1
-        self.owned.append(plyr_game)
+        self._owned.append(plyr_game)
         self.points += plyr_game.points
         self.ppg = self.points / self.games_owned
         matchup.roster.add_player(plyr_game)
         if plyr_game.slot not in ["Bench", "IR"]:
             self.games_started += 1
-            self.started.append(plyr_game)
+            self._started.append(plyr_game)
             if slot not in matchup.league.lineup_positions:
                 matchup.league.lineup_positions.append(slot)
         elif plyr_game.slot == "Bench":
