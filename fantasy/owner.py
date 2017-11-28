@@ -12,6 +12,8 @@ class Owner:
         self.id = db_entry['USER_ID']
         self.espn_id = db_entry['ESPN_USER_ID']
 
+        self._roster = None
+
         self.url = self.league.url + "&teamId=" + str(self.id)
 
         self.first_name = self.name.split(" ")[0].capitalize()
@@ -29,6 +31,20 @@ class Owner:
         self.records = Records(self)
         self.seasons = {}
         self.team_names = []
+
+    @property
+    def roster(self):
+        if self._roster is None:
+            all_rosters = []
+            ys = sorted(self.games.keys())
+            for year in ys:
+                matchups = sorted(self.games[year].values(), key=lambda k: k.week.week_stamp)
+                for matchup in matchups:
+                    all_rosters.append(matchup.roster)
+
+            all_rosters = [r for r in all_rosters if r is not None and r.complete]
+            self._roster = all_rosters[-1]
+        return self._roster
 
     def add_matchup(self, game, side):
         played = game.played

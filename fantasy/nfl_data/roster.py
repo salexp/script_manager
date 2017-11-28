@@ -21,7 +21,14 @@ class GameRoster:
         self.bench_points = 0.0
         self.complete = False
         self.is_optimal = opt
-        self.optimal = None
+
+        self._optimal = None
+
+    @property
+    def optimal(self):
+        if self._optimal is None:
+            self.make_optimal()
+        return self._optimal
 
     def add_player(self, plyr_game, force=None):
         if "QB" == plyr_game.slot and not force or force == "QB":
@@ -185,7 +192,7 @@ class GameRoster:
         for bp in qbs + rbs + wrs + tes + dsts + ks:
             opt.add_player(bp, force="Bench")
 
-        self.optimal = opt
+        self._optimal = opt
 
     def update_points(self):
         self.starter_points = self.qb.points + self.rb1.points + self.rb2.points + self.wr1.points + self.wr2.points + self.flx.points + self.te.points + self.dst.points + self.k.points

@@ -14,7 +14,7 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 11
+CURRENT_WEEK = 12
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False

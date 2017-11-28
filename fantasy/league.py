@@ -17,7 +17,7 @@ from util.fantasy import plotter
 from util.fantasy.do_not_upload import ESPN_KEY
 from util.fantasy.utilities import *
 from util.sql.database import Database
-from util.utilities import from_bytes, make_bytes
+from util.utilities import make_bytes
 
 
 class League(object):
@@ -221,6 +221,8 @@ class League(object):
             self.db.commit()
 
     def compare_players(self, player_list_a, player_list_b, n_games=99999):
+        out_str = ""
+
         players_a = [self.players[p] for p in player_list_a]
         players_b = [self.players[p] for p in player_list_b]
 
@@ -228,25 +230,61 @@ class League(object):
             p.attributes.update(n_games)
 
         sum_a = sum([p.attributes.mu for p in players_a])
+        suw_a = sum([p.attributes.wavg for p in players_a])
         sigma_a = sum([p.attributes.sigma ** 2 for p in players_a]) ** 0.5
         sum_b = sum([p.attributes.mu for p in players_b])
+        suw_b = sum([p.attributes.wavg for p in players_b])
         sigma_b = sum([p.attributes.sigma ** 2 for p in players_b]) ** 0.5
 
         column_length = max([len(_) for _ in player_list_a + player_list_b])
 
+        out_str += "-" * column_length * 2 + "-" * 7 + "\n"
+
         for r in range(max([len(player_list_a), len(player_list_b)])):
-            print "     |%*s|%*s" % (
+            out_str += "     |%*s|%*s\n" % (
                 column_length, player_list_a[r] if len(player_list_a) > r else "",
                 column_length, player_list_b[r] if len(player_list_b) > r else ""
             )
 
-        print " ppg |%*.2f|%*.2f" % (
+        out_str += "     |" + "-" * column_length + "|" + "-" * column_length + "\n"
+
+        out_str += " ppg |%*.2f|%*.2f\n" % (
             column_length, sum_a, column_length, sum_b
         )
 
-        print " std |%*.2f|%*.2f" % (
+        out_str += " wpg |%*.2f|%*.2f\n" % (
+            column_length, suw_a, column_length, suw_b
+        )
+
+        out_str += " tnd |%*.2f%s|%*.2f%s\n" % (
+            column_length - 1, (suw_a - sum_a) / sum_a * 100, '%', column_length - 1, (suw_b - sum_b) / sum_b * 100, '%'
+        )
+
+        out_str += " std |%*.2f|%*.2f\n" % (
             column_length, sigma_a, column_length, sigma_b
         )
+
+        out_str += " stp |%*.2f%s|%*.2f%s\n" % (
+            column_length - 1, sigma_a / sum_a * 100, '%', column_length - 1, sigma_b / sum_b * 100, '%'
+        )
+
+        out_str += "-" * column_length * 2 + "-" * 7 + "\n"
+
+        return out_str
+
+    def compare_rosters(self, owner_a, owner_b, optimal=False):
+        if not optimal:
+            return self.compare_players(
+                [p.name for p in self.owners[owner_a].roster.starters],
+                [p.name for p in self.owners[owner_b].roster.starters],
+                n_games=int(self.current_week) - 1
+            )
+        else:
+            return self.compare_players(
+                [p.name for p in self.owners[owner_a].roster.optimal.starters],
+                [p.name for p in self.owners[owner_b].roster.optimal.starters],
+                n_games=int(self.current_week) - 1
+            )
 
     def download_games(self, year, book, full_history=True):
         schedule = self.years[year].schedule

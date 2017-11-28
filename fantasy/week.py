@@ -76,6 +76,10 @@ class Week:
         return self._total_points
 
     @property
+    def week_stamp(self):
+        return int('{}{:02}'.format(self.year, int(self.number)))
+
+    @property
     def winning_owners(self):
         if self._winning_owners is None:
             self._winning_owners = [o for o in self.owners if o.games[self.year][self.number].won]

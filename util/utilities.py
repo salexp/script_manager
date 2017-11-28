@@ -2,6 +2,14 @@ def avg(values):
     return sum([float(_) for _ in values]) / len(values)
 
 
+def avgw(values):
+    weights = []
+    for v, value in enumerate(values):
+        weights += [value] * (v + 1)
+
+    return avg(weights)
+
+
 def calc_sma(nums, length):
     averages = []
     for i, n in enumerate(nums):

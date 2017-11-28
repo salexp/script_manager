@@ -88,6 +88,7 @@ class PlayerAttributes:
         self.mu = 0.0
         self.ssq = 0.0
         self.sigma = 0.0
+        self.wavg = 0.0
 
         if self.player.games_owned > 0:
             self.update(n_games=self.player.games_owned)
@@ -103,6 +104,7 @@ class PlayerAttributes:
         self.mu = sum(points) / len(points)
         self.ssq = sum_sqs(points)
         self.sigma = std_dev(points, self.ssq)
+        self.wavg = avgw(points)
 
 
 class PlayerGame:
