@@ -689,14 +689,18 @@ class League(object):
 
             # Look for division winners
             found = {"East": False, "West": False}
+            found_indx = []
             for i, f in enumerate(finished):
                 if not found.get(f[5]):
                     found[f[5]] = f[0]
-                    finished.pop(i)
+                    found_indx.append(i)
             for d in found:
                 season_finishes[found[d]][0] += 1
                 season_finishes[found[d]][1] += 1
                 season_finishes[found[d]][2] += 1
+
+            for i in found_indx[::-1]:
+                finished.pop(i)
 
             # Look for wildcards
             for i, f in enumerate(finished[:4]):

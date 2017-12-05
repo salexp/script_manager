@@ -14,11 +14,11 @@ from util.groupme.do_not_upload import *
 
 DEBUG = False
 
-CURRENT_WEEK = 12
+CURRENT_WEEK = 13
 
 FULL_HISTORY = False
 DOWNLOAD_GAMES = False
-GROUP_ME = False
+GROUP_ME = True
 
 FUTURE_PLAYOFFS = True
 PLOT_RANKINGS = False
